@@ -1,0 +1,67 @@
+//************************************************
+// Doom: The Text Adventure.
+// Prototypes
+//************************************************
+
+// Rooms.
+room r_entryway;
+room r_atrium;
+room r_overlook;
+room r_mainhall;
+room r_hangar;
+room r_view;
+room r_nukepit;
+room r_armory;
+room r_corridor;
+
+// Our hero.
+player p_doomguy;
+
+// Monsters.
+object o_sergeant;
+object o_imp;
+object o_demon;
+object o_cacodemon;
+object o_revenant;
+object o_cyberdemon;
+
+// Items.
+object o_stimpak;
+object o_medikit;
+object o_pistol;
+object o_shotgun;
+object o_supershotgun;
+object o_rocketlauncher;
+object o_bfg;
+
+object o_redkey;
+object o_bluekey;
+object o_yellowkey;
+
+
+// Doors
+object o_door0;
+object o_door1;
+
+object o_reddoor0;
+object o_reddoor1;
+
+object o_door2;
+object o_door3;
+
+object o_bluedoor0;
+object o_bluedoor1;
+
+object o_yellowdoor0;
+object o_yellowdoor1;
+
+object o_door4;
+object o_door5;
+
+object o_door6;
+object o_door7;
+
+object o_door8;
+object o_door9;
+
+object o_exitdoor;

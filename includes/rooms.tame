@@ -1,0 +1,73 @@
+/* 
+======================
+Entryway
+======================
+*/ 
+room r_entryway
+{
+	init()
+	{
+		backstory = false;
+	}
+
+	onAction(a_look)
+	{
+		textln("You examine your surroundings.");
+		queueAction(a_description);
+	}
+
+	onAction(a_whereami)
+	{
+		textfln("[title]Entryway[/]");
+	}
+	
+	onAction(a_description)
+	{
+		textln("You find yourself at the mouth of the beast - an abandoned "+
+			"installation on Mars owned by United Aerospace Corporation. ");
+		textln("");
+		if (!backstory)
+		{
+			textln("They sent you in alone; they thought one person could reclaim "+
+			"the base, and should that one person fail, they could disavow "+
+			"claims of them sending people to their deaths in the name of recouping losses.");
+			textln("Damn bureaucrats.");
+			textln("");
+			backstory = !backstory;
+		}
+		
+		browseroom(room);
+	}
+	
+}
+
+/* 
+======================
+Main Hall
+======================
+*/ 
+room r_mainhall
+{
+	init()
+	{
+		see_backstory = false;
+	}
+
+	onAction(a_look)
+	{
+		textln("You examine your surroundings.");
+		queueAction(a_description);
+	}
+
+	onAction(a_whereami)
+	{
+		textfln("[title]Main Hall[/]");
+	}
+	
+	onAction(a_description)
+	{
+		textln("You are in the main hall of the installation.");
+		browseroom(room);
+	}
+	
+}

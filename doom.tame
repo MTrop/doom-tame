@@ -1,0 +1,176 @@
+//************************************************
+// Doom: The Text Adventure.
+// Main
+//************************************************
+
+module
+{
+	title = "Doom: The Text Adventure";
+	author = "Matt Tropiano";
+	email = "mtropiano@gmail.com";
+	twitter = "@TheRealMTrop";
+	website = "http://mtrop.net";
+	origin_locale = "en_US";
+	origin_language = "enu";
+	version = "1.0";
+}
+
+#include "includes/actions.tame"
+#include "includes/prototypes.tame"
+#include "includes/objects.tame"
+#include "includes/rooms.tame"
+
+world
+{
+	init()
+	{
+		textln("The fight begins.");
+		// add surrogates.
+		giveWorldObject(o_surroundings);
+
+		// Set up objects.
+		givePlayerObject(p_doomguy, o_pistol);
+		giveRoomObject(r_entryway, o_medikit);
+		giveRoomObject(r_entryway, o_door0);
+		giveRoomObject(r_entryway, o_reddoor0);
+
+		// world setup.
+		setPlayer(p_doomguy);
+		setRoom(r_entryway);
+		queueAction(a_whereami);
+		queueAction(a_description);
+	}
+	
+	onAction(a_quit)
+	{
+		x = random(4);
+		if (x == 0)
+			textln("Let's beat it - this is turning into a novel!");
+		else if (x == 1)
+			textln("Please don't leave, there's more demons to type to death!");
+		else if (x == 2)
+			textln("You're trying to say you like graphics better than me, right?");
+		else if (x == 3)
+			textln("Go ahead and leave. See if I care.");
+		quit;
+	}
+	
+	onAction(a_think)
+	{
+		// TODO: Finish this!
+	}
+
+	onAction(a_gameover)
+	{
+		textln("Game Over! You lose.");
+		quit;
+	}
+	
+	afterRequest()
+	{
+		queueAction(a_think);
+		queueAction(a_checkdeath);
+	}
+	
+}
+
+player p_doomguy
+{
+	init()
+	{
+		health = 100;
+		lastroom = "";
+	}
+	
+	onAction(a_checkdeath)
+	{
+		if (health > 0)
+			end;
+		textln("You are dead.");
+		queueAction(a_gameover);
+	}
+
+	onAction(a_yell)
+	{
+		textln("In space, no one can hear you scream!");
+	}
+
+	onAction(a_inventory)
+	{
+		if (objectsInPlayerCount(player) == 0)
+			textln("You don't have anything.");
+		else
+		{
+			textln("You examine your inventory.");
+			browseplayer(player);
+		}
+	}
+	
+	onAction(a_status)
+	{
+		text("Your health is at "+health+"% - ");
+		if (health <= 25)
+			textln("Not good. Gotta find some medicine.");
+		else if (health <= 50)
+			textln("You could probably do better.");
+		else if (health <= 75)
+			textln("Just a scratch or two.");
+		else if (health < 100)
+			textln("Doing fine.");
+		else
+			textln("As fit as a fiddle!");
+		queueAction(a_inventory);
+	}
+
+	onAmbiguousAction()
+	{
+		info("There are a lot of things here that are called that. Be more specific.");
+	}
+	
+	onIncompleteAction(a_examine)
+	{
+		info("WHAT should you examine?");
+	}
+
+	onIncompleteAction(a_take)
+	{
+		info("WHAT should you take?");
+	}
+
+	onIncompleteAction()
+	{
+		info("You should be more specific.");
+	}
+
+	onFailedAction(a_take)
+	{
+		textln("You can't take that.");
+	}
+
+	onFailedAction(a_close)
+	{
+		textln("You can't close that.");
+	}
+
+	onFailedAction(a_open)
+	{
+		textln("Try as you might, you can't open it.");
+	}
+
+	onFailedAction(a_use)
+	{
+		textln("You can't USE that, but you might be able to do other things with it.");
+	}
+
+	onBadAction()
+	{
+		x = random(3);
+		if (x == 0)
+			info("I don't understand.");
+		else if (x == 1)
+			info("I don't know what you mean.");
+		else if (x == 2)
+			info("I'm not sure I understand.");
+	}
+
+}
