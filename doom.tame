@@ -24,7 +24,7 @@ world
 {
 	init()
 	{
-		textln("The fight begins.");
+		textln("The fight begins.\n");
 		// add surrogates.
 		giveWorldObject(o_surroundings);
 
@@ -43,7 +43,7 @@ world
 	
 	onAction(a_quit)
 	{
-		x = random(4);
+		local x = random(4);
 		if (x == 0)
 			textln("Let's beat it - this is turning into a novel!");
 		else if (x == 1)
@@ -80,6 +80,17 @@ player p_doomguy
 	{
 		health = 100;
 		lastroom = "";
+	}
+	
+	routine("BadAction")
+	{
+		local x = random(3);
+		if (x == 0)
+			textln("I don't understand.");
+		else if (x == 1)
+			textln("I don't know what you mean.");
+		else if (x == 2)
+			textln("I'm not sure I understand.");
 	}
 	
 	onAction(a_checkdeath)
@@ -162,15 +173,19 @@ player p_doomguy
 		textln("You can't USE that, but you might be able to do other things with it.");
 	}
 
+	onFailedAction()
+	{
+		textln("I can't do that.");
+	}
+
 	onBadAction()
 	{
-		x = random(3);
-		if (x == 0)
-			info("I don't understand.");
-		else if (x == 1)
-			info("I don't know what you mean.");
-		else if (x == 2)
-			info("I'm not sure I understand.");
+		call("BadAction");
+	}
+
+	onUnknownAction()
+	{
+		call("BadAction");
 	}
 
 }

@@ -1,15 +1,23 @@
+
 /* 
 ======================
-Entryway
+  EVERY ROOM CODE
 ======================
 */ 
-room r_entryway
+room r_allrooms
 {
 	init()
 	{
 		backstory = false;
+		title = "NO TITLE";
+		description = "NO DESCRIPTION";
 	}
 
+	routine("PrintBackstory")
+	{
+		/* Nothing. */
+	}
+	
 	onAction(a_look)
 	{
 		textln("You examine your surroundings.");
@@ -18,27 +26,50 @@ room r_entryway
 
 	onAction(a_whereami)
 	{
-		textfln("[title]Entryway[/]");
+		textfln("[title]"+title+"[/]\n");
 	}
 	
 	onAction(a_description)
 	{
-		textln("You find yourself at the mouth of the beast - an abandoned "+
-			"installation on Mars owned by United Aerospace Corporation. ");
-		textln("");
+		textln(description);
 		if (!backstory)
 		{
-			textln("They sent you in alone; they thought one person could reclaim "+
-			"the base, and should that one person fail, they could disavow "+
-			"claims of them sending people to their deaths in the name of recouping losses.");
-			textln("Damn bureaucrats.");
-			textln("");
+			call("PrintBackstory");
 			backstory = !backstory;
 		}
 		
 		browseroom(room);
 	}
-	
+
+}
+
+/* 
+======================
+Entryway
+======================
+*/ 
+room r_entryway : r_allrooms
+{
+	init()
+	{
+		backstory = false;
+		title = "Entryway";
+		description = 
+			"You find yourself at the mouth of the beast - an abandoned "+
+			"installation on Mars owned by Union Aerospace Corporation. ";
+	}
+
+	routine("PrintBackstory")
+	{
+		textln(
+			"They sent you in alone; they thought one person could reclaim "+
+			"the base, and should that one person fail, they could disavow "+
+			"claims of them sending people to their deaths in the name of recouping losses."
+		);
+		textln("Damn bureaucrats.");
+		textln("");
+	}
+
 }
 
 /* 
@@ -46,28 +77,10 @@ room r_entryway
 Main Hall
 ======================
 */ 
-room r_mainhall
+room r_mainhall : r_allrooms
 {
 	init()
 	{
-		see_backstory = false;
+		backstory = false;
 	}
-
-	onAction(a_look)
-	{
-		textln("You examine your surroundings.");
-		queueAction(a_description);
-	}
-
-	onAction(a_whereami)
-	{
-		textfln("[title]Main Hall[/]");
-	}
-	
-	onAction(a_description)
-	{
-		textln("You are in the main hall of the installation.");
-		browseroom(room);
-	}
-	
 }

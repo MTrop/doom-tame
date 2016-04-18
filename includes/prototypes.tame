@@ -26,9 +26,9 @@ object o_revenant;
 object o_cyberdemon;
 
 // Items.
-object o_stimpak;
-object o_medikit;
-object o_pistol;
+object o_stimpak named "stimpak", "the stimpak";
+object o_medikit named "medikit", "the medikit";
+object o_pistol named "pistol", "the pistol";
 object o_shotgun;
 object o_supershotgun;
 object o_rocketlauncher;
