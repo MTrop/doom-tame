@@ -3,7 +3,7 @@ object o_surroundings named "surroundings", "room" {}
 // Add to world. Surrogate for "Status" with "examine"
 object o_self named "self", "myself", "doomguy" {}
 
-object o_pistol named "pistol"
+object o_pistol
 {
 	onPlayerBrowse()
 	{

@@ -32,6 +32,7 @@ room r_allrooms
 	onAction(a_description)
 	{
 		textln(description);
+		textln("");
 		if (!backstory)
 		{
 			call("PrintBackstory");
