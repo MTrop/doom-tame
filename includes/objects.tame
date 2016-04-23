@@ -3,49 +3,104 @@ object o_surroundings named "surroundings", "room" {}
 // Add to world. Surrogate for "Status" with "examine"
 object o_self named "self", "myself", "doomguy" {}
 
-object o_pistol
-{
-	onPlayerBrowse()
-	{
-		textln("A pistol. Your trusty sidearm. Standard issue.");
-	}
-}
 
-object o_reddoor0 named 
-	"door", "red door", 
-	"door with red markings", "door with the red markings"
+object o_allobjects
 {
 	init()
 	{
-		browsed = false;
 		examined = false;
-		firstuse = false;
-		unlocked = false;
+		browsed = false;
 	}
-
+	
+	// Called on first examine.
+	routine("ExamineFirst")
+	{
+		/* Do nothing. Override this. */
+	}
+	
+	// Called on subsequent examines.
+	routine("ExamineNext")
+	{
+		/* Do nothing. Override this. */
+	}
+	
+	// Called on every examine (after first/next).
+	routine("ExamineAlways")
+	{
+		/* Do nothing. Override this. */
+	}
+	
 	onAction(a_examine)
 	{
-		if(!examined)
+		if (!examined)
 		{
-			textln("A very heavy steel door with red markings flanking the tracks.");
-			textln("A sign on the door reads, \"Security Clearance Required\".");
-			textln("Another sign above the door reads, \"Main Hall\".");
-			addObjectName(o_reddoor0, "security door");
-			addObjectName(o_reddoor0, "main hall door");
-			addObjectName(o_reddoor0, "door to main hall");
-			addObjectName(o_reddoor0, "door to the main hall");
+			call("ExamineFirst");
+			examined = true;
 		}
 		else
 		{
-			textln("It's the red door to the Main Hall.");
-			textln("A sign on the door reads, \"Security Clearance Required\".");
+			call("ExamineNext");
 		}
-		examined = true;
+		
+		call("ExamineAlways");
 	}
+	
+}
 
-	onAction(a_take)
+// Abstract Door
+object o_everydoor : o_allobjects
+{
+	init()
 	{
-		textln("It's a very big, heavy door. You can carry almost anything, but this probably won't fit in your pockets.");
+		locked = false;
+		tryopen = 0;
+	}
+	
+	// Should move player to connected room.
+	routine("GoToNextRoom")
+	{
+		/* Nothing. Override this. */
+		info("THIS DOOR LEADS NOWHERE. OH NO.");
+	}
+	
+	// Should attempt to unlock the door. Set "locked" variable.
+	routine("TryUnlock")
+	{
+		/* Nothing. Override this. Try to detect necessary key on player. */
+	}
+	
+	// Called to alert the player that it's locked.
+	routine("IsLocked")
+	{
+		if (tryopen == 0)
+			textln("It's locked. I need a key.");
+		else if (tryopen == 1)
+			textln("It's still locked.");
+		else if (tryopen == 2)
+			textln("You try to dig your fingers under the door lip and lift. No dice. Still locked.");
+		else if (tryopen == 3)
+			textln("It's really, really locked.");
+		else if (tryopen == 4)
+			textln("It's so TOTALLY locked.");
+		else if (tryopen == 5)
+			textln("It's absolutely locked.");
+		else if (tryopen == 6)
+			textln("OH MY GOD. IT'S LOCKED, OKAY?! FIND A DAMN KEY.");
+		else
+			textln("It's locked.");
+		
+		tryopen = tryopen + 1;
+	}
+	
+	onAction(a_open)
+	{
+		if (locked)
+			call("TryUnlock");
+		
+		if (locked)
+			call("IsLocked");
+		else
+			call("GoToNextRoom");
 	}
 
 	onAction(a_close)
@@ -53,43 +108,68 @@ object o_reddoor0 named
 		textln("It's already closed. Good job!");
 	}
 	
-	onAction(a_open)
+}
+
+object o_reddoor0 : o_everydoor
+	named "door", "red door", "door with red markings", "door with the red markings"
+{
+	init()
 	{
-		if (unlocked)
+		locked = true;
+	}
+
+	routine("ExamineFirst")
+	{
+		textln("A very heavy steel door with red markings flanking the tracks.");
+		textln("A sign on the door reads, \"Security Clearance Required\".");
+		textln("Another sign above the door reads, \"Main Hall\".");
+		addObjectName(o_reddoor0, "security door");
+		addObjectName(o_reddoor0, "main hall door");
+		addObjectName(o_reddoor0, "door to main hall");
+		addObjectName(o_reddoor0, "door to the main hall");
+	}
+
+	routine("ExamineNext")
+	{
+		textln("It's the red door to the Main Hall.");
+		textln("A sign on the door reads, \"Security Clearance Required\".");
+	}
+
+	routine("TryUnlock")
+	{
+		if (playerHasObject(player, o_redkey))
 		{
-			setRoom(r_mainhall);
-			queueAction(a_whereami);
-			queueAction(a_description);
+			textln("You shove the keycard in the door. It beeps with a happy-sounding beep.");
+			textln("You hear locks disengage at the bottom of the door.");
+			locked = false;
 		}
-		else if (!playerHasObject(player, o_redkey))
-		{
-			if (!firstuse)
-				textln("It's locked. It looks like I need a keycard of some kind.");
-			else
-				textln("It's locked.");
-			firstuse = true;
-		}
-		else
-		{
-			queueActionObject2(a_use, o_reddoor0, o_redkey);
-		}
+	}
+
+	routine("GoToNextRoom")
+	{
+		setRoom(r_mainhall);
+		queueAction(a_whereami);
+		queueAction(a_description);
+	}
+	
+	onAction(a_take)
+	{
+		textln("It's a very big, heavy door. You can carry almost anything, but this probably won't fit in your pockets.");
 	}
 	
 	onAction(a_use)
 	{
-		queueAction(a_open);
+		queueActionObject(a_open, o_reddoor0);
 	}
 
 	onActionWith(a_use, o_redkey)
 	{
-		if (!unlocked)
-		{
-			textln("You shove the keycard in the door. It beeps with a happy-sounding beep.");
-			textln("You hear locks disengage at the bottom of the door.");
-		}
-		else
-			textln("It's already unlocked.");
-		unlocked = true;
+		call("TryUnlock");
+	}
+	
+	onActionWithOther(a_use)
+	{
+		textln("That doesn't look like it'll work.");
 	}
 	
 	onRoomBrowse()

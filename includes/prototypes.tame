@@ -3,6 +3,11 @@
 // Prototypes
 //************************************************
 
+
+// ==========================
+// Rooms
+// ==========================
+
 // Rooms.
 room r_entryway;
 room r_atrium;
@@ -14,8 +19,18 @@ room r_nukepit;
 room r_armory;
 room r_corridor;
 
+// ==========================
+// Players
+// ==========================
+
 // Our hero.
 player p_doomguy;
+
+// ==========================
+// Objects
+// ==========================
+
+object o_allobjects;
 
 // Monsters.
 object o_sergeant;
@@ -40,6 +55,9 @@ object o_yellowkey;
 
 
 // Doors
+object o_everydoor;
+object o_everylockeddoor;
+
 object o_door0;
 object o_door1;
 

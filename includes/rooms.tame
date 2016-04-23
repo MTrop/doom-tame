@@ -75,6 +75,26 @@ room r_entryway : r_allrooms
 
 /* 
 ======================
+Atrium
+======================
+*/ 
+room r_atrium : r_allrooms
+{
+	init()
+	{
+		backstory = false;
+		title = "Supply Room";
+		description = 
+			"You are in a supply room off of the entryway. Cleaning"+
+			"tools and chemicals litter the floor. There's probably something ironic about that.";
+	}
+	
+	
+	
+}
+
+/* 
+======================
 Main Hall
 ======================
 */ 
