@@ -47,6 +47,20 @@ object o_allobjects
 	
 }
 
+object o_pistol : o_allobjects named "pistol", "the pistol", "my pistol"
+{
+	routine("ExamineAlways")
+	{
+		textln("Your trusty sidearm. Standard issue. Never leave home without it!");
+	}
+
+	onPlayerBrowse()
+	{
+		textln("You have a pistol.");
+	}
+	
+}
+
 // Abstract Door
 object o_everydoor : o_allobjects
 {
@@ -110,6 +124,7 @@ object o_everydoor : o_allobjects
 	
 }
 
+// Red Door, to Main Hall
 object o_reddoor0 : o_everydoor
 	named "door", "red door", "door with red markings", "door with the red markings"
 {
@@ -181,5 +196,51 @@ object o_reddoor0 : o_everydoor
 		else
 			textln("The red door to the main hall is here.");
 	}
+	
+}
+
+// Red Door, to Entryway
+object o_reddoor1 : o_reddoor0
+	named "door", "red door", "door with red markings", "door with the red markings"
+{
+	init()
+	{
+		examined = true;
+		browsed = true;
+		locked = false;
+		addObjectName(o_reddoor1, "security door");
+		addObjectName(o_reddoor1, "main hall door");
+		addObjectName(o_reddoor1, "door to main hall");
+		addObjectName(o_reddoor1, "door to the main hall");
+	}
+
+	routine("ExamineAlways")
+	{
+		textln("It's the red door to the Main Hall.");
+		textln("A sign on the door reads, \"Security Clearance Required\".");
+	}
+
+	routine("GoToNextRoom")
+	{
+		setRoom(r_entryway);
+		queueAction(a_whereami);
+		queueAction(a_description);
+	}
+	
+	onAction(a_use)
+	{
+		queueActionObject(a_open, o_reddoor1);
+	}
+
+	onRoomBrowse()
+	{
+		textln("The red door to the main hall is here.");
+	}
+	
+}
+
+// Door to supply room.
+object o_door0 : o_everydoor named "door", "small door"
+{
 	
 }

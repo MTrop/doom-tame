@@ -43,7 +43,7 @@ object o_cyberdemon;
 // Items.
 object o_stimpak named "stimpak", "the stimpak";
 object o_medikit named "medikit", "the medikit";
-object o_pistol named "pistol", "the pistol";
+object o_pistol;
 object o_shotgun;
 object o_supershotgun;
 object o_rocketlauncher;
@@ -56,7 +56,6 @@ object o_yellowkey;
 
 // Doors
 object o_everydoor;
-object o_everylockeddoor;
 
 object o_door0;
 object o_door1;
