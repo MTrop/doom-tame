@@ -36,7 +36,7 @@ room r_allrooms
 		if (!backstory)
 		{
 			call("PrintBackstory");
-			backstory = !backstory;
+			backstory = true;
 		}
 		
 		browseroom(room);
@@ -78,7 +78,7 @@ room r_entryway : r_allrooms
 Atrium
 ======================
 */ 
-room r_atrium : r_allrooms
+room r_supplyroom : r_allrooms
 {
 	init()
 	{
@@ -88,8 +88,6 @@ room r_atrium : r_allrooms
 			"You are in a supply room off of the entryway. Cleaning"+
 			"tools and chemicals litter the floor. There's probably something ironic about that.";
 	}
-	
-	
 	
 }
 
@@ -103,5 +101,11 @@ room r_mainhall : r_allrooms
 	init()
 	{
 		backstory = false;
+		title = "Main Hall";
+		description = 
+			"You are in the main hall. Dead bodies of now what are EX-marines.";
 	}
+	
+	
+	
 }

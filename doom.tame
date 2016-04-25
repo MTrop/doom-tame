@@ -40,7 +40,7 @@ world
 		queueAction(a_whereami);
 		queueAction(a_description);
 	}
-	
+
 	onAction(a_quit)
 	{
 		local x = random(4);
@@ -54,7 +54,7 @@ world
 			textln("Go ahead and leave. See if I care.");
 		quit;
 	}
-	
+
 	onAction(a_think)
 	{
 		// TODO: Finish this!

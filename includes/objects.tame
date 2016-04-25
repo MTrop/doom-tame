@@ -44,7 +44,30 @@ object o_allobjects
 		
 		call("ExamineAlways");
 	}
-	
+
+}
+
+object o_redkey : o_allobjects named "key", "keycard", "red key", "red keycard"
+{
+	init()
+	{
+		taken = false;
+	}
+
+	routine("ExamineAlways")
+	{
+		textln("Your trusty sidearm. Standard issue. Never leave home without it!");
+	}
+
+	onPlayerBrowse()
+	{
+		textln("You have a pistol.");
+	}
+
+	onRoomBrowse()
+	{
+		textln("There is a pistol lying on the ground.");
+	}
 }
 
 object o_pistol : o_allobjects named "pistol", "the pistol", "my pistol"
