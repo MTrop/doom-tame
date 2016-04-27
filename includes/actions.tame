@@ -15,6 +15,7 @@ action general a_look named "look around", "look", "look everywhere";
 action general a_yell named "yell", "scream", "bellow", "shout";
 action general a_status named "status";
 action general a_inventory named "inventory", "inv";
+action general a_die named "die";
 
 action transitive a_examine named "examine", "look at";
 action transitive a_take named "pick up", "pickup", "take";

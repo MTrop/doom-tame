@@ -11,7 +11,7 @@ module
 	twitter = "@TheRealMTrop";
 	website = "http://mtrop.net";
 	origin_locale = "en_US";
-	origin_language = "enu";
+	origin_language = "eng";
 	version = "1.0";
 }
 
@@ -30,9 +30,6 @@ world
 
 		// Set up objects.
 		givePlayerObject(p_doomguy, o_pistol);
-		giveRoomObject(r_entryway, o_medikit);
-		giveRoomObject(r_entryway, o_door0);
-		giveRoomObject(r_entryway, o_reddoor0);
 
 		// world setup.
 		setPlayer(p_doomguy);
@@ -133,6 +130,12 @@ player p_doomguy
 		queueAction(a_inventory);
 	}
 
+	onAction(a_die)
+	{
+		textln("You decide to end it all.");
+		health = 0;
+	}
+	
 	onAmbiguousAction()
 	{
 		info("There are a lot of things here that are called that. Be more specific.");
@@ -141,6 +144,11 @@ player p_doomguy
 	onIncompleteAction(a_examine)
 	{
 		info("WHAT should you examine?");
+	}
+
+	onIncompleteAction(a_use)
+	{
+		info("WHAT should you use (and maybe WITH something)?");
 	}
 
 	onIncompleteAction(a_take)
@@ -175,7 +183,7 @@ player p_doomguy
 
 	onFailedAction()
 	{
-		textln("I can't do that.");
+		textln("You can't do that.");
 	}
 
 	onBadAction()
@@ -188,4 +196,8 @@ player p_doomguy
 		call("BadAction");
 	}
 
+	onForbiddenAction()
+	{
+		textln("You can't do that, here.");
+	}
 }
