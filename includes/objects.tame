@@ -3,7 +3,9 @@ object o_surroundings named "surroundings", "room" {}
 // Add to world. Surrogate for "Status" with "examine"
 object o_self named "self", "myself", "doomguy" {}
 
-
+// ==========================
+// ALL OBJECTS
+// ==========================
 object o_allobjects
 {
 	init()
@@ -13,19 +15,19 @@ object o_allobjects
 	}
 	
 	// Called on first examine.
-	routine("ExamineFirst")
+	procedure("ExamineFirst")
 	{
 		/* Do nothing. Override this. */
 	}
 	
 	// Called on subsequent examines.
-	routine("ExamineNext")
+	procedure("ExamineNext")
 	{
 		/* Do nothing. Override this. */
 	}
 	
 	// Called on every examine (after first/next).
-	routine("ExamineAlways")
+	procedure("ExamineAlways")
 	{
 		/* Do nothing. Override this. */
 	}
@@ -47,67 +49,244 @@ object o_allobjects
 
 }
 
-object o_redkey : o_allobjects named "key", "keycard", "red key", "red keycard"
+// ==========================
+// Keys
+// ==========================
+
+// All Keys
+object o_allkeys
 {
-	init()
+	onAction(a_use)
 	{
-		taken = false;
+		textln("This is better off used WITH something. Like a door. It's a key, after all.");
 	}
 
-	routine("ExamineAlways")
+}
+
+// Red Key
+object o_redkey : o_allkeys named "key", "keycard", "red key", "red keycard", "keycard with red markings"
+{
+	procedure("ExamineFirst")
 	{
-		textln("Your trusty sidearm. Standard issue. Never leave home without it!");
+		textln("It's a keycard with red markings on it. A little blood-stained, too. Though it doesn't matter - "+
+		"it just makes it more red.");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a red keycard.");
+	}
+	
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_redkey))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the red keycard. Could be useful.");
+			givePlayerObject(player, o_redkey);
+		}
 	}
 
 	onPlayerBrowse()
 	{
-		textln("You have a pistol.");
+		textln("A red keycard.");
 	}
 
 	onRoomBrowse()
 	{
-		textln("There is a pistol lying on the ground.");
+		textln("There's a keycard on the ground with red markings.");
 	}
+	
 }
 
+// Blue Key
+object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard"
+{
+	procedure("ExamineFirst")
+	{
+		textln("It's a keycard with blue markings on it. Someone left it behind. Or dropped it. Who knows.");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a blue keycard.");
+	}
+
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_bluekey))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the blue keycard. Why not?");
+			givePlayerObject(player, o_bluekey);
+		}
+	}
+
+	onPlayerBrowse()
+	{
+		textln("A blue keycard.");
+	}
+
+	onRoomBrowse()
+	{
+		textln("There's a blue keycard on the floor.");
+	}
+	
+}
+
+// Yellow Key
+object o_yellowkey : o_allkeys named "key", "keycard", "yellow key", "yellow keycard"
+{
+	procedure("ExamineFirst")
+	{
+		textln("It's a keycard with yellow markings on it. Three guesses for what you do with it.");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a yellow keycard.");
+	}
+
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_yellowkey))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the yellow keycard. Why not?");
+			givePlayerObject(player, o_yellowkey);
+		}
+	}
+
+	onPlayerBrowse()
+	{
+		textln("A yellow keycard.");
+	}
+
+	onRoomBrowse()
+	{
+		textln("There's a yellow keycard on one of the shelves.");
+	}
+	
+}
+
+// ==========================
+// Weapons
+// ==========================
+
+// Pistol
 object o_pistol : o_allobjects named "pistol", "the pistol", "my pistol"
 {
-	routine("ExamineAlways")
+	procedure("ExamineAlways")
 	{
 		textln("Your trusty sidearm. Standard issue. Never leave home without it!");
 	}
 
 	onPlayerBrowse()
 	{
-		textln("You have a pistol.");
+		textln("A pistol.");
+	}	
+}
+
+// Shotgun
+object o_shotgun : o_allobjects named "shotgun", "the shotgun", "my shotgun"
+{
+	procedure("ExamineFirst")
+	{
+		textln("It's a shotgun. It shoots things. Small things.");
 	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a shotgun. It shoots things. Small things.");
+		textln("Doesn't look very high-tech. Maybe UAC didn't try to reinvent the wheel?");
+	}
+	
+	onPlayerBrowse()
+	{
+		textln("A shotgun.");
+	}
+	
+	onRoomBrowse()
+	{
+		textln("A shotgun is here on the ground.");
+	}
+
+}
+
+// Rocket Launcher
+object o_rocketlauncher : o_allobjects named "rocket launcher", "the rocket launcher", "my rocket launcher"
+{
+	procedure("ExamineFirst")
+	{
+		textln("It's a shotgun. It shoots things. Small things.");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a shotgun. It shoots things. Small things.");
+		textln("Doesn't look very high-tech. Maybe UAC didn't try to reinvent the wheel?");
+	}
+	
+	onPlayerBrowse()
+	{
+		textln("A shotgun.");
+	}
+	
+	onRoomBrowse()
+	{
+		textln("A shotgun is here on the ground.");
+	}
+
+}
+
+// BFG!
+object o_bfg : o_allobjects 
+	named "BFG", "the BFG", "my BFG", "BFG9000", "the BFG9000", "my BFG9000",
+	"BFG 9000", "the BFG 9000", "my BFG 9000", "big fucking gun", "the big fucking gun", "my big fucking gun"
+{
 	
 }
 
-// Abstract Door
+
+// ==========================
+// Items
+// ==========================
+
+//object o_stimpak;
+//object o_medikit;
+
+
+// ==========================
+// Doors
+// ==========================
 object o_everydoor : o_allobjects
 {
 	init()
 	{
+		examined = false;
+		browsed = false;
 		locked = false;
 		tryopen = 0;
 	}
 	
 	// Should move player to connected room.
-	routine("GoToNextRoom")
+	procedure("GoToNextRoom")
 	{
 		/* Nothing. Override this. */
 		info("THIS DOOR LEADS NOWHERE. OH NO.");
 	}
 	
 	// Should attempt to unlock the door. Set "locked" variable.
-	routine("TryUnlock")
+	procedure("TryUnlock")
 	{
 		/* Nothing. Override this. Try to detect necessary key on player. */
 	}
 	
 	// Called to alert the player that it's locked.
-	routine("IsLocked")
+	procedure("IsLocked")
 	{
 		if (tryopen == 0)
 			textln("It's locked. I need a key.");
@@ -148,15 +327,16 @@ object o_everydoor : o_allobjects
 }
 
 // Red Door, to Main Hall
-object o_reddoor0 : o_everydoor
-	named "door", "red door", "door with red markings", "door with the red markings"
+object o_reddoor0 : o_everydoor named "door", "red door", "door with red markings", "door with the red markings"
 {
 	init()
 	{
+		examined = false;
+		browsed = false;
 		locked = true;
 	}
 
-	routine("ExamineFirst")
+	procedure("ExamineFirst")
 	{
 		textln("A very heavy steel door with red markings flanking the tracks.");
 		textln("A sign on the door reads, \"Security Clearance Required\".");
@@ -167,13 +347,13 @@ object o_reddoor0 : o_everydoor
 		addObjectName(o_reddoor0, "door to the main hall");
 	}
 
-	routine("ExamineNext")
+	procedure("ExamineNext")
 	{
 		textln("It's the red door to the Main Hall.");
 		textln("A sign on the door reads, \"Security Clearance Required\".");
 	}
 
-	routine("TryUnlock")
+	procedure("TryUnlock")
 	{
 		if (playerHasObject(player, o_redkey))
 		{
@@ -183,7 +363,7 @@ object o_reddoor0 : o_everydoor
 		}
 	}
 
-	routine("GoToNextRoom")
+	procedure("GoToNextRoom")
 	{
 		setRoom(r_mainhall);
 		queueAction(a_whereami);
@@ -202,12 +382,18 @@ object o_reddoor0 : o_everydoor
 
 	onActionWith(a_use, o_redkey)
 	{
-		call("TryUnlock");
+		if (!locked)
+		{
+			textln("You shove the keycard in the door. Nothing happens.");
+			textln("Probably because it's already unlocked.");
+		}
+		else
+			call("TryUnlock");
 	}
 	
 	onActionWithOther(a_use)
 	{
-		textln("That doesn't look like it'll work.");
+		textln("That doesn't look like it'll work. You'll need a matching key of some sort.");
 	}
 	
 	onRoomBrowse()
@@ -223,8 +409,7 @@ object o_reddoor0 : o_everydoor
 }
 
 // Red Door, to Entryway
-object o_reddoor1 : o_reddoor0
-	named "door", "red door", "door with red markings", "door with the red markings"
+object o_reddoor1 : o_reddoor0 named "door", "red door", "door with red markings", "door with the red markings"
 {
 	init()
 	{
@@ -237,13 +422,13 @@ object o_reddoor1 : o_reddoor0
 		addObjectName(o_reddoor1, "door to the main hall");
 	}
 
-	routine("ExamineAlways")
+	procedure("ExamineAlways")
 	{
 		textln("It's the red door to the Main Hall.");
 		textln("A sign on the door reads, \"Security Clearance Required\".");
 	}
 
-	routine("GoToNextRoom")
+	procedure("GoToNextRoom")
 	{
 		setRoom(r_entryway);
 		queueAction(a_whereami);
@@ -267,3 +452,30 @@ object o_door0 : o_everydoor named "door", "small door"
 {
 	
 }
+
+/*
+object o_door1;
+
+object o_reddoor0;
+object o_reddoor1;
+
+object o_door2;
+object o_door3;
+
+object o_bluedoor0;
+object o_bluedoor1;
+
+object o_yellowdoor0;
+object o_yellowdoor1;
+
+object o_door4;
+object o_door5;
+
+object o_door6;
+object o_door7;
+
+object o_door8;
+object o_door9;
+
+object o_exitdoor;
+*/

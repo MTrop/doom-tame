@@ -13,7 +13,7 @@ room r_allrooms
 		description = "NO DESCRIPTION";
 	}
 
-	routine("PrintBackstory")
+	procedure("PrintBackstory")
 	{
 		/* Nothing. */
 	}
@@ -60,7 +60,7 @@ room r_entryway : r_allrooms
 			"installation on Mars owned by Union Aerospace Corporation. ";
 	}
 
-	routine("PrintBackstory")
+	procedure("PrintBackstory")
 	{
 		textln(
 			"They sent you in alone; they thought one person could reclaim "+
@@ -75,7 +75,7 @@ room r_entryway : r_allrooms
 
 /* 
 ======================
-Atrium
+Supply Room
 ======================
 */ 
 room r_supplyroom : r_allrooms

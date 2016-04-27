@@ -82,7 +82,7 @@ player p_doomguy
 		lastroom = "";
 	}
 	
-	routine("BadAction")
+	procedure("BadAction")
 	{
 		local x = random(3);
 		if (x == 0)

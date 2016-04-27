@@ -32,7 +32,12 @@ player p_doomguy;
 
 object o_allobjects;
 
-// Monsters.
+// Keys
+object o_redkey;
+object o_bluekey;
+object o_yellowkey;
+
+// Monsters
 object o_sergeant;
 object o_imp;
 object o_demon;
@@ -40,19 +45,16 @@ object o_cacodemon;
 object o_revenant;
 object o_cyberdemon;
 
-// Items.
+// Items
 object o_stimpak;
 object o_medikit;
+
+// Weapons
 object o_pistol;
 object o_shotgun;
 object o_supershotgun;
 object o_rocketlauncher;
 object o_bfg;
-
-object o_redkey;
-object o_bluekey;
-object o_yellowkey;
-
 
 // Doors
 object o_everydoor;
