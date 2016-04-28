@@ -1,7 +1,32 @@
-// Add to world - surrogate for "look" with "examine"
-object o_surroundings named "surroundings", "room" {}
-// Add to world. Surrogate for "Status" with "examine"
-object o_self named "self", "myself", "doomguy" {}
+// Add to player - surrogate for "look" with "examine"
+object o_surroundings named "surroundings", "room"
+{
+	onAction(a_examine)
+	{
+		queueAction(a_look);
+	}
+}
+
+// Add to player. Surrogate for "Status" with "examine"
+object o_self named "self", "myself", "doomguy"
+{
+	onAction(a_examine)
+	{
+		queueAction(a_status);
+	}
+}
+
+// Add to player.
+object o_fists named "fists", "fist"
+{
+	onAction(a_examine)
+	{
+		if (player.berserk)
+			textln("Who's a man and a half? YOU'RE a man and a half! A BERSERKER PACKIN' MAN AND A HALF!");
+		else
+			textln("Back on Earth, these are registered as lethal weapons.");
+	}
+}
 
 // ==========================
 // ALL OBJECTS
@@ -184,6 +209,17 @@ object o_pistol : o_allobjects named "pistol", "the pistol", "my pistol"
 		textln("Your trusty sidearm. Standard issue. Never leave home without it!");
 	}
 
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_pistol))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the pistol.");
+			givePlayerObject(player, o_pistol);
+		}
+	}
+
 	onPlayerBrowse()
 	{
 		textln("A pistol.");
@@ -204,6 +240,17 @@ object o_shotgun : o_allobjects named "shotgun", "the shotgun", "my shotgun"
 		textln("It's a shotgun. It shoots things. Small things.");
 	}
 	
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_shotgun))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the shotgun. A nice upgrade.");
+			givePlayerObject(player, o_shotgun);
+		}
+	}
+
 	onPlayerBrowse()
 	{
 		textln("A shotgun.");
@@ -231,6 +278,17 @@ object o_rocketlauncher : o_allobjects
 		textln("It's a rocket launcher. For bigger game and demons.");
 	}
 	
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_rocketlauncher))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the rocket launcher. How can you hold all this stuff?");
+			givePlayerObject(player, o_rocketlauncher);
+		}
+	}
+
 	onPlayerBrowse()
 	{
 		textln("A rocket launcher.");
@@ -265,6 +323,17 @@ object o_bfg : o_allobjects
 			textln("For the biggest of baddies and the quickest of paint jobs. Hope you like red.");
 	}
 
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_bfg))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the BFG 9000. A marine's best friend.");
+			givePlayerObject(player, o_bfg);
+		}
+	}
+
 	onPlayerBrowse()
 	{
 		text("A BFG 9000. ");
@@ -284,6 +353,43 @@ object o_bfg : o_allobjects
 
 }
 
+// ==========================
+// Monsters
+// ==========================
+
+object o_monsters : o_allobjects
+{
+	init()
+	{
+		// max reaction time
+		reactionMax = 0;
+		reactionTime = 0;
+	}
+	
+	// Called when "AI" says to attack.
+	procedure("MonsterAttack")
+	{
+		// Do nothing. Override.
+	}
+	
+	onAction(a_monsterthink)
+	{
+		reactionTime = reactionTime - 1;
+		if (reactionTime > 0)
+			end;
+
+		call("MonsterAttack");
+		reactionTime = reactionMax;
+	}
+	
+}
+
+object o_zombie : o_monsters;
+object o_sergeant : o_monsters;
+object o_imp : o_monsters;
+object o_cacodemon : o_monsters;
+object o_cyberdemon : o_monsters;
+
 
 // ==========================
 // Items
@@ -291,11 +397,6 @@ object o_bfg : o_allobjects
 
 object o_healthobject : o_allobjects
 {
-	init()
-	{
-		// healthAmount
-	}
-
 	// Called if healing is possible.
 	procedure("DoHealing")
 	{
@@ -318,24 +419,114 @@ object o_stimpak : o_healthobject named "stimpak"
 	procedure("DoHealing")
 	{
 		textln("You heal youself a bit.");
+		removeObject(o_stimpak);
 		player.health = min(player.health + 10, 100);
 		queueAction(a_status);
 	}
+
+	procedure("ExamineAlways")
+	{
+		textln("It's a small kit of adrenaline injections and bandages. Heals you a little.");
+	}
+	
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_stimpak))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the stimpak.");
+			givePlayerObject(player, o_stimpak);
+		}
+	}
+
+	onRoomBrowse()
+	{
+		textln("There's a stimpak here on the floor.");
+	}
+	
+	onPlayerBrowse()
+	{
+		textln("A stimpak.");
+	}
+	
 }
 
-// Stimpak
-object o_medikit : o_healthobject named "stimpak"
+// Medikit
+object o_medikit : o_healthobject named "medikit"
 {
 	procedure("DoHealing")
 	{
 		textln("You heal youself a bunch.");
+		removeObject(o_medikit);
 		player.health = min(player.health + 25, 100);
 		queueAction(a_status);
 	}
+
+	procedure("ExamineAlways")
+	{
+		textln("It's a large kit of gauze, stitching thread, forceps, and antiseptic. Heals you moderately.");
+	}
+
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_medikit))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the medkit.");
+			givePlayerObject(player, o_medikit);
+		}
+	}
+
+	onRoomBrowse()
+	{
+		textln("There's a medikit here on the floor.");
+	}
+	
+	onPlayerBrowse()
+	{
+		textln("A medikit.");
+	}
+
 }
 
-//object o_medikit;
+// Berserk Pack
+object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", "berserker pack"
+{
+	procedure("DoHealing")
+	{
+		textln("You heal youself completely, and you are now BERSERK! PUNCH THINGS!");
+		removeObject(o_berserk);
+		if (player.health < 100)
+			player.health = 100;
+		player.berserk = true;
+		queueAction(a_status);
+	}
+	
+	procedure("ExamineAlways")
+	{
+		textln("It's a large kit of some kind of experimental drugs. Looks crazy.");
+	}
 
+	onAction(a_take)
+	{
+		if (playerHasObject(player, o_berserk))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the berserk pack.");
+			givePlayerObject(player, o_berserk);
+		}
+	}
+
+	// Override. Can always use.
+	onAction(a_use)
+	{
+		call("DoHealing");
+	}
+	
+}
 
 // ==========================
 // Doors
@@ -384,6 +575,11 @@ object o_everydoor : o_allobjects
 			textln("It's locked.");
 		
 		tryopen = tryopen + 1;
+	}
+	
+	onAction(a_take)
+	{
+		textln("It's a heavy door. You can carry almost anything, but this probably won't fit in your pockets.");
 	}
 	
 	onAction(a_open)
@@ -446,11 +642,6 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 		setRoom(r_mainhall);
 		queueAction(a_whereami);
 		queueAction(a_description);
-	}
-	
-	onAction(a_take)
-	{
-		textln("It's a very big, heavy door. You can carry almost anything, but this probably won't fit in your pockets.");
 	}
 	
 	onAction(a_use)

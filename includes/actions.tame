@@ -4,23 +4,28 @@
 //************************************************
 
 // "Hidden" stuff.
-action general a_think;
+action general a_think; // for "AI" checks each frame
+
 action general a_whereami;
 action general a_description;
 action general a_checkdeath;
 action general a_gameover;
 
-action general a_quit named "quit", "exit";
-action general a_look named "look around", "look", "look everywhere";
+action general a_help named "help", "h", "?";
+action general a_quit named "quit", "exit", "q";
+action general a_look named "look around", "look", "look everywhere", "l";
 action general a_yell named "yell", "scream", "bellow", "shout";
-action general a_status named "status";
-action general a_inventory named "inventory", "inv";
+action general a_punch named "punch", "hit", "fist", "use fists with", "use fists on";
+action general a_status named "status", "s";
+action general a_inventory named "inventory", "inv", "i";
 action general a_die named "die";
 
-action transitive a_examine named "examine", "look at";
-action transitive a_take named "pick up", "pickup", "take";
-action transitive a_open named "open";
-action transitive a_close named "close";
+action transitive a_monsterthink; // for "AI"
 
-action ditransitive a_use named "use" conjoins "with", "and", "on";
+action transitive a_examine named "examine", "look at", "x";
+action transitive a_take named "pick up", "pickup", "take", "t";
+action transitive a_open named "open", "o";
+action transitive a_close named "close", "c";
+
+action ditransitive a_use named "use" conjoins "with", "and", "on", "u";
 action ditransitive a_shoot named "shoot" conjoins "with", "using";

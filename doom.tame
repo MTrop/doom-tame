@@ -24,7 +24,7 @@ world
 {
 	init()
 	{
-		textln("The fight begins.\n");
+		textln("The nightmare begins.\n");
 		// add surrogates.
 		giveWorldObject(o_surroundings);
 
@@ -76,7 +76,7 @@ player p_doomguy
 	init()
 	{
 		health = 100;
-		lastroom = "";
+		berserk = false;
 	}
 	
 	procedure("BadAction")
@@ -125,8 +125,12 @@ player p_doomguy
 			textln("Just a scratch or two.");
 		else if (health < 100)
 			textln("Doing fine.");
-		else
+		else if (health == 100)
 			textln("As fit as a fiddle!");
+		else
+			textln("You feel AMAZING!");
+		if (berserk)
+			textln("You are also BERZERK! HIT SOMEBODY!");
 		queueAction(a_inventory);
 	}
 
@@ -154,6 +158,11 @@ player p_doomguy
 	onIncompleteAction(a_take)
 	{
 		info("WHAT should you take?");
+	}
+
+	onIncompleteAction(a_punch)
+	{
+		info("WHAT should you punch?");
 	}
 
 	onIncompleteAction()

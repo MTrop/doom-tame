@@ -38,16 +38,16 @@ object o_bluekey;
 object o_yellowkey;
 
 // Monsters
+object o_zombie;
 object o_sergeant;
 object o_imp;
-object o_demon;
 object o_cacodemon;
-object o_revenant;
 object o_cyberdemon;
 
 // Items
 object o_stimpak;
 object o_medikit;
+object o_berserk;
 
 // Weapons
 object o_pistol;
