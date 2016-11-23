@@ -384,7 +384,19 @@ object o_monsters : o_allobjects
 	
 }
 
-object o_zombie : o_monsters;
+object o_zombie : o_monsters
+{
+	init()
+	{
+		reactionMax = 2;
+	}
+	
+	procedure("MonsterAttack")
+	{
+		
+	}
+}
+
 object o_sergeant : o_monsters;
 object o_imp : o_monsters;
 object o_cacodemon : o_monsters;
