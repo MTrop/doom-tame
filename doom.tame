@@ -26,10 +26,10 @@ world
 	{
 		textln("The nightmare begins.\n");
 		// add surrogates.
-		giveWorldObject(o_surroundings);
+		giveObject(world, o_surroundings);
 
 		// Set up objects.
-		givePlayerObject(p_doomguy, o_pistol);
+		giveObject(p_doomguy, o_pistol);
 
 		// world setup.
 		setPlayer(p_doomguy);
@@ -105,12 +105,12 @@ player p_doomguy
 
 	onAction(a_inventory)
 	{
-		if (objectsInPlayerCount(player) == 0)
+		if (objectCount(player) == 0)
 			textln("You don't have anything.");
 		else
 		{
 			textln("You examine your inventory.");
-			browseplayer(player);
+			browse(player);
 		}
 	}
 	

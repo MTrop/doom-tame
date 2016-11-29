@@ -40,7 +40,7 @@ room r_allrooms
 			backstory = true;
 		}
 		
-		browseroom(room);
+		browse(room);
 	}
 
 }
@@ -59,9 +59,9 @@ room r_entryway : r_allrooms
 		description = 
 			"You find yourself at the mouth of the beast - an abandoned "+
 			"installation on Mars owned by Union Aerospace Corporation. ";
-		giveRoomObject(r_entryway, o_medikit);
-		giveRoomObject(r_entryway, o_door0);
-		giveRoomObject(r_entryway, o_reddoor0);
+		giveObject(r_entryway, o_medikit);
+		giveObject(r_entryway, o_door0);
+		giveObject(r_entryway, o_reddoor0);
 	}
 
 	procedure("PrintBackstory")

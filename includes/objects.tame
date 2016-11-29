@@ -104,12 +104,12 @@ object o_redkey : o_allkeys named "key", "keycard", "red key", "red keycard", "k
 	
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_redkey))
+		if (hasObject(player, o_redkey))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the red keycard. Could be useful.");
-			givePlayerObject(player, o_redkey);
+			giveObject(player, o_redkey);
 		}
 	}
 
@@ -140,12 +140,12 @@ object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard"
 
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_bluekey))
+		if (hasObject(player, o_bluekey))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the blue keycard. Why not?");
-			givePlayerObject(player, o_bluekey);
+			giveObject(player, o_bluekey);
 		}
 	}
 
@@ -176,12 +176,12 @@ object o_yellowkey : o_allkeys named "key", "keycard", "yellow key", "yellow key
 
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_yellowkey))
+		if (hasObject(player, o_yellowkey))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the yellow keycard. Why not?");
-			givePlayerObject(player, o_yellowkey);
+			giveObject(player, o_yellowkey);
 		}
 	}
 
@@ -211,12 +211,12 @@ object o_pistol : o_allobjects named "pistol", "the pistol", "my pistol"
 
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_pistol))
+		if (hasObject(player, o_pistol))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the pistol.");
-			givePlayerObject(player, o_pistol);
+			giveObject(player, o_pistol);
 		}
 	}
 
@@ -242,12 +242,12 @@ object o_shotgun : o_allobjects named "shotgun", "the shotgun", "my shotgun"
 	
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_shotgun))
+		if (hasObject(player, o_shotgun))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the shotgun. A nice upgrade.");
-			givePlayerObject(player, o_shotgun);
+			giveObject(player, o_shotgun);
 		}
 	}
 
@@ -280,12 +280,12 @@ object o_rocketlauncher : o_allobjects
 	
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_rocketlauncher))
+		if (hasObject(player, o_rocketlauncher))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the rocket launcher. How can you hold all this stuff?");
-			givePlayerObject(player, o_rocketlauncher);
+			giveObject(player, o_rocketlauncher);
 		}
 	}
 
@@ -325,12 +325,12 @@ object o_bfg : o_allobjects
 
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_bfg))
+		if (hasObject(player, o_bfg))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the BFG 9000. A marine's best friend.");
-			givePlayerObject(player, o_bfg);
+			giveObject(player, o_bfg);
 		}
 	}
 
@@ -443,12 +443,12 @@ object o_stimpak : o_healthobject named "stimpak"
 	
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_stimpak))
+		if (hasObject(player, o_stimpak))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the stimpak.");
-			givePlayerObject(player, o_stimpak);
+			giveObject(player, o_stimpak);
 		}
 	}
 
@@ -482,12 +482,12 @@ object o_medikit : o_healthobject named "medikit"
 
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_medikit))
+		if (hasObject(player, o_medikit))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the medkit.");
-			givePlayerObject(player, o_medikit);
+			giveObject(player, o_medikit);
 		}
 	}
 
@@ -523,12 +523,12 @@ object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", 
 
 	onAction(a_take)
 	{
-		if (playerHasObject(player, o_berserk))
+		if (hasObject(player, o_berserk))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the berserk pack.");
-			givePlayerObject(player, o_berserk);
+			giveObject(player, o_berserk);
 		}
 	}
 
@@ -641,7 +641,7 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 
 	procedure("TryUnlock")
 	{
-		if (playerHasObject(player, o_redkey))
+		if (hasObject(player, o_redkey))
 		{
 			textln("You shove the keycard in the door. It beeps with a happy-sounding beep.");
 			textln("You hear locks disengage at the bottom of the door.");
