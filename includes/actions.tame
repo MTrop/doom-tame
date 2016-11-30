@@ -11,6 +11,7 @@ action general a_description;
 action general a_checkdeath;
 action general a_gameover;
 
+// Visible stuff.
 action general a_help named "help", "h", "?";
 action general a_quit named "quit", "exit", "q";
 action general a_look named "look around", "look", "look everywhere", "l";

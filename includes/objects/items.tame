@@ -1,0 +1,452 @@
+
+// ==========================
+// Items
+// ==========================
+
+object o_healthobject : o_allobjects
+{
+	// Called if healing is possible.
+	procedure("DoHealing")
+	{
+		/* Do nothing. Override. */
+	}
+	
+	onAction(a_use)
+	{
+		if (player.health >= 100)
+			textln("You're at full health. You don't need to use this.");
+		else
+			call("DoHealing");
+	}
+
+}
+
+// Stimpak
+object o_stimpak : o_healthobject named "stimpak"
+{
+	procedure("DoHealing")
+	{
+		textln("You heal youself a bit.");
+		removeObject(o_stimpak);
+		player.health = min(player.health + 10, 100);
+		queueAction(a_status);
+	}
+
+	procedure("ExamineAlways")
+	{
+		textln("It's a small kit of adrenaline injections and bandages. Heals you a little.");
+	}
+	
+	onAction(a_take)
+	{
+		if (hasObject(player, o_stimpak))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the stimpak.");
+			giveObject(player, o_stimpak);
+		}
+	}
+
+	onRoomBrowse()
+	{
+		textln("There's a stimpak here on the floor.");
+	}
+	
+	onPlayerBrowse()
+	{
+		textln("A stimpak.");
+	}
+	
+}
+
+// Medikit
+object o_medikit : o_healthobject named "medikit"
+{
+	procedure("DoHealing")
+	{
+		textln("You heal youself a bunch.");
+		removeObject(o_medikit);
+		player.health = min(player.health + 25, 100);
+		queueAction(a_status);
+	}
+
+	procedure("ExamineAlways")
+	{
+		textln("It's a large kit of gauze, stitching thread, forceps, and antiseptic. Heals you moderately.");
+	}
+
+	onAction(a_take)
+	{
+		if (hasObject(player, o_medikit))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the medkit.");
+			giveObject(player, o_medikit);
+		}
+	}
+
+	onRoomBrowse()
+	{
+		textln("There's a medikit here on the floor.");
+	}
+	
+	onPlayerBrowse()
+	{
+		textln("A medikit.");
+	}
+
+}
+
+// Berserk Pack
+object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", "berserker pack"
+{
+	procedure("DoHealing")
+	{
+		textln("You heal youself completely, and you are now BERSERK! PUNCH THINGS!");
+		removeObject(o_berserk);
+		if (player.health < 100)
+			player.health = 100;
+		player.berserk = true;
+		queueAction(a_status);
+	}
+	
+	procedure("ExamineAlways")
+	{
+		textln("It's a large kit of some kind of experimental drugs. Looks crazy.");
+	}
+
+	onAction(a_take)
+	{
+		if (hasObject(player, o_berserk))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the berserk pack.");
+			giveObject(player, o_berserk);
+		}
+	}
+
+	// Override. Can always use.
+	onAction(a_use)
+	{
+		call("DoHealing");
+	}
+	
+}
+
+// ==========================
+// Keys
+// ==========================
+
+// All Keys
+object o_allkeys : o_allobjects
+{
+	onAction(a_use)
+	{
+		textln("This is better off used WITH something. Like a door. It's a key, after all.");
+	}
+
+}
+
+// Red Key
+object o_redkey : o_allkeys named "key", "keycard", "red key", "red keycard", "keycard with red markings"
+{
+	procedure("ExamineFirst")
+	{
+		textln("It's a keycard with red markings on it. A little blood-stained, too. Though it doesn't matter - "+
+		"it just makes it more red.");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a red keycard.");
+	}
+	
+	onAction(a_take)
+	{
+		if (hasObject(player, o_redkey))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the red keycard. Could be useful.");
+			giveObject(player, o_redkey);
+		}
+	}
+
+	onPlayerBrowse()
+	{
+		textln("A red keycard.");
+	}
+
+	onRoomBrowse()
+	{
+		textln("There's a keycard on the ground with red markings.");
+	}
+	
+}
+
+// Blue Key
+object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard"
+{
+	procedure("ExamineFirst")
+	{
+		textln("It's a keycard with blue markings on it. Someone left it behind. Or dropped it. Who knows.");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a blue keycard.");
+	}
+
+	onAction(a_take)
+	{
+		if (hasObject(player, o_bluekey))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the blue keycard. Why not?");
+			giveObject(player, o_bluekey);
+		}
+	}
+
+	onPlayerBrowse()
+	{
+		textln("A blue keycard.");
+	}
+
+	onRoomBrowse()
+	{
+		textln("There's a blue keycard on the floor.");
+	}
+	
+}
+
+// Yellow Key
+object o_yellowkey : o_allkeys named "key", "keycard", "yellow key", "yellow keycard"
+{
+	procedure("ExamineFirst")
+	{
+		textln("It's a keycard with yellow markings on it. Three guesses for what you do with it.");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a yellow keycard.");
+	}
+
+	onAction(a_take)
+	{
+		if (hasObject(player, o_yellowkey))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the yellow keycard. Why not?");
+			giveObject(player, o_yellowkey);
+		}
+	}
+
+	onPlayerBrowse()
+	{
+		textln("A yellow keycard.");
+	}
+
+	onRoomBrowse()
+	{
+		textln("There's a yellow keycard on one of the shelves.");
+	}
+	
+}
+
+// ==========================
+// Weapons
+// ==========================
+
+object o_allweapons : o_allobjects
+{
+	onAction(a_use)
+	{
+		textln("You really need a target for this.");
+	}
+
+	onAction(a_shoot)
+	{
+		textln("You really need a target for this. What're you gonna do, shoot yourself?");
+	}
+
+	onActionWithOther(a_use)
+	{
+		textln("Might not be a good idea to shoot that.");
+	}
+
+	onActionWithOther(a_shoot)
+	{
+		textln("Might not be a good idea to shoot that.");
+	}
+	
+}
+
+// Fists
+object o_fists named "fists", "fist"
+{
+	onAction(a_examine)
+	{
+		if (player.berserk)
+			textln("Who's a man and a half? YOU'RE a man and a half! A BERSERKER PACKIN' MAN AND A HALF!");
+		else
+			textln("Good ol' Lefty and Righty. Back on Earth, these are registered as lethal weapons.");
+	}
+}
+
+// Pistol
+object o_pistol : o_allweapons named "pistol", "the pistol", "my pistol"
+{
+	procedure("ExamineAlways")
+	{
+		textln("Your trusty sidearm. Standard issue. Never leave home without it!");
+	}
+
+	onAction(a_take)
+	{
+		if (hasObject(player, o_pistol))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the pistol.");
+			giveObject(player, o_pistol);
+		}
+	}
+
+	onPlayerBrowse()
+	{
+		textln("A pistol.");
+	}	
+}
+
+// Shotgun
+object o_shotgun : o_allweapons named "shotgun", "the shotgun", "my shotgun"
+{
+	procedure("ExamineFirst")
+	{
+		textln("It's a shotgun. It shoots things. Small things.");
+		textln("Doesn't look very high-tech. Maybe UAC didn't try to reinvent the wheel?");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a shotgun. It shoots things. Small things.");
+	}
+	
+	onAction(a_take)
+	{
+		if (hasObject(player, o_shotgun))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the shotgun. A nice upgrade.");
+			giveObject(player, o_shotgun);
+		}
+	}
+
+	onPlayerBrowse()
+	{
+		textln("A shotgun.");
+	}
+	
+	onRoomBrowse()
+	{
+		textln("A shotgun is here on the ground.");
+	}
+
+}
+
+// Rocket Launcher
+object o_rocketlauncher : o_allweapons 
+	named "rocket launcher", "the rocket launcher", "my rocket launcher", "rockets"
+{
+	procedure("ExamineFirst")
+	{
+		textln("It's a rocket launcher. For bigger game and demons.");
+		textln("When you need an explosion several feet away from you.");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's a rocket launcher. For bigger game and demons.");
+	}
+	
+	onAction(a_take)
+	{
+		if (hasObject(player, o_rocketlauncher))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the rocket launcher. How can you hold all this stuff?");
+			giveObject(player, o_rocketlauncher);
+		}
+	}
+
+	onPlayerBrowse()
+	{
+		textln("A rocket launcher.");
+	}
+	
+	onRoomBrowse()
+	{
+		textln("A rocket launcher is on the wall.");
+	}
+
+}
+
+// BFG!
+object o_bfg : o_allweapons 
+	named "BFG", "the BFG", "my BFG", "BFG9000", "the BFG9000", "my BFG9000",
+	"BFG 9000", "the BFG 9000", "my BFG 9000", "big fucking gun", "the big fucking gun", "my big fucking gun",
+	"BFG9k", "the BFG9k", "my BFG9k"
+{
+	procedure("ExamineAlways")
+	{
+		text("It's the BFG 9000. ");
+		local x = random(5);
+		if (x == 0)
+			textln("Ohhhh yes.");
+		else if (x == 1)
+			textln("Hell yeah.");
+		else if (x == 2)
+			textln("Don't ask what it stands for.");
+		else if (x == 3)
+			textln("When something needs to be really, really dead.");
+		else if (x == 4)
+			textln("For the biggest of baddies and the quickest of paint jobs. Hope you like red.");
+	}
+
+	onAction(a_take)
+	{
+		if (hasObject(player, o_bfg))
+			textln("You already have this.");
+		else
+		{
+			textln("You take the BFG 9000. A marine's best friend.");
+			giveObject(player, o_bfg);
+		}
+	}
+
+	onPlayerBrowse()
+	{
+		text("A BFG 9000. ");
+		local x = random(3);
+		if (x == 0)
+			textln("Nice.");
+		else if (x == 1)
+			textln("Sweet.");
+		else if (x == 2)
+			textln("Awesome.");
+	}
+	
+	onRoomBrowse()
+	{
+		textln("Oh my God... is that a BFG?!");
+	}
+
+}

@@ -1,0 +1,51 @@
+
+// ==========================
+// Monsters
+// ==========================
+
+object o_monsters : o_allobjects
+{
+	init()
+	{
+		// max reaction time
+		reactionMax = 0;
+		reactionTime = 0;
+	}
+	
+	// Called when "AI" says to attack.
+	procedure("MonsterAttack")
+	{
+		// Do nothing. Override.
+	}
+	
+	onAction(a_monsterthink)
+	{
+		reactionTime = reactionTime - 1;
+		if (reactionTime > 0)
+			end;
+
+		call("MonsterAttack");
+		reactionTime = reactionMax;
+	}
+	
+}
+
+object o_zombie : o_monsters
+{
+	init()
+	{
+		reactionMax = 2;
+	}
+	
+	procedure("MonsterAttack")
+	{
+		
+	}
+}
+
+object o_sergeant : o_monsters;
+object o_imp : o_monsters;
+object o_cacodemon : o_monsters;
+object o_cyberdemon : o_monsters;
+
+

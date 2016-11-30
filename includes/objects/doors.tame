@@ -1,0 +1,221 @@
+
+// ==========================
+// Doors
+// ==========================
+object o_everydoor : o_allobjects
+{
+	init()
+	{
+		examined = false;
+		browsed = false;
+		locked = false;
+		tryopen = 0;
+	}
+	
+	// Should move player to connected room.
+	procedure("GoToNextRoom")
+	{
+		/* Nothing. Override this. */
+		info("THIS DOOR LEADS NOWHERE. OH NO.");
+	}
+	
+	// Should attempt to unlock the door. Set "locked" variable.
+	procedure("TryUnlock")
+	{
+		/* Nothing. Override this. Try to detect necessary key on player. */
+	}
+	
+	// Called to alert the player that it's locked.
+	procedure("IsLocked")
+	{
+		if (tryopen == 0)
+			textln("It's locked. I need a key.");
+		else if (tryopen == 1)
+			textln("It's still locked.");
+		else if (tryopen == 2)
+			textln("You try to dig your fingers under the door lip and lift. No dice. Still locked.");
+		else if (tryopen == 3)
+			textln("It's really, really locked.");
+		else if (tryopen == 4)
+			textln("It's so TOTALLY locked.");
+		else if (tryopen == 5)
+			textln("It's absolutely locked.");
+		else if (tryopen == 6)
+			textln("OH MY GOD. IT'S LOCKED, OKAY?! FIND A DAMN KEY.");
+		else
+			textln("It's locked.");
+		
+		tryopen = tryopen + 1;
+	}
+	
+	onAction(a_take)
+	{
+		textln("It's a heavy door. You can carry almost anything, but this probably won't fit in your pockets.");
+	}
+	
+	onAction(a_open)
+	{
+		if (locked)
+			call("TryUnlock");
+		
+		if (locked)
+			call("IsLocked");
+		else
+			call("GoToNextRoom");
+	}
+
+	onAction(a_close)
+	{
+		textln("It's already closed. Good job!");
+	}
+	
+}
+
+// Red Door, to Main Hall
+object o_reddoor0 : o_everydoor named "door", "red door", "door with red markings", "door with the red markings"
+{
+	init()
+	{
+		examined = false;
+		browsed = false;
+		locked = true;
+	}
+
+	procedure("ExamineFirst")
+	{
+		textln("A very heavy steel door with red markings flanking the tracks.");
+		textln("A sign on the door reads, \"Security Clearance Required\".");
+		textln("Another sign above the door reads, \"Main Hall\".");
+		addObjectName(o_reddoor0, "security door");
+		addObjectName(o_reddoor0, "main hall door");
+		addObjectName(o_reddoor0, "door to main hall");
+		addObjectName(o_reddoor0, "door to the main hall");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's the red door to the Main Hall.");
+		textln("A sign on the door reads, \"Security Clearance Required\".");
+	}
+
+	procedure("TryUnlock")
+	{
+		if (hasObject(player, o_redkey))
+		{
+			textln("You shove the keycard in the door. It beeps with a happy-sounding beep.");
+			textln("You hear locks disengage at the bottom of the door.");
+			locked = false;
+		}
+	}
+
+	procedure("GoToNextRoom")
+	{
+		setRoom(r_mainhall);
+		queueAction(a_whereami);
+		queueAction(a_description);
+	}
+	
+	onAction(a_use)
+	{
+		queueActionObject(a_open, o_reddoor0);
+	}
+
+	onActionWith(a_use, o_redkey)
+	{
+		if (!locked)
+		{
+			textln("You shove the keycard in the door. Nothing happens.");
+			textln("Probably because it's already unlocked.");
+		}
+		else
+			call("TryUnlock");
+	}
+	
+	onActionWithOther(a_use)
+	{
+		textln("That doesn't look like it'll work. You'll need a matching key of some sort.");
+	}
+	
+	onRoomBrowse()
+	{
+		if(!browsed)
+			textln("There's a door here, lined with red markings.");
+		else if (!examined)
+			textln("There's a red door here.");
+		else
+			textln("The red door to the main hall is here.");
+	}
+	
+}
+
+// Red Door, to Entryway
+object o_reddoor1 : o_reddoor0 named "door", "red door", "door with red markings", "door with the red markings"
+{
+	init()
+	{
+		examined = true;
+		browsed = true;
+		locked = false;
+		addObjectName(o_reddoor1, "security door");
+		addObjectName(o_reddoor1, "main hall door");
+		addObjectName(o_reddoor1, "door to main hall");
+		addObjectName(o_reddoor1, "door to the main hall");
+	}
+
+	procedure("ExamineAlways")
+	{
+		textln("It's the red door to the Main Hall.");
+		textln("A sign on the door reads, \"Security Clearance Required\".");
+	}
+
+	procedure("GoToNextRoom")
+	{
+		setRoom(r_entryway);
+		queueAction(a_whereami);
+		queueAction(a_description);
+	}
+	
+	onAction(a_use)
+	{
+		queueActionObject(a_open, o_reddoor1);
+	}
+
+	onRoomBrowse()
+	{
+		textln("The red door to the main hall is here.");
+	}
+	
+}
+
+// Door to supply room.
+object o_door0 : o_everydoor named "door", "small door"
+{
+	
+}
+
+/*
+object o_door1;
+
+object o_reddoor0;
+object o_reddoor1;
+
+object o_door2;
+object o_door3;
+
+object o_bluedoor0;
+object o_bluedoor1;
+
+object o_yellowdoor0;
+object o_yellowdoor1;
+
+object o_door4;
+object o_door5;
+
+object o_door6;
+object o_door7;
+
+object o_door8;
+object o_door9;
+
+object o_exitdoor;
+*/

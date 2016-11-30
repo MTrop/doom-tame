@@ -32,6 +32,9 @@ player p_doomguy;
 
 object o_allobjects;
 
+object o_allkeys;
+object o_allweapons;
+
 // Keys
 object o_redkey;
 object o_bluekey;
