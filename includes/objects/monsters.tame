@@ -3,13 +3,21 @@
 // Monsters
 // ==========================
 
-object o_monsters : o_allobjects
+object archetype o_monsters : o_allobjects
 {
 	init()
 	{
+		// name used for generic battle.
+		monsterName = "MONSTER";
 		// max reaction time
 		reactionMax = 0;
 		reactionTime = 0;
+	}
+	
+	// Called when "AI" ticks down a reaction.
+	procedure("MonsterIdle")
+	{
+		// Do nothing. Override.
 	}
 	
 	// Called when "AI" says to attack.
@@ -18,14 +26,19 @@ object o_monsters : o_allobjects
 		// Do nothing. Override.
 	}
 	
+	// Called on monsters in a room.
 	onAction(a_monsterthink)
 	{
 		reactionTime = reactionTime - 1;
 		if (reactionTime > 0)
-			end;
-
-		call("MonsterAttack");
-		reactionTime = reactionMax;
+		{
+			call("MonsterIdle");
+		}
+		else
+		{
+			call("MonsterAttack");
+			reactionTime = random(reactionMax / 2) + (reactionMax / 2);
+		}
 	}
 	
 }

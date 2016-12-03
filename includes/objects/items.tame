@@ -3,7 +3,7 @@
 // Items
 // ==========================
 
-object o_healthobject : o_allobjects
+object archetype o_healthobject : o_allobjects
 {
 	// Called if healing is possible.
 	procedure("DoHealing")
@@ -141,7 +141,7 @@ object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", 
 // ==========================
 
 // All Keys
-object o_allkeys : o_allobjects
+object archetype o_allkeys : o_allobjects
 {
 	onAction(a_use)
 	{
@@ -263,7 +263,7 @@ object o_yellowkey : o_allkeys named "key", "keycard", "yellow key", "yellow key
 // Weapons
 // ==========================
 
-object o_allweapons : o_allobjects
+object archetype o_allweapons : o_allobjects
 {
 	onAction(a_use)
 	{

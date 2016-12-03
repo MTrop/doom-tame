@@ -2,7 +2,7 @@
 // ==========================
 // ALL OBJECTS
 // ==========================
-object o_allobjects
+object archetype o_allobjects
 {
 	init()
 	{
@@ -66,6 +66,12 @@ object o_self named "self", "myself", "doomguy"
 	{
 		queueAction(a_status);
 	}
+
+	onAction(a_shoot)
+	{
+		textln("Hmm. Maybe not.");
+	}
+	
 }
 
 #include "objects/items.tame"

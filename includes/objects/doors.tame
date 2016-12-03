@@ -2,7 +2,7 @@
 // ==========================
 // Doors
 // ==========================
-object o_everydoor : o_allobjects
+object archetype o_everydoor : o_allobjects
 {
 	init()
 	{

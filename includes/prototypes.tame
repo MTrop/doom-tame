@@ -30,10 +30,10 @@ player p_doomguy;
 // Objects
 // ==========================
 
-object o_allobjects;
+object archetype o_allobjects;
 
-object o_allkeys;
-object o_allweapons;
+object archetype o_allkeys;
+object archetype o_allweapons;
 
 // Keys
 object o_redkey;
@@ -60,7 +60,7 @@ object o_rocketlauncher;
 object o_bfg;
 
 // Doors
-object o_everydoor;
+object archetype o_everydoor;
 
 object o_door0;
 object o_door1;
