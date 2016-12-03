@@ -89,8 +89,11 @@ room r_supplyroom : r_allrooms
 		backstory = false;
 		title = "Supply Room";
 		description = 
-			"You are in a supply room off of the entryway. Cleaning"+
+			"You are in a supply room off of the entryway. Cleaning "+
 			"tools and chemicals litter the floor. There's probably something ironic about that.";
+
+		giveObject(r_supplyroom, o_zombie);
+		giveObject(r_supplyroom, o_door1);
 	}
 	
 }

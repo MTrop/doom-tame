@@ -7,7 +7,6 @@ object archetype o_allobjects
 	init()
 	{
 		examined = false;
-		browsed = false;
 	}
 	
 	// Called on first examine.
@@ -60,7 +59,7 @@ object o_surroundings named "surroundings", "room"
 }
 
 // Add to player. Surrogate for "Status" with "examine"
-object o_self named "self", "myself", "doomguy"
+object o_self named "self", "myself", "doomguy", "me"
 {
 	onAction(a_examine)
 	{
@@ -75,5 +74,6 @@ object o_self named "self", "myself", "doomguy"
 }
 
 #include "objects/items.tame"
+#include "objects/weapons.tame"
 #include "objects/monsters.tame"
 #include "objects/doors.tame"

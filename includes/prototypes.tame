@@ -31,7 +31,7 @@ player p_doomguy;
 // ==========================
 
 object archetype o_allobjects;
-
+object archetype o_healthobject;
 object archetype o_allkeys;
 object archetype o_allweapons;
 

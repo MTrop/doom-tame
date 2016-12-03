@@ -51,7 +51,17 @@ world
 
 	onAction(a_think)
 	{
+		local monsterDidSomething = false;
+		if (playerCanAccessObject(player, o_zombie))
+		{
+			queueActionObject(a_monsterthink, o_zombie);
+			monsterDidSomething = true;
+		}
+		
 		// TODO: Finish this!
+		
+		if (monsterDidSomething)
+			queueAction(a_checkdeath);
 	}
 
 	onAction(a_gameover)
@@ -63,7 +73,6 @@ world
 	afterRequest()
 	{
 		queueAction(a_think);
-		queueAction(a_checkdeath);
 	}
 	
 }
@@ -74,6 +83,8 @@ player p_doomguy
 	{
 		health = 100;
 		berserk = false;
+		godmode = false;
+		cheater = false;
 		
 		// Set up objects.
 		giveObject(p_doomguy, o_pistol);
@@ -113,26 +124,27 @@ player p_doomguy
 			textln("You examine your inventory.");
 			browse(player);
 		}
+		textln("");
+		queueAction(a_status);
 	}
 	
 	onAction(a_status)
 	{
 		text("Your health is at "+health+"% - ");
 		if (health <= 25)
-			textln("Not good. Gotta find some medicine.");
+			textln("You're probably gonna die soon without aid.");
 		else if (health <= 50)
-			textln("You could probably do better.");
+			textln("Not good. Gotta find some medicine.");
 		else if (health <= 75)
-			textln("Just a scratch or two.");
+			textln("You could probably do better.");
 		else if (health < 100)
-			textln("Doing fine.");
+			textln("Just a scratch or two.");
 		else if (health == 100)
 			textln("As fit as a fiddle!");
 		else
 			textln("You feel AMAZING!");
 		if (berserk)
 			textln("You are also BERZERK! HIT SOMEBODY!");
-		queueAction(a_inventory);
 	}
 
 	onAction(a_die)

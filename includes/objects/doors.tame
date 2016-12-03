@@ -7,7 +7,6 @@ object archetype o_everydoor : o_allobjects
 	init()
 	{
 		examined = false;
-		browsed = false;
 		locked = false;
 		tryopen = 0;
 	}
@@ -69,6 +68,11 @@ object archetype o_everydoor : o_allobjects
 		textln("It's already closed. Good job!");
 	}
 	
+	onActionWithOther(a_use)
+	{
+		textln("That doesn't look like it'll work.");
+	}
+
 }
 
 // Red Door, to Main Hall
@@ -77,7 +81,6 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 	init()
 	{
 		examined = false;
-		browsed = false;
 		locked = true;
 	}
 
@@ -138,10 +141,8 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 	
 	onRoomBrowse()
 	{
-		if(!browsed)
+		if (!examined)
 			textln("There's a door here, lined with red markings.");
-		else if (!examined)
-			textln("There's a red door here.");
 		else
 			textln("The red door to the main hall is here.");
 	}
@@ -149,23 +150,21 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 }
 
 // Red Door, to Entryway
-object o_reddoor1 : o_reddoor0 named "door", "red door", "door with red markings", "door with the red markings"
+object o_reddoor1 : o_everydoor named "door", "red door", "door with red markings", "door with the red markings"
 {
 	init()
 	{
 		examined = true;
-		browsed = true;
 		locked = false;
 		addObjectName(o_reddoor1, "security door");
-		addObjectName(o_reddoor1, "main hall door");
-		addObjectName(o_reddoor1, "door to main hall");
-		addObjectName(o_reddoor1, "door to the main hall");
+		addObjectName(o_reddoor1, "entryway door");
+		addObjectName(o_reddoor1, "door to entryway");
+		addObjectName(o_reddoor1, "door to the entryway");
 	}
 
 	procedure("ExamineAlways")
 	{
-		textln("It's the red door to the Main Hall.");
-		textln("A sign on the door reads, \"Security Clearance Required\".");
+		textln("It's the red door to the Entryway.");
 	}
 
 	procedure("GoToNextRoom")
@@ -190,15 +189,61 @@ object o_reddoor1 : o_reddoor0 named "door", "red door", "door with red markings
 // Door to supply room.
 object o_door0 : o_everydoor named "door", "small door"
 {
+	procedure("GoToNextRoom")
+	{
+		examined = true;
+		setRoom(r_supplyroom);
+		queueAction(a_whereami);
+		queueAction(a_description);
+	}
 	
+	procedure("ExamineFirst")
+	{
+		textln("A small, featureless door with a plate that says \"PUSH\".");
+		textln("A sign on the door reads, \"Supply Room\".");
+		addObjectName(o_door0, "supply room door");
+		addObjectName(o_door0, "door to supply room");
+		addObjectName(o_door0, "door to the supply room");
+	}
+
+	procedure("ExamineNext")
+	{
+		textln("It's the door to the Supply Room.");
+	}
+
+	onRoomBrowse()
+	{
+		if (!examined)
+			textln("A small door is to the left.");
+		else
+			textln("The door to the supply room is here.");
+	}
+}
+
+// Door to entryway via supply room.
+object o_door1 : o_everydoor named "door", "small door", "entryway door", "door to entryway", "door to the entryway"
+{
+	procedure("GoToNextRoom")
+	{
+		examined = true;
+		setRoom(r_entryway);
+		queueAction(a_whereami);
+		queueAction(a_description);
+	}
+
+	procedure("ExamineAlways")
+	{
+		textln("It's the door to the Entryway. You came through here.");
+	}
+
+	onRoomBrowse()
+	{
+		textln("The small door back to the entryway is here.");
+	}
+
 }
 
 /*
-object o_door1;
-
-object o_reddoor0;
-object o_reddoor1;
-
 object o_door2;
 object o_door3;
 
