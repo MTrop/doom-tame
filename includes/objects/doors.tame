@@ -187,7 +187,7 @@ object o_reddoor1 : o_everydoor named "door", "red door", "door with red marking
 }
 
 // Door to supply room.
-object o_door0 : o_everydoor named "door", "small door"
+object o_supplydoor0 : o_everydoor named "door", "small door"
 {
 	procedure("GoToNextRoom")
 	{
@@ -221,7 +221,7 @@ object o_door0 : o_everydoor named "door", "small door"
 }
 
 // Door to entryway via supply room.
-object o_door1 : o_everydoor named "door", "small door", "entryway door", "door to entryway", "door to the entryway"
+object o_supplydoor1 : o_everydoor named "door", "small door", "entryway door", "door to entryway", "door to the entryway"
 {
 	procedure("GoToNextRoom")
 	{

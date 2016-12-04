@@ -60,7 +60,7 @@ room r_entryway : r_allrooms
 			"You find yourself at the mouth of the beast - an abandoned "+
 			"installation on Mars owned by Union Aerospace Corporation. ";
 		giveObject(r_entryway, o_medikit);
-		giveObject(r_entryway, o_door0);
+		giveObject(r_entryway, o_supplydoor0);
 		giveObject(r_entryway, o_reddoor0);
 	}
 
@@ -92,8 +92,8 @@ room r_supplyroom : r_allrooms
 			"You are in a supply room off of the entryway. Cleaning "+
 			"tools and chemicals litter the floor. There's probably something ironic about that.";
 
+		giveObject(r_supplyroom, o_supplydoor1);
 		giveObject(r_supplyroom, o_zombie);
-		giveObject(r_supplyroom, o_door1);
 	}
 	
 }

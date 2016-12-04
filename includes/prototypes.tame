@@ -62,8 +62,8 @@ object o_bfg;
 // Doors
 object archetype o_everydoor;
 
-object o_door0;
-object o_door1;
+object o_supplydoor0;
+object o_supplydoor1;
 
 object o_reddoor0;
 object o_reddoor1;
