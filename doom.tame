@@ -223,6 +223,12 @@ player p_doomguy
 
 	onForbiddenAction()
 	{
-		textln("You can't do that, here.");
+		textln("I can't do that.");
 	}
+	
+	onRoomForbiddenAction()
+	{
+		textln("You can't do that here.");
+	}
+
 }
