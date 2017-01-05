@@ -25,16 +25,19 @@ world
 	init()
 	{
 		textln("The nightmare begins.\n");
+	}
+
+	afterModuleInit()
+	{
 		// add surrogates.
 		giveObject(world, o_surroundings);
-
 		// world setup.
 		setPlayer(p_doomguy);
-		setRoom(r_entryway);
+		setRoom(p_doomguy, r_entryway);
 		queueAction(a_whereami);
 		queueAction(a_description);
 	}
-
+	
 	onAction(a_quit)
 	{
 		local x = random(4);

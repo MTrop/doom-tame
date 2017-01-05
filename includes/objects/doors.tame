@@ -113,7 +113,7 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 
 	procedure("GoToNextRoom")
 	{
-		setRoom(r_mainhall);
+		setRoom(player, r_mainhall);
 		queueAction(a_whereami);
 		queueAction(a_description);
 	}
@@ -169,7 +169,7 @@ object o_reddoor1 : o_everydoor named "door", "red door", "door with red marking
 
 	procedure("GoToNextRoom")
 	{
-		setRoom(r_entryway);
+		setRoom(player, r_entryway);
 		queueAction(a_whereami);
 		queueAction(a_description);
 	}
@@ -192,7 +192,7 @@ object o_supplydoor0 : o_everydoor named "door", "small door"
 	procedure("GoToNextRoom")
 	{
 		examined = true;
-		setRoom(r_supplyroom);
+		setRoom(player, r_supplyroom);
 		queueAction(a_whereami);
 		queueAction(a_description);
 	}
@@ -201,9 +201,9 @@ object o_supplydoor0 : o_everydoor named "door", "small door"
 	{
 		textln("A small, featureless door with a plate that says \"PUSH\".");
 		textln("A sign on the door reads, \"Supply Room\".");
-		addObjectName(o_door0, "supply room door");
-		addObjectName(o_door0, "door to supply room");
-		addObjectName(o_door0, "door to the supply room");
+		addObjectName(o_supplydoor0, "supply room door");
+		addObjectName(o_supplydoor0, "door to supply room");
+		addObjectName(o_supplydoor0, "door to the supply room");
 	}
 
 	procedure("ExamineNext")
@@ -226,7 +226,7 @@ object o_supplydoor1 : o_everydoor named "door", "small door", "entryway door", 
 	procedure("GoToNextRoom")
 	{
 		examined = true;
-		setRoom(r_entryway);
+		setRoom(player, r_entryway);
 		queueAction(a_whereami);
 		queueAction(a_description);
 	}
