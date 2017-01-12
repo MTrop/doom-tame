@@ -1,0 +1,163 @@
+
+/*****************************************************************************
+ * DOOMGUY!
+ ****************************************************************************/
+player p_doomguy
+{
+	init()
+	{
+		health = 100;
+		berserk = false;
+		godmode = false;
+		cheater = false;
+		
+		// equipped weapon
+		equippedWeapon = false;
+		equippedWeaponName = false;
+		equippedWeaponSound = false;
+		equippedAttackDice = 0;
+		equippedAttackDiceSize = 0;
+		
+		// Set up objects.
+		giveObject(p_doomguy, o_pistol);
+		giveObject(p_doomguy, o_self);
+	}
+	
+	procedure("BadAction")
+	{
+		local x = random(3);
+		if (x == 0)
+			textln("I don't understand.");
+		else if (x == 1)
+			textln("I don't know what you mean.");
+		else if (x == 2)
+			textln("I'm not sure I understand.");
+	}
+	
+	onAction(a_checkdeath)
+	{
+		if (health > 0)
+			end;
+		textln("You are dead.");
+		queueAction(a_gameover);
+	}
+
+	onAction(a_yell)
+	{
+		textln("In space, no one can hear you scream!");
+	}
+
+	onAction(a_inventory)
+	{
+		if (objectCount(player) == 0)
+			textln("You don't have anything.");
+		else
+		{
+			textln("You examine your inventory.");
+			browse(player);
+		}
+		textln("");
+		queueAction(a_status);
+	}
+	
+	onAction(a_status)
+	{
+		text("Your health is at "+health+"% - ");
+		if (health <= 25)
+			textln("You're probably gonna die soon without aid.");
+		else if (health <= 50)
+			textln("Not good. Gotta find some medicine.");
+		else if (health <= 75)
+			textln("You could probably do better.");
+		else if (health < 100)
+			textln("Just a scratch or two.");
+		else if (health == 100)
+			textln("As fit as a fiddle!");
+		else
+			textln("You feel AMAZING!");
+		if (berserk)
+			textln("You are also BERZERK! HIT SOMEBODY!");
+	}
+
+	onAction(a_die)
+	{
+		textln("You decide to end it all.");
+		health = 0;
+	}
+	
+	onAmbiguousAction()
+	{
+		info("There are a lot of things here that are called that. Be more specific.");
+	}
+	
+	onIncompleteAction(a_examine)
+	{
+		info("WHAT should you examine?");
+	}
+
+	onIncompleteAction(a_use)
+	{
+		info("WHAT should you use (and maybe WITH something)?");
+	}
+
+	onIncompleteAction(a_take)
+	{
+		info("WHAT should you take?");
+	}
+
+	onIncompleteAction(a_punch)
+	{
+		info("WHAT should you punch?");
+	}
+
+	onIncompleteAction()
+	{
+		info("You should be more specific.");
+	}
+
+	onFailedAction(a_take)
+	{
+		textln("You can't take that.");
+	}
+
+	onFailedAction(a_close)
+	{
+		textln("You can't close that.");
+	}
+
+	onFailedAction(a_open)
+	{
+		textln("Try as you might, you can't open it.");
+	}
+
+	onFailedAction(a_use)
+	{
+		textln("You can't USE that, but you might be able to do other things with it.");
+	}
+
+	onFailedAction()
+	{
+		textln("You can't do that.");
+	}
+
+	onBadAction()
+	{
+		call("BadAction");
+	}
+
+	onUnknownAction()
+	{
+		call("BadAction");
+	}
+
+	onForbiddenAction()
+	{
+		textln("I can't do that.");
+	}
+	
+	onRoomForbiddenAction()
+	{
+		textln("You can't do that here.");
+	}
+
+}
