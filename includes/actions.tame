@@ -10,7 +10,7 @@ action general a_whereami;
 action general a_description;
 action general a_checkdeath;
 action general a_gameover;
-action general a_status
+action general a_status;
 
 action transitive a_monsterthink; // for "AI"
 
@@ -28,8 +28,8 @@ action transitive a_take named "pick up", "pickup", "take", "t";
 action transitive a_open named "open", "o";
 action transitive a_close named "close", "c";
 action transitive a_converse named "talk to", "speak to", "converse with";
-action transitive a_equip named "equip", "u"
-action transitive a_shoot named "shoot", "fire at", "s"
+action transitive a_equip named "equip", "u";
+action transitive a_shoot named "shoot", "fire at", "s";
 
 action ditransitive a_use named "use", "u" conjoins "with", "and", "on";
 

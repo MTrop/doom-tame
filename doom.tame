@@ -60,17 +60,9 @@ world
 
 	onAction(a_think)
 	{
-		local monsterDidSomething = false;
-		if (playerCanAccessObject(player, o_zombie))
-		{
-			queueActionObject(a_monsterthink, o_zombie);
-			monsterDidSomething = true;
-		}
-		
-		// TODO: Finish this!
-		
-		if (monsterDidSomething)
-			queueAction(a_checkdeath);
+		// Call "think" on monsters.
+		queueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
+		queueAction(a_checkdeath);
 	}
 
 	onAction(a_gameover)

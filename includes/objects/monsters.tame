@@ -34,6 +34,13 @@ object archetype o_monsters : o_allobjects
 		// Do nothing. Override.
 	}
 
+	// Called when "AI" says to attack, but player is already dead.
+	// Does not set anything. Just flavor.
+	procedure("MonsterAbortAttack")
+	{
+		// Do nothing. Override.
+	}
+
 	// Called when the monster dies.
 	// Does not set anything. Just flavor.
 	procedure("MonsterDie")
@@ -115,8 +122,13 @@ object archetype o_monsters : o_allobjects
 			call("MonsterIdle");
 		else
 		{
-			call("MonsterAttack");
-			call("ResetReaction");
+			if (player.health > 0)
+			{
+				call("MonsterAttack");
+				call("ResetReaction");
+			}
+			else
+				call("MonsterAbortAttack");
 		}
 	}
 	
@@ -234,6 +246,12 @@ object o_zombie : o_monsters named "zombie", "the zombie" tagged "monster"
 	}
 
 	// --> Override
+	procedure("MonsterAbortAttack")
+	{
+		textln("The zombie goes to attack, but notices that you look just as dead. Oh well.");
+	}
+	
+	// --> Override
 	procedure("MonsterAttack")
 	{
 		if (random(3) < 2) // 66% chance
@@ -306,9 +324,9 @@ object o_zombie : o_monsters named "zombie", "the zombie" tagged "monster"
 	
 }
 
-object o_sergeant : o_monsters;
-object o_imp : o_monsters;
-object o_cacodemon : o_monsters;
-object o_cyberdemon : o_monsters;
+object o_sergeant : o_monsters named "sergeant", "the sergeant", "zombie sergeant", "the zombie sergeant" tagged "monster";
+object o_imp : o_monsters named "imp", "the imp" tagged "monster";
+object o_cacodemon : o_monsters named "cacodemon", "caco", "the cacodemon", "the caco", tagged "monster";
+object o_cyberdemon : o_monsters named "cyberdemon", "the cyberdemon" tagged "monster";
 
 
