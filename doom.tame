@@ -32,6 +32,9 @@ world
 	{
 		// add surrogates.
 		giveObject(world, o_surroundings);
+		// Set up objects.
+		giveObject(p_doomguy, o_pistol);
+		giveObject(p_doomguy, o_self);
 		// world setup.
 		setPlayer(p_doomguy);
 		setRoom(p_doomguy, r_entryway);
@@ -41,7 +44,9 @@ world
 	
 	afterRequest()
 	{
-		queueAction(a_think);
+		// Call "think" on monsters.
+		queueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
+		queueAction(a_checkdeath);
 	}
 	
 	onAction(a_quit)
@@ -56,13 +61,6 @@ world
 		else if (x == 3)
 			textln("Go ahead and leave. See if I care.");
 		quit;
-	}
-
-	onAction(a_think)
-	{
-		// Call "think" on monsters.
-		queueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
-		queueAction(a_checkdeath);
 	}
 
 	onAction(a_gameover)

@@ -141,30 +141,29 @@ object archetype o_monsters : o_allobjects
 		textln("But you can't. Sorry.");
 	}
 	
-	// Default Pistol Combat.
-	onActionWith(a_use, o_pistol)
+	// Default Combat.
+	onAction(a_shoot)
 	{
 		if (dead)
 		{
 			textln("It's already dead. Why waste the ammo?");
 			end;
 		}
-	
-		textln("You fire your pistol at the "+name+"!");
 		
-		local x = random(3);
-		if (x == 0)
-			textln("BANG! BANG!");
-		else if (x == 1)
-			textln("BLAO! POP!");
-		else if (x == 2)
-			textln("BLAT! BLAT!");
+		if (!player.equippedWeapon)
+		{
+			textln("I have nothing equipped. Maybe I could punch them?");
+			end;
+		}
+	
+		textln("You fire your "+player.equippedWeaponName+" at the "+name+"!");
+		textln(player.equippedWeaponSound);
 		
 		local dmg = 0;
-		x = o_pistol.attackDice;
+		local x = player.equippedAttackDice;
 		while (x > 0)
 		{
-			dmg = dmg + (1 + random(o_pistol.attackDiceSize));
+			dmg = dmg + (1 + random(player.equippedAttackDiceSize));
 			x = x - 1;
 		}
 		
@@ -174,37 +173,106 @@ object archetype o_monsters : o_allobjects
 		call("CheckMonsterDead");
 	}
 
-	// Default Shotgun Combat.
-	onActionWith(a_use, o_shotgun)
+	// Default Combat with fists.
+	onAction(a_punch)
 	{
-		if (dead)
+		if (superdead)
 		{
-			textln("It's already dead. Why waste the ammo?");
+			local x = random(3);
+			if (x == 0)
+				textln("That thing's already a runny paste. I don't think it needs punching.");
+			else if (x == 1)
+				textln("You punch what's left of the "+name+". Yup. Still dead.");
+			else if (x == 2)
+				textln("Punch, punch, punch. You really need to get those aggressions out in a better way.");
 			end;
 		}
 
-		textln("You fire your shotgun at the "+name+"!");
-		
-		local x = random(2);
-		if (x == 0)
-			textln("BLAM! ...*click-click*");
-		else if (x == 1)
-			textln("BLAO! ...*click-click*");
-		
-		local dmg = 0;
-		x = o_shotgun.attackDice;
-		while (x > 0)
+		if (dead)
 		{
-			dmg = dmg + (1 + random(o_shotgun.attackDiceSize));
-			x = x - 1;
+			local x = random(3);
+			if (x == 0)
+				textln("Stop! Stop! It's already dead!");
+			else if (x == 1)
+				textln("It's not getting any deader.");
+			else if (x == 2)
+				textln("Punching a corpse is easy on the knuckles, but aren't there better things to do?");
+			end;
 		}
 		
-		health = clamp(health - dmg, 0, healthMax);
-		textln("You deal "+dmg+" damage to the "+name+"!");
+		local dmg = 0;
+
+		if (player.berserk)
+		{
+			local x = random(3);
+			if (x == 0)
+				textln("RRRGGGHHHH!!!! IT'S STUPID! IT'S GONNA BE STUPID AND DEAD!!");
+			else if (x == 1)
+				textln("HERE COMES THE NIGHT TRAIN!! CHOO-CHOO CHA-BOOGIE!");
+			else if (x == 2)
+				textln("KNOCK KNOCK! WHO'S THERE?! ME!! ME ME ME ME ME");
+			else if (x == 2)
+				textln("RIP AND TEAR! RIP AND TEAR YOUR GUTS!!");
+				
+			x = random(3);
+			if (x == 0)
+				textln("BLAMMO!");
+			else if (x == 1)
+				textln("POW POW POW!");
+			else if (x == 2)
+				textln("AAAA TATATATATATATATATATATATATA!!");
+
+			dmg = 75 + random(50);
+			
+			health = health - dmg;
+			text("You deal "+dmg+" damage to the "+name+"! ");
+
+			x = random(2);
+			if (x == 0)
+				textln("RIP AND TEAR!");
+			else if (x == 1)
+				textln("OHHH YEAAAHHHH!!");
+		}
+		else
+		{
+			local x = random(3);
+			if (x == 0)
+				textln("You unleash a wimpy pummeling on the "+name+"!");
+			else if (x == 1)
+				textln("Here comes the airplane! If it were a fist! Look out, "+name+"!");
+			else if (x == 2)
+				textln("First the wind up, then the pitch! Take that, "+name+"!");
+			
+			x = random(3);
+			if (x == 0)
+				textln("BONK!");
+			else if (x == 1)
+				textln("BIFF!");
+			else if (x == 2)
+				textln("ZOK!");
+			
+			x = 3;
+			while (x > 0)
+			{
+				dmg = dmg + (1 + random(4));
+				x = x - 1;
+			}
+			
+			health = health - dmg;
+			text("You deal "+dmg+" damage to the "+name+"! ");
+
+			x = random(3);
+			if (x == 0)
+				textln("Good for you!");
+			else if (x == 1)
+				textln("I'm sure it was worth it.");
+			else if (x == 2)
+				textln("Great job, kiddo.");
+		}
 		
 		call("CheckMonsterDead");
 	}
-	
+
 }
 
 // ==========================
@@ -326,7 +394,7 @@ object o_zombie : o_monsters named "zombie", "the zombie" tagged "monster"
 
 object o_sergeant : o_monsters named "sergeant", "the sergeant", "zombie sergeant", "the zombie sergeant" tagged "monster";
 object o_imp : o_monsters named "imp", "the imp" tagged "monster";
-object o_cacodemon : o_monsters named "cacodemon", "caco", "the cacodemon", "the caco", tagged "monster";
+object o_cacodemon : o_monsters named "cacodemon", "caco", "the cacodemon", "the caco" tagged "monster";
 object o_cyberdemon : o_monsters named "cyberdemon", "the cyberdemon" tagged "monster";
 
 

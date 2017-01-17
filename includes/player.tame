@@ -17,10 +17,6 @@ player p_doomguy
 		equippedWeaponSound = false;
 		equippedAttackDice = 0;
 		equippedAttackDiceSize = 0;
-		
-		// Set up objects.
-		giveObject(p_doomguy, o_pistol);
-		giveObject(p_doomguy, o_self);
 	}
 	
 	procedure("BadAction")
