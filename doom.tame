@@ -10,8 +10,8 @@ module
 	email = "mtropiano@gmail.com";
 	twitter = "@TheRealMTrop";
 	website = "http://mtrop.net";
-	origin_locale = "en_US";
-	origin_language = "eng";
+	country = "us";
+	language = "enu";
 	version = "1.0";
 }
 
