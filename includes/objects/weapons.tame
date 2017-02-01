@@ -36,7 +36,7 @@ object archetype o_allweapons : o_allobjects
 }
 
 // Fists
-object o_fists named "fists", "fist"
+object o_fists named "fists", "fist" uses determiners "my"
 {
 	onAction(a_examine)
 	{
@@ -48,7 +48,7 @@ object o_fists named "fists", "fist"
 }
 
 // Pistol
-object o_pistol : o_allweapons named "pistol", "the pistol", "my pistol"
+object o_pistol : o_allweapons named "pistol" uses determiners "the", "my"
 {
 	init()
 	{
@@ -79,7 +79,7 @@ object o_pistol : o_allweapons named "pistol", "the pistol", "my pistol"
 }
 
 // Shotgun
-object o_shotgun : o_allweapons named "shotgun", "the shotgun", "my shotgun"
+object o_shotgun : o_allweapons named "shotgun" uses determiners "the", "my"
 {
 	procedure("ExamineFirst")
 	{
@@ -117,7 +117,7 @@ object o_shotgun : o_allweapons named "shotgun", "the shotgun", "my shotgun"
 
 // Rocket Launcher
 object o_rocketlauncher : o_allweapons 
-	named "rocket launcher", "the rocket launcher", "my rocket launcher", "rockets"
+	named "rocket launcher", "rockets" uses determiners "the", "my"
 {
 	procedure("ExamineFirst")
 	{
@@ -154,10 +154,7 @@ object o_rocketlauncher : o_allweapons
 }
 
 // BFG!
-object o_bfg : o_allweapons 
-	named "BFG", "the BFG", "my BFG", "BFG9000", "the BFG9000", "my BFG9000",
-	"BFG 9000", "the BFG 9000", "my BFG 9000", "big fucking gun", "the big fucking gun", "my big fucking gun",
-	"BFG9k", "the BFG9k", "my BFG9k"
+object o_bfg : o_allweapons named "BFG", "BFG9000", "BFG 9000", "big fucking gun", "BFG9k" uses determiners "the", "my"
 {
 	procedure("ExamineAlways")
 	{

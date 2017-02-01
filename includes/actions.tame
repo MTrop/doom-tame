@@ -30,7 +30,7 @@ action transitive a_converse named "talk to", "speak to", "converse with";
 action transitive a_equip named "equip", "u";
 action transitive a_shoot named "shoot", "fire at", "s";
 
-action ditransitive a_use named "use", "u" conjoins "with", "and", "on";
+action ditransitive a_use named "use", "u" uses conjunctions "with", "and", "on";
 
 // CHEATS!!!
 action general a_godmode named "iddqd";

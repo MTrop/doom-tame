@@ -278,7 +278,7 @@ object archetype o_monsters : o_allobjects
 // ==========================
 // Zombie
 // ==========================
-object o_zombie : o_monsters named "zombie", "the zombie" tagged "monster"
+object o_zombie : o_monsters named "zombie" uses determiners "the" tagged "monster"
 {
 	init()
 	{
@@ -392,9 +392,9 @@ object o_zombie : o_monsters named "zombie", "the zombie" tagged "monster"
 	
 }
 
-object o_sergeant : o_monsters named "sergeant", "the sergeant", "zombie sergeant", "the zombie sergeant" tagged "monster";
-object o_imp : o_monsters named "imp", "the imp" tagged "monster";
-object o_cacodemon : o_monsters named "cacodemon", "caco", "the cacodemon", "the caco" tagged "monster";
-object o_cyberdemon : o_monsters named "cyberdemon", "the cyberdemon" tagged "monster";
+object o_sergeant : o_monsters named "sergeant", "zombie sergeant" uses determiners "the" tagged "monster";
+object o_imp : o_monsters named "imp" uses determiners "the" tagged "monster";
+object o_cacodemon : o_monsters named "cacodemon", "caco" uses determiners "the" tagged "monster";
+object o_cyberdemon : o_monsters named "cyberdemon" uses determiners "the" tagged "monster";
 
 

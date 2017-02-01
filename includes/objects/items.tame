@@ -32,7 +32,7 @@ object archetype o_healthobject : o_allobjects
 }
 
 // Stimpak
-object o_stimpak : o_healthobject named "stimpak"
+object o_stimpak : o_healthobject named "stimpak" uses determiners "the"
 {
 	// --> Override
 	procedure("DoHealing")
@@ -72,7 +72,7 @@ object o_stimpak : o_healthobject named "stimpak"
 }
 
 // Medikit
-object o_medikit : o_healthobject named "medikit"
+object o_medikit : o_healthobject named "medikit" uses determiners "the"
 {
 	// --> Override
 	procedure("DoHealing")
@@ -112,7 +112,7 @@ object o_medikit : o_healthobject named "medikit"
 }
 
 // Berserk Pack
-object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", "berserker pack"
+object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", "berserker pack" uses determiners "the"
 {
 	// --> Override
 	procedure("DoHealing")
@@ -201,7 +201,7 @@ object o_redkey : o_allkeys named "key", "keycard", "red key", "red keycard", "k
 }
 
 // Blue Key
-object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard"
+object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard" uses determiners "the"
 {
 	procedure("ExamineFirst")
 	{
@@ -237,7 +237,7 @@ object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard"
 }
 
 // Yellow Key
-object o_yellowkey : o_allkeys named "key", "keycard", "yellow key", "yellow keycard"
+object o_yellowkey : o_allkeys named "key", "keycard", "yellow key", "yellow keycard" uses determiners "the"
 {
 	procedure("ExamineFirst")
 	{

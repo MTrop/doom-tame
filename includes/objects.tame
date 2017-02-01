@@ -50,7 +50,7 @@ object archetype o_allobjects
 // ==========================
 
 // Add to player - surrogate for "look" with "examine"
-object o_surroundings named "surroundings", "room"
+object o_surroundings named "surroundings", "room" uses determiners "my", "the"
 {
 	onAction(a_examine)
 	{
