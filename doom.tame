@@ -23,33 +23,29 @@ module
 
 world
 {
-	init()
+	AfterModuleInit()
 	{
 		textln("The nightmare begins.\n");
-	}
-
-	afterModuleInit()
-	{
 		// add surrogates.
-		giveObject(world, o_surroundings);
+		GiveObject(world, o_surroundings);
 		// Set up objects.
-		giveObject(p_doomguy, o_pistol);
-		giveObject(p_doomguy, o_self);
+		GiveObject(p_doomguy, o_pistol);
+		GiveObject(p_doomguy, o_self);
 		// world setup.
-		setPlayer(p_doomguy);
-		setRoom(p_doomguy, r_entryway);
-		queueAction(a_whereami);
-		queueAction(a_description);
+		SetPlayer(p_doomguy);
+		SetRoom(p_doomguy, r_entryway);
+		QueueAction(a_whereami);
+		QueueAction(a_description);
 	}
 	
-	afterRequest()
+	AfterRequest()
 	{
 		// Call "think" on monsters.
-		queueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
-		queueAction(a_checkdeath);
+		QueueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
+		QueueAction(a_checkdeath);
 	}
 	
-	onAction(a_quit)
+	OnAction(a_quit)
 	{
 		local x = random(4);
 		if (x == 0)
@@ -63,7 +59,7 @@ world
 		quit;
 	}
 
-	onAction(a_gameover)
+	OnAction(a_gameover)
 	{
 		textln("Game Over! You lose.");
 		quit;
