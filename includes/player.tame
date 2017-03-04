@@ -35,7 +35,7 @@ player p_doomguy
 		if (health > 0)
 			end;
 		textln("You are dead.");
-		queueAction(a_gameover);
+		QueueAction(a_gameover);
 	}
 
 	onAction(a_yell)
@@ -50,10 +50,10 @@ player p_doomguy
 		else
 		{
 			textln("You examine your inventory.");
-			browse(player);
+			Browse(player);
 		}
 		textln("");
-		queueAction(a_status);
+		QueueAction(a_status);
 	}
 	
 	onAction(a_status)
@@ -138,12 +138,12 @@ player p_doomguy
 
 	onBadAction()
 	{
-		call("BadAction");
+		Call("BadAction");
 	}
 
 	onUnknownAction()
 	{
-		call("BadAction");
+		Call("BadAction");
 	}
 
 	onForbiddenAction()

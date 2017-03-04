@@ -5,30 +5,32 @@
 
 object archetype o_allweapons : o_allobjects
 {
-	init()
+	procedure("EquipMe")
 	{
-		// How many die rolls.
-		attackDice = 1;
-		// Die size.
-		attackDiceSize = 6;
+		textln("THIS MUST BE OVERRIDDEN!!!!");
 	}
-
-	onAction(a_use)
+	
+	OnAction(a_equip)
+	{
+		Call("EquipMe");
+	}
+	
+	OnAction(a_use)
 	{
 		textln("You really need a target for this.");
 	}
 
-	onAction(a_shoot)
+	OnAction(a_shoot)
 	{
 		textln("You really need a target for this. What're you gonna do, shoot yourself?");
 	}
 
-	onActionWithOther(a_use)
+	OnActionWithOther(a_use)
 	{
 		textln("Might not be a good idea to shoot that.");
 	}
 
-	onActionWithOther(a_shoot)
+	OnActionWithOther(a_shoot)
 	{
 		textln("Might not be a good idea to shoot that.");
 	}
@@ -36,9 +38,10 @@ object archetype o_allweapons : o_allobjects
 }
 
 // Fists
+// Technically not a weapon.
 object o_fists named "fists", "fist" uses determiners "my"
 {
-	onAction(a_examine)
+	OnAction(a_examine)
 	{
 		if (player.berserk)
 			textln("Who's a man and a half? YOU'RE a man and a half! A BERSERKER PACKIN' MAN AND A HALF!");
@@ -61,14 +64,14 @@ object o_pistol : o_allweapons named "pistol" uses determiners "the", "my"
 		textln("Your trusty sidearm. Standard issue. Never leave home without it!");
 	}
 
-	onAction(a_take)
+	OnAction(a_take)
 	{
-		if (hasObject(player, o_pistol))
+		if (HasObject(player, o_pistol))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the pistol.");
-			giveObject(player, o_pistol);
+			GiveObject(player, o_pistol);
 		}
 	}
 
@@ -81,6 +84,10 @@ object o_pistol : o_allweapons named "pistol" uses determiners "the", "my"
 // Shotgun
 object o_shotgun : o_allweapons named "shotgun" uses determiners "the", "my"
 {
+	procedure("EquipMe")
+	{
+	}
+
 	procedure("ExamineFirst")
 	{
 		textln("It's a shotgun. It shoots things. Small things.");
@@ -92,14 +99,14 @@ object o_shotgun : o_allweapons named "shotgun" uses determiners "the", "my"
 		textln("It's a shotgun. It shoots things. Small things.");
 	}
 	
-	onAction(a_take)
+	OnAction(a_take)
 	{
-		if (hasObject(player, o_shotgun))
+		if (HasObject(player, o_shotgun))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the shotgun. A nice upgrade.");
-			giveObject(player, o_shotgun);
+			GiveObject(player, o_shotgun);
 		}
 	}
 
@@ -130,14 +137,14 @@ object o_rocketlauncher : o_allweapons
 		textln("It's a rocket launcher. For bigger game and demons.");
 	}
 	
-	onAction(a_take)
+	OnAction(a_take)
 	{
-		if (hasObject(player, o_rocketlauncher))
+		if (HasObject(player, o_rocketlauncher))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the rocket launcher. How can you hold all this stuff?");
-			giveObject(player, o_rocketlauncher);
+			GiveObject(player, o_rocketlauncher);
 		}
 	}
 
@@ -172,14 +179,14 @@ object o_bfg : o_allweapons named "BFG", "BFG9000", "BFG 9000", "big fucking gun
 			textln("For the biggest of baddies and the quickest of paint jobs. Hope you like red.");
 	}
 
-	onAction(a_take)
+	OnAction(a_take)
 	{
-		if (hasObject(player, o_bfg))
+		if (HasObject(player, o_bfg))
 			textln("You already have this.");
 		else
 		{
 			textln("You take the BFG 9000. A marine's best friend.");
-			giveObject(player, o_bfg);
+			GiveObject(player, o_bfg);
 		}
 	}
 
