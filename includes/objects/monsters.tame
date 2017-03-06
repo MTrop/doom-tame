@@ -79,7 +79,7 @@ object archetype o_monsters : o_allobjects
 			textln("It's practically unscathed.");
 	}
 
-	// Called when "AI" says to attack.
+	// Called when a monster is damaged. Sets "dead" state if it is dead.
 	procedure("CheckMonsterDead")
 	{
 		local percent = health * 100 / healthMax;
@@ -216,7 +216,7 @@ object archetype o_monsters : o_allobjects
 				
 			x = random(3);
 			if (x == 0)
-				textln("BLAMMO!");
+				textln("Ker-POOOWWWWWWW!");
 			else if (x == 1)
 				textln("POW POW POW!");
 			else if (x == 2)

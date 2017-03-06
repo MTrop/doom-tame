@@ -5,36 +5,34 @@
 
 object archetype o_allweapons : o_allobjects
 {
-	procedure("EquipMe")
+	procedure("Equip")
 	{
-		textln("THIS MUST BE OVERRIDDEN!!!!");
+		textln("!!! o_allweapons:procedure(\"Equip\") must be overridden !!!");
 	}
 	
 	OnAction(a_equip)
 	{
-		Call("EquipMe");
+		if (player.equippedWeapon === ContextIdentity())
+			textln("You already have this equipped.");
+		else
+			Call("Equip");
 	}
 	
 	OnAction(a_use)
 	{
-		textln("You really need a target for this.");
-	}
-
-	OnAction(a_shoot)
-	{
-		textln("You really need a target for this. What're you gonna do, shoot yourself?");
+		textln("You need to EQUIP this first!");
 	}
 
 	OnActionWithOther(a_use)
 	{
-		textln("Might not be a good idea to shoot that.");
+		textln("You need to EQUIP this!");
 	}
 
-	OnActionWithOther(a_shoot)
+	OnAction(a_shoot)
 	{
-		textln("Might not be a good idea to shoot that.");
+		textln("You really need a target for this. EQUIP it and SHOOT something!");
 	}
-	
+
 }
 
 // Fists
@@ -53,10 +51,13 @@ object o_fists named "fists", "fist" uses determiners "my"
 // Pistol
 object o_pistol : o_allweapons named "pistol" uses determiners "the", "my"
 {
-	init()
+	procedure("Equip")
 	{
-		attackDice = 3;
-		attackDiceSize = 6;
+		player.equippedWeapon = ContextIdentity();
+		player.equippedWeaponName = "pistol";
+		player.equippedWeaponSound = "POP POP!";
+		player.equippedAttackDice = 3;
+		player.equippedAttackDiceSize = 6;
 	}
 
 	procedure("ExamineAlways")
@@ -84,10 +85,15 @@ object o_pistol : o_allweapons named "pistol" uses determiners "the", "my"
 // Shotgun
 object o_shotgun : o_allweapons named "shotgun" uses determiners "the", "my"
 {
-	procedure("EquipMe")
+	procedure("Equip")
 	{
+		player.equippedWeapon = ContextIdentity();
+		player.equippedWeaponName = "shotgun";
+		player.equippedWeaponSound = "BLAM! *cha-chik*";
+		player.equippedAttackDice = 10;
+		player.equippedAttackDiceSize = 4;
 	}
-
+	
 	procedure("ExamineFirst")
 	{
 		textln("It's a shotgun. It shoots things. Small things.");
@@ -109,7 +115,7 @@ object o_shotgun : o_allweapons named "shotgun" uses determiners "the", "my"
 			GiveObject(player, o_shotgun);
 		}
 	}
-
+	
 	onPlayerBrowse()
 	{
 		textln("A shotgun.");
@@ -123,9 +129,17 @@ object o_shotgun : o_allweapons named "shotgun" uses determiners "the", "my"
 }
 
 // Rocket Launcher
-object o_rocketlauncher : o_allweapons 
-	named "rocket launcher", "rockets" uses determiners "the", "my"
+object o_rocketlauncher : o_allweapons named "rocket launcher", "rockets" uses determiners "the", "my"
 {
+	procedure("Equip")
+	{
+		player.equippedWeapon = ContextIdentity();
+		player.equippedWeaponName = "rocket launcher";
+		player.equippedWeaponSound = "Ka-FWOOMP!";
+		player.equippedAttackDice = 5;
+		player.equippedAttackDiceSize = 20;
+	}
+
 	procedure("ExamineFirst")
 	{
 		textln("It's a rocket launcher. For bigger game and demons.");
@@ -163,6 +177,15 @@ object o_rocketlauncher : o_allweapons
 // BFG!
 object o_bfg : o_allweapons named "BFG", "BFG9000", "BFG 9000", "big fucking gun", "BFG9k" uses determiners "the", "my"
 {
+	procedure("Equip")
+	{
+		player.equippedWeapon = ContextIdentity();
+		player.equippedWeaponName = "BFG 9000";
+		player.equippedWeaponSound = "Chkk-ZOOWWWMMFFFPP!";
+		player.equippedAttackDice = 20;
+		player.equippedAttackDiceSize = 100;
+	}
+
 	procedure("ExamineAlways")
 	{
 		text("It's the BFG 9000. ");

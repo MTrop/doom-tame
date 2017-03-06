@@ -25,15 +25,17 @@ world
 {
 	AfterModuleInit()
 	{
-		textln("The nightmare begins.\n");
+		// world setup.
+		SetPlayer(p_doomguy);
+		SetRoom(p_doomguy, r_entryway);
 		// add surrogates.
 		GiveObject(world, o_surroundings);
 		// Set up objects.
 		GiveObject(p_doomguy, o_pistol);
 		GiveObject(p_doomguy, o_self);
-		// world setup.
-		SetPlayer(p_doomguy);
-		SetRoom(p_doomguy, r_entryway);
+		CallFrom(o_pistol, "Equip");
+		
+		textln("The nightmare begins.\n");
 		QueueAction(a_whereami);
 		QueueAction(a_description);
 	}

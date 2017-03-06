@@ -42,6 +42,15 @@ object archetype o_allobjects
 		call("ExamineAlways");
 	}
 
+	onAction(a_equip)
+	{
+		textln("You can't equip that. It's not a weapon!");
+	}
+	
+	onAction(a_shoot)
+	{
+		textln("Not a good idea to shoot that.");
+	}
 }
 
 
@@ -69,6 +78,11 @@ object o_self named "self", "myself", "doomguy", "me"
 	onAction(a_shoot)
 	{
 		textln("Hmm. Maybe not.");
+	}
+
+	onAction(a_equip)
+	{
+		textln("You already have fists. DUH!");
 	}
 	
 }

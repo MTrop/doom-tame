@@ -52,6 +52,9 @@ player p_doomguy
 			textln("You examine your inventory.");
 			Browse(player);
 		}
+
+		if (equippedWeapon)
+			textln("\nYou have the "+equippedWeaponName+" equipped as your current weapon.");
 		textln("");
 		QueueAction(a_status);
 	}
@@ -88,32 +91,32 @@ player p_doomguy
 	
 	onIncompleteAction(a_examine)
 	{
-		info("WHAT should you examine?");
+		info("WHAT should you EXAMINE (or LOOK AT)?");
 	}
 
 	onIncompleteAction(a_use)
 	{
-		info("WHAT should you use (and maybe WITH something)?");
+		info("WHAT should you USE (and maybe WITH something)?");
+	}
+
+	onIncompleteAction(a_shoot)
+	{
+		info("WHAT should you SHOOT?");
 	}
 
 	onIncompleteAction(a_take)
 	{
-		info("WHAT should you take?");
+		info("WHAT should you TAKE?");
 	}
 
 	onIncompleteAction(a_punch)
 	{
-		info("WHAT should you punch?");
+		info("WHAT should you SHOOT?");
 	}
 
 	onIncompleteAction()
 	{
 		info("You should be more specific.");
-	}
-
-	onFailedAction(a_take)
-	{
-		textln("You can't take that.");
 	}
 
 	onFailedAction(a_close)
@@ -124,6 +127,16 @@ player p_doomguy
 	onFailedAction(a_open)
 	{
 		textln("Try as you might, you can't open it.");
+	}
+
+	onFailedAction(a_shoot)
+	{
+		textln("Not a good idea to shoot that.");
+	}
+
+	onFailedAction(a_take)
+	{
+		textln("You can't take that.");
 	}
 
 	onFailedAction(a_use)
