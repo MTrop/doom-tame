@@ -22,49 +22,49 @@ object archetype o_monsters : o_allobjects
 	
 	// Called when "AI" ticks down a reaction.
 	// Does not set anything. Just flavor.
-	procedure("MonsterIdle")
+	function monsterIdle()
 	{
 		// Do nothing. Override.
 	}
 	
 	// Called when "AI" says to attack.
 	// Should do something to the current player.
-	procedure("MonsterAttack")
+	function monsterAttack()
 	{
 		// Do nothing. Override.
 	}
 
 	// Called when "AI" says to attack, but player is already dead.
 	// Does not set anything. Just flavor.
-	procedure("MonsterAbortAttack")
+	function monsterAbortAttack()
 	{
 		// Do nothing. Override.
 	}
 
 	// Called when the monster dies.
 	// Does not set anything. Just flavor.
-	procedure("MonsterDie")
+	function monsterDie()
 	{
 		// Do nothing. Override.
 	}
 
 	// Called when the monster dies A LOT.
 	// Does not set anything. Just flavor.
-	procedure("MonsterSuperDie")
+	function monsterSuperDie()
 	{
 		// Do nothing. Override.
 	}
 
 	// Called on monster examine if dead.
 	// Does not set anything. Just flavor.
-	procedure("MonsterStatusDead")
+	function monsterStatusDead()
 	{
 		// Do nothing. Override.
 	}
 	
 	// Called on monster examine if still alive.
 	// Does not set anything. Just flavor.
-	procedure("MonsterStatusAlive")
+	function monsterStatusAlive()
 	{
 		local percent = health * 100 / healthMax;
 		if (percent < 10)
@@ -80,35 +80,35 @@ object archetype o_monsters : o_allobjects
 	}
 
 	// Called when a monster is damaged. Sets "dead" state if it is dead.
-	procedure("CheckMonsterDead")
+	function checkMonsterDead()
 	{
 		local percent = health * 100 / healthMax;
 		if (percent <= 0)
 		{
 			if (+percent >= 50)
 			{
-				call("MonsterSuperDie");
+				MonsterSuperDie();
 				superdead = true;
 			}
 			else
-				call("MonsterDie");
+				MonsterDie();
 			dead = true;
 		}
 	}
 	
 	// Called to reset reaction time.
-	procedure("ResetReaction")
+	function resetReaction()
 	{
 		reaction = random(reactionMax / 2) + (reactionMax / 2);
 	}
 
 	// --> Override
-	procedure("ExamineAlways")
+	function examineAlways()
 	{
 		if (dead)
-			call("MonsterStatusDead");
+			MonsterStatusDead();
 		else
-			call("MonsterStatusAlive");
+			MonsterStatusAlive();
 	}
 	
 	// Called on monsters in a room.
@@ -119,16 +119,16 @@ object archetype o_monsters : o_allobjects
 	
 		reaction = reaction - 1;
 		if (reaction > 0)
-			call("MonsterIdle");
+			MonsterIdle();
 		else
 		{
 			if (player.health > 0)
 			{
-				call("MonsterAttack");
-				call("ResetReaction");
+				MonsterAttack();
+				ResetReaction();
 			}
 			else
-				call("MonsterAbortAttack");
+				MonsterAbortAttack();
 		}
 	}
 	
@@ -170,7 +170,7 @@ object archetype o_monsters : o_allobjects
 		health = health - dmg;
 		textln("You deal "+dmg+" damage to the "+name+"!");
 		
-		call("CheckMonsterDead");
+		CheckMonsterDead();
 	}
 
 	// Default Combat with fists.
@@ -270,7 +270,7 @@ object archetype o_monsters : o_allobjects
 				textln("Great job, kiddo.");
 		}
 		
-		call("CheckMonsterDead");
+		CheckMonsterDead();
 	}
 
 }
@@ -290,7 +290,7 @@ object o_zombie : o_monsters named "zombie" uses determiners "the" tagged "monst
 	}
 	
 	// --> Override
-	procedure("ExamineFirst")
+	function examineFirst()
 	{
 		text("A hideous caricature of what once was a man (...or woman? Hard to tell) is ");
 		if (superdead)
@@ -302,7 +302,7 @@ object o_zombie : o_monsters named "zombie" uses determiners "the" tagged "monst
 	}
 	
 	// --> Override
-	procedure("MonsterIdle")
+	function monsterIdle()
 	{
 		local x = random(3);
 		if (x == 0)
@@ -314,13 +314,13 @@ object o_zombie : o_monsters named "zombie" uses determiners "the" tagged "monst
 	}
 
 	// --> Override
-	procedure("MonsterAbortAttack")
+	function monsterAbortAttack()
 	{
 		textln("The zombie goes to attack, but notices that you look just as dead. Oh well.");
 	}
 	
 	// --> Override
-	procedure("MonsterAttack")
+	function monsterAttack()
 	{
 		if (random(3) < 2) // 66% chance
 		{
@@ -350,7 +350,7 @@ object o_zombie : o_monsters named "zombie" uses determiners "the" tagged "monst
 	}
 	
 	// --> Override
-	procedure("MonsterDie")
+	function monsterDie()
 	{
 		textln("The zombie screams and falls to the ground in a dull *thud*.");
 		addObjectName(o_zombie, "dead zombie");
@@ -360,7 +360,7 @@ object o_zombie : o_monsters named "zombie" uses determiners "the" tagged "monst
 	}
 
 	// --> Override
-	procedure("MonsterSuperDie")
+	function monsterSuperDie()
 	{
 		textln("The zombie explodes into bloody bits. Damn, son! You really murdered it good!");
 		addObjectName(o_zombie, "dead zombie");
@@ -372,7 +372,7 @@ object o_zombie : o_monsters named "zombie" uses determiners "the" tagged "monst
 	}
 	
 	// --> Override
-	procedure("MonsterStatusDead")
+	function monsterStatusDead()
 	{
 		if (superdead)
 			textln("Bits of what used to be a zombie are littered everywhere.");

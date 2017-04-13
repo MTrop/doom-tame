@@ -6,7 +6,7 @@
 object archetype o_healthobject : o_allobjects
 {
 	// Called if healing is possible.
-	procedure("DoHealing")
+	function doHealing()
 	{
 		/* Do nothing. Override. */
 	}
@@ -16,7 +16,7 @@ object archetype o_healthobject : o_allobjects
 		if (player.health >= 100)
 			textln("You're at full health. You don't need to use this.");
 		else
-			call("DoHealing");
+			DoHealing();
 	}
 	
 	onActionWith(a_use, o_self)
@@ -35,7 +35,7 @@ object archetype o_healthobject : o_allobjects
 object o_stimpak : o_healthobject named "stimpak" uses determiners "the"
 {
 	// --> Override
-	procedure("DoHealing")
+	function doHealing()
 	{
 		textln("You heal youself a bit.");
 		removeObject(o_stimpak);
@@ -43,7 +43,7 @@ object o_stimpak : o_healthobject named "stimpak" uses determiners "the"
 		queueAction(a_status);
 	}
 
-	procedure("ExamineAlways")
+	function examineAlways()
 	{
 		textln("It's a small kit of adrenaline injections and bandages. Heals you a little.");
 	}
@@ -75,7 +75,7 @@ object o_stimpak : o_healthobject named "stimpak" uses determiners "the"
 object o_medikit : o_healthobject named "medikit" uses determiners "the"
 {
 	// --> Override
-	procedure("DoHealing")
+	function doHealing()
 	{
 		textln("You heal youself a bunch.");
 		removeObject(o_medikit);
@@ -83,7 +83,7 @@ object o_medikit : o_healthobject named "medikit" uses determiners "the"
 		queueAction(a_status);
 	}
 
-	procedure("ExamineAlways")
+	function examineAlways()
 	{
 		textln("It's a large kit of gauze, stitching thread, forceps, and antiseptic. Heals you moderately.");
 	}
@@ -115,7 +115,7 @@ object o_medikit : o_healthobject named "medikit" uses determiners "the"
 object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", "berserker pack" uses determiners "the"
 {
 	// --> Override
-	procedure("DoHealing")
+	function doHealing()
 	{
 		textln("You heal youself completely, and you are now BERSERK! PUNCH THINGS!");
 		removeObject(o_berserk);
@@ -125,7 +125,7 @@ object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", 
 		queueAction(a_status);
 	}
 	
-	procedure("ExamineAlways")
+	function examineAlways()
 	{
 		textln("It's a large kit of some kind of experimental drugs. Looks crazy.");
 	}
@@ -144,7 +144,7 @@ object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", 
 	// Override. Can always use.
 	onAction(a_use)
 	{
-		call("DoHealing");
+		DoHealing();
 	}
 	
 }
@@ -166,13 +166,13 @@ object archetype o_allkeys : o_allobjects
 // Red Key
 object o_redkey : o_allkeys named "key", "keycard", "red key", "red keycard", "keycard with red markings"
 {
-	procedure("ExamineFirst")
+	function examineFirst()
 	{
 		textln("It's a keycard with red markings on it. A little blood-stained, too. Though it doesn't matter - "+
 		"it just makes it more red.");
 	}
 
-	procedure("ExamineNext")
+	function examineNext()
 	{
 		textln("It's a red keycard.");
 	}
@@ -203,12 +203,12 @@ object o_redkey : o_allkeys named "key", "keycard", "red key", "red keycard", "k
 // Blue Key
 object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard" uses determiners "the"
 {
-	procedure("ExamineFirst")
+	function examineFirst()
 	{
 		textln("It's a keycard with blue markings on it. Someone left it behind. Or dropped it. Who knows.");
 	}
 
-	procedure("ExamineNext")
+	function examineNext()
 	{
 		textln("It's a blue keycard.");
 	}
@@ -239,12 +239,12 @@ object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard" 
 // Yellow Key
 object o_yellowkey : o_allkeys named "key", "keycard", "yellow key", "yellow keycard" uses determiners "the"
 {
-	procedure("ExamineFirst")
+	function examineFirst()
 	{
 		textln("It's a keycard with yellow markings on it. Three guesses for what you do with it.");
 	}
 
-	procedure("ExamineNext")
+	function examineNext()
 	{
 		textln("It's a yellow keycard.");
 	}

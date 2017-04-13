@@ -10,19 +10,19 @@ object archetype o_allobjects
 	}
 	
 	// Called on first examine.
-	procedure("ExamineFirst")
+	function examineFirst()
 	{
 		/* Do nothing. Override this. */
 	}
 	
 	// Called on subsequent examines.
-	procedure("ExamineNext")
+	function examineNext()
 	{
 		/* Do nothing. Override this. */
 	}
 	
 	// Called on every examine (after first/next).
-	procedure("ExamineAlways")
+	function examineAlways()
 	{
 		/* Do nothing. Override this. */
 	}
@@ -31,15 +31,15 @@ object archetype o_allobjects
 	{
 		if (!examined)
 		{
-			call("ExamineFirst");
+			ExamineFirst();
 			examined = true;
 		}
 		else
 		{
-			call("ExamineNext");
+			ExamineNext();
 		}
 		
-		call("ExamineAlways");
+		ExamineAlways();
 	}
 
 	onAction(a_equip)

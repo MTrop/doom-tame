@@ -19,7 +19,7 @@ player p_doomguy
 		equippedAttackDiceSize = 0;
 	}
 	
-	procedure("BadAction")
+	function doBadAction()
 	{
 		local x = random(3);
 		if (x == 0)
@@ -151,12 +151,12 @@ player p_doomguy
 
 	onBadAction()
 	{
-		Call("BadAction");
+		doBadAction();
 	}
 
 	onUnknownAction()
 	{
-		Call("BadAction");
+		doBadAction();
 	}
 
 	onForbiddenAction()

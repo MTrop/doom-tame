@@ -12,20 +12,20 @@ object archetype o_everydoor : o_allobjects
 	}
 	
 	// Should move player to connected room.
-	procedure("GoToNextRoom")
+	function goToNextRoom()
 	{
 		/* Nothing. Override this. */
 		info("THIS DOOR LEADS NOWHERE. OH NO.");
 	}
 	
 	// Should attempt to unlock the door. Set "locked" variable.
-	procedure("TryUnlock")
+	function tryUnlock()
 	{
 		/* Nothing. Override this. Try to detect necessary key on player. */
 	}
 	
 	// Called to alert the player that it's locked.
-	procedure("IsLocked")
+	function isLocked()
 	{
 		if (tryopen == 0)
 			textln("It's locked. I need a key.");
@@ -55,12 +55,12 @@ object archetype o_everydoor : o_allobjects
 	onAction(a_open)
 	{
 		if (locked)
-			call("TryUnlock");
+			TryUnlock();
 		
 		if (locked)
-			call("IsLocked");
+			IsLocked();
 		else
-			call("GoToNextRoom");
+			GoToNextRoom();
 	}
 
 	onAction(a_close)
@@ -84,7 +84,7 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 		locked = true;
 	}
 
-	procedure("ExamineFirst")
+	function examineFirst()
 	{
 		textln("A very heavy steel door with red markings flanking the tracks.");
 		textln("A sign on the door reads, \"Security Clearance Required\".");
@@ -95,13 +95,13 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 		addObjectName(o_reddoor0, "door to the main hall");
 	}
 
-	procedure("ExamineNext")
+	function examineNext()
 	{
 		textln("It's the red door to the Main Hall.");
 		textln("A sign on the door reads, \"Security Clearance Required\".");
 	}
 
-	procedure("TryUnlock")
+	function tryUnlock()
 	{
 		if (hasObject(player, o_redkey))
 		{
@@ -111,7 +111,7 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 		}
 	}
 
-	procedure("GoToNextRoom")
+	function goToNextRoom()
 	{
 		setRoom(player, r_mainhall);
 		queueAction(a_whereami);
@@ -131,7 +131,7 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 			textln("Probably because it's already unlocked.");
 		}
 		else
-			call("TryUnlock");
+			TryUnlock();
 	}
 	
 	onActionWithOther(a_use)
@@ -162,12 +162,12 @@ object o_reddoor1 : o_everydoor named "door", "red door", "door with red marking
 		addObjectName(o_reddoor1, "door to the entryway");
 	}
 
-	procedure("ExamineAlways")
+	function examineAlways()
 	{
 		textln("It's the red door to the Entryway.");
 	}
 
-	procedure("GoToNextRoom")
+	function goToNextRoom()
 	{
 		setRoom(player, r_entryway);
 		queueAction(a_whereami);
@@ -189,7 +189,7 @@ object o_reddoor1 : o_everydoor named "door", "red door", "door with red marking
 // Door to supply room.
 object o_supplydoor0 : o_everydoor named "door", "small door" uses determiners "the"
 {
-	procedure("GoToNextRoom")
+	function goToNextRoom()
 	{
 		examined = true;
 		setRoom(player, r_supplyroom);
@@ -197,7 +197,7 @@ object o_supplydoor0 : o_everydoor named "door", "small door" uses determiners "
 		queueAction(a_description);
 	}
 	
-	procedure("ExamineFirst")
+	function examineFirst()
 	{
 		textln("A small, featureless door with a plate that says \"PUSH\".");
 		textln("A sign on the door reads, \"Supply Room\".");
@@ -206,7 +206,7 @@ object o_supplydoor0 : o_everydoor named "door", "small door" uses determiners "
 		addObjectName(o_supplydoor0, "door to the supply room");
 	}
 
-	procedure("ExamineNext")
+	function examineNext()
 	{
 		textln("It's the door to the Supply Room.");
 	}
@@ -223,7 +223,7 @@ object o_supplydoor0 : o_everydoor named "door", "small door" uses determiners "
 // Door to entryway via supply room.
 object o_supplydoor1 : o_everydoor named "door", "small door", "entryway door", "door to entryway", "door to the entryway" uses determiners "the"
 {
-	procedure("GoToNextRoom")
+	function goToNextRoom()
 	{
 		examined = true;
 		setRoom(player, r_entryway);
@@ -231,7 +231,7 @@ object o_supplydoor1 : o_everydoor named "door", "small door", "entryway door", 
 		queueAction(a_description);
 	}
 
-	procedure("ExamineAlways")
+	function examineAlways()
 	{
 		textln("It's the door to the Entryway. You came through here.");
 	}

@@ -33,7 +33,7 @@ world
 		// Set up objects.
 		GiveObject(p_doomguy, o_pistol);
 		GiveObject(p_doomguy, o_self);
-		CallFrom(o_pistol, "Equip");
+		o_pistol.equip();
 		
 		textln("The nightmare begins.\n");
 		QueueAction(a_whereami);

@@ -13,7 +13,7 @@ room r_allrooms
 		description = "NO DESCRIPTION";
 	}
 
-	procedure("PrintBackstory")
+	function printBackstory()
 	{
 		/* Nothing. */
 	}
@@ -36,7 +36,7 @@ room r_allrooms
 		textln("");
 		if (!backstory)
 		{
-			call("PrintBackstory");
+			PrintBackstory();
 			backstory = true;
 		}
 		
@@ -64,7 +64,7 @@ room r_entryway : r_allrooms
 		giveObject(r_entryway, o_reddoor0);
 	}
 
-	procedure("PrintBackstory")
+	function printBackstory()
 	{
 		textln(
 			"They sent you in alone; they thought one person could reclaim "+
