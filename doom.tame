@@ -15,6 +15,7 @@ module
 	version = "1.0";
 }
 
+#include "includes/math.tame"
 #include "includes/actions.tame"
 #include "includes/prototypes.tame"
 #include "includes/objects.tame"

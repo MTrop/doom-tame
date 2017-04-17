@@ -159,14 +159,7 @@ object archetype o_monsters : o_allobjects
 		textln("You fire your "+player.equippedWeaponName+" at the "+name+"!");
 		textln(player.equippedWeaponSound);
 		
-		local dmg = 0;
-		local x = player.equippedAttackDice;
-		while (x > 0)
-		{
-			dmg = dmg + (1 + random(player.equippedAttackDiceSize));
-			x = x - 1;
-		}
-		
+		local dmg = Math.rolldie(player.equippedAttackDiceSize, player.equippedAttackDice);
 		health = health - dmg;
 		textln("You deal "+dmg+" damage to the "+name+"!");
 		

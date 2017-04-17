@@ -1,0 +1,32 @@
+/***************************************************************
+ * Math Functions
+ * Creates a "Math" container for stuff.
+ ***************************************************************/
+
+container Math
+{
+	init()
+	{
+		pi = PI();
+	}
+
+	function rolldie(die, rolls)
+	{
+		if (rolls > 10) // do approximation of lots of rolls
+		{
+			local range = ((clamp(grandom(0, 1), -pi, pi) + pi) / (2 * pi));
+			return asInt((((die * rolls) - rolls) * range) + rolls);
+		}
+		else
+		{
+			local out = 0;
+			while (rolls > 0)
+			{
+				out = out + (1 + random(die));
+				rolls = rolls - 1;
+			}
+			return out;
+		}
+	}
+	
+}
