@@ -4,7 +4,7 @@
   EVERY ROOM CODE
 ======================
 */ 
-room r_allrooms
+room archetype r_allrooms
 {
 	init()
 	{
@@ -50,7 +50,7 @@ room r_allrooms
 Entryway
 ======================
 */ 
-room r_entryway : r_allrooms
+room r_entryway
 {
 	init()
 	{
@@ -82,7 +82,7 @@ room r_entryway : r_allrooms
 Supply Room
 ======================
 */ 
-room r_supplyroom : r_allrooms
+room r_supplyroom
 {
 	init()
 	{
@@ -103,7 +103,7 @@ room r_supplyroom : r_allrooms
 Main Hall
 ======================
 */ 
-room r_mainhall : r_allrooms
+room r_mainhall
 {
 	init()
 	{

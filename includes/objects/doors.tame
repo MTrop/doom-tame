@@ -2,7 +2,7 @@
 // ==========================
 // Doors
 // ==========================
-object archetype o_everydoor : o_allobjects
+object archetype o_everydoor
 {
 	init()
 	{
@@ -76,7 +76,7 @@ object archetype o_everydoor : o_allobjects
 }
 
 // Red Door, to Main Hall
-object o_reddoor0 : o_everydoor named "door", "red door", "door with red markings", "door with the red markings" uses determiners "the"
+object o_reddoor0 named "door", "red door", "door with red markings", "door with the red markings" uses determiners "the"
 {
 	init()
 	{
@@ -150,7 +150,7 @@ object o_reddoor0 : o_everydoor named "door", "red door", "door with red marking
 }
 
 // Red Door, to Entryway
-object o_reddoor1 : o_everydoor named "door", "red door", "door with red markings", "door with the red markings" uses determiners "the"
+object o_reddoor1 named "door", "red door", "door with red markings", "door with the red markings" uses determiners "the"
 {
 	init()
 	{
@@ -187,7 +187,7 @@ object o_reddoor1 : o_everydoor named "door", "red door", "door with red marking
 }
 
 // Door to supply room.
-object o_supplydoor0 : o_everydoor named "door", "small door" uses determiners "the"
+object o_supplydoor0 named "door", "small door" uses determiners "the"
 {
 	function goToNextRoom()
 	{
@@ -221,7 +221,7 @@ object o_supplydoor0 : o_everydoor named "door", "small door" uses determiners "
 }
 
 // Door to entryway via supply room.
-object o_supplydoor1 : o_everydoor named "door", "small door", "entryway door", "door to entryway", "door to the entryway" uses determiners "the"
+object o_supplydoor1 named "door", "small door", "entryway door", "door to entryway", "door to the entryway" uses determiners "the"
 {
 	function goToNextRoom()
 	{
@@ -242,25 +242,3 @@ object o_supplydoor1 : o_everydoor named "door", "small door", "entryway door", 
 	}
 
 }
-
-/*
-object o_door2;
-object o_door3;
-
-object o_bluedoor0;
-object o_bluedoor1;
-
-object o_yellowdoor0;
-object o_yellowdoor1;
-
-object o_door4;
-object o_door5;
-
-object o_door6;
-object o_door7;
-
-object o_door8;
-object o_door9;
-
-object o_exitdoor;
-*/

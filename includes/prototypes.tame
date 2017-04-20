@@ -9,15 +9,17 @@
 // ==========================
 
 // Rooms.
-room r_entryway;
-room r_supplyroom;
-room r_overlook;
-room r_mainhall;
-room r_hangar;
-room r_view;
-room r_nukepit;
-room r_armory;
-room r_corridor;
+room archetype r_allrooms;
+
+room r_entryway : r_allrooms;
+room r_supplyroom : r_allrooms;
+room r_overlook : r_allrooms;
+room r_mainhall : r_allrooms;
+room r_hangar : r_allrooms;
+room r_view : r_allrooms;
+room r_nukepit : r_allrooms;
+room r_armory : r_allrooms;
+room r_corridor : r_allrooms;
 
 // ==========================
 // Players
@@ -31,59 +33,40 @@ player p_doomguy;
 // ==========================
 
 object archetype o_allobjects;
-object archetype o_healthobject;
-object archetype o_allkeys;
-object archetype o_allweapons;
+object archetype o_healthobject : o_allobjects;
+object archetype o_allkeys : o_allobjects;
+object archetype o_allweapons : o_allobjects;
+object archetype o_monsters : o_allobjects;
 
 // Keys
-object o_redkey;
-object o_bluekey;
-object o_yellowkey;
+object o_redkey : o_allkeys;
+object o_bluekey : o_allkeys;
+object o_yellowkey : o_allkeys;
 
 // Monsters
-object o_zombie;
-object o_sergeant;
-object o_imp;
-object o_cacodemon;
-object o_cyberdemon;
+object o_zombie : o_monsters;
+object o_sergeant : o_monsters;
+object o_imp : o_monsters;
+object o_cacodemon : o_monsters;
+object o_cyberdemon : o_monsters;
 
 // Items
-object o_stimpak;
-object o_medikit;
-object o_berserk;
+object o_stimpak : o_healthobject;
+object o_medikit : o_healthobject;
+object o_berserk : o_healthobject;
 
 // Weapons
-object o_pistol;
-object o_shotgun;
-object o_supershotgun;
-object o_rocketlauncher;
-object o_bfg;
+object o_pistol : o_allweapons;
+object o_shotgun : o_allweapons;
+object o_supershotgun : o_allweapons;
+object o_rocketlauncher : o_allweapons;
+object o_bfg : o_allweapons;
 
 // Doors
 object archetype o_everydoor;
 
-object o_supplydoor0;
-object o_supplydoor1;
+object o_supplydoor0 : o_everydoor;
+object o_supplydoor1 : o_everydoor;
 
-object o_reddoor0;
-object o_reddoor1;
-
-object o_door2;
-object o_door3;
-
-object o_bluedoor0;
-object o_bluedoor1;
-
-object o_yellowdoor0;
-object o_yellowdoor1;
-
-object o_door4;
-object o_door5;
-
-object o_door6;
-object o_door7;
-
-object o_door8;
-object o_door9;
-
-object o_exitdoor;
+object o_reddoor0 : o_everydoor;
+object o_reddoor1 : o_everydoor;

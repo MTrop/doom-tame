@@ -3,7 +3,7 @@
 // Items
 // ==========================
 
-object archetype o_healthobject : o_allobjects
+object archetype o_healthobject
 {
 	// Called if healing is possible.
 	function doHealing()
@@ -32,7 +32,7 @@ object archetype o_healthobject : o_allobjects
 }
 
 // Stimpak
-object o_stimpak : o_healthobject named "stimpak" uses determiners "the"
+object o_stimpak named "stimpak" uses determiners "the"
 {
 	// --> Override
 	function doHealing()
@@ -72,7 +72,7 @@ object o_stimpak : o_healthobject named "stimpak" uses determiners "the"
 }
 
 // Medikit
-object o_medikit : o_healthobject named "medikit" uses determiners "the"
+object o_medikit named "medikit" uses determiners "the"
 {
 	// --> Override
 	function doHealing()
@@ -112,7 +112,7 @@ object o_medikit : o_healthobject named "medikit" uses determiners "the"
 }
 
 // Berserk Pack
-object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", "berserker pack" uses determiners "the"
+object o_berserk named "berserk", "berserk pack", "berserker", "berserker pack" uses determiners "the"
 {
 	// --> Override
 	function doHealing()
@@ -154,7 +154,7 @@ object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", 
 // ==========================
 
 // All Keys
-object archetype o_allkeys : o_allobjects
+object archetype o_allkeys
 {
 	onAction(a_use)
 	{
@@ -164,7 +164,7 @@ object archetype o_allkeys : o_allobjects
 }
 
 // Red Key
-object o_redkey : o_allkeys named "key", "keycard", "red key", "red keycard", "keycard with red markings"
+object o_redkey named "key", "keycard", "red key", "red keycard", "keycard with red markings"
 {
 	function examineFirst()
 	{
@@ -201,7 +201,7 @@ object o_redkey : o_allkeys named "key", "keycard", "red key", "red keycard", "k
 }
 
 // Blue Key
-object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard" uses determiners "the"
+object o_bluekey named "key", "keycard", "blue key", "blue keycard" uses determiners "the"
 {
 	function examineFirst()
 	{
@@ -237,7 +237,7 @@ object o_bluekey : o_allkeys named "key", "keycard", "blue key", "blue keycard" 
 }
 
 // Yellow Key
-object o_yellowkey : o_allkeys named "key", "keycard", "yellow key", "yellow keycard" uses determiners "the"
+object o_yellowkey named "key", "keycard", "yellow key", "yellow keycard" uses determiners "the"
 {
 	function examineFirst()
 	{

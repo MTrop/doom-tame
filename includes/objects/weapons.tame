@@ -3,7 +3,7 @@
 // Weapons
 // ==========================
 
-object archetype o_allweapons : o_allobjects
+object archetype o_allweapons
 {
 	function equip()
 	{
@@ -49,7 +49,7 @@ object o_fists named "fists", "fist" uses determiners "my"
 }
 
 // Pistol
-object o_pistol : o_allweapons named "pistol" uses determiners "the", "my"
+object o_pistol named "pistol" uses determiners "the", "my"
 {
 	function equip()
 	{
@@ -83,7 +83,7 @@ object o_pistol : o_allweapons named "pistol" uses determiners "the", "my"
 }
 
 // Shotgun
-object o_shotgun : o_allweapons named "shotgun" uses determiners "the", "my"
+object o_shotgun named "shotgun" uses determiners "the", "my"
 {
 	function equip()
 	{
@@ -129,7 +129,7 @@ object o_shotgun : o_allweapons named "shotgun" uses determiners "the", "my"
 }
 
 // Rocket Launcher
-object o_rocketlauncher : o_allweapons named "rocket launcher", "rockets" uses determiners "the", "my"
+object o_rocketlauncher named "rocket launcher", "rockets" uses determiners "the", "my"
 {
 	function equip()
 	{
@@ -175,7 +175,7 @@ object o_rocketlauncher : o_allweapons named "rocket launcher", "rockets" uses d
 }
 
 // BFG!
-object o_bfg : o_allweapons named "BFG", "BFG9000", "BFG 9000", "big fucking gun", "BFG9k" uses determiners "the", "my"
+object o_bfg named "BFG", "BFG9000", "BFG 9000", "big fucking gun", "BFG9k" uses determiners "the", "my"
 {
 	function equip()
 	{

@@ -24,7 +24,7 @@ module
 
 world
 {
-	AfterModuleInit()
+	start()
 	{
 		// world setup.
 		SetPlayer(p_doomguy);
@@ -41,14 +41,14 @@ world
 		QueueAction(a_description);
 	}
 	
-	AfterRequest()
+	afterRequest()
 	{
 		// Call "think" on monsters.
 		QueueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
 		QueueAction(a_checkdeath);
 	}
 	
-	OnAction(a_quit)
+	onAction(a_quit)
 	{
 		local x = random(4);
 		if (x == 0)
@@ -62,7 +62,7 @@ world
 		quit;
 	}
 
-	OnAction(a_gameover)
+	onAction(a_gameover)
 	{
 		textln("Game Over! You lose.");
 		quit;
