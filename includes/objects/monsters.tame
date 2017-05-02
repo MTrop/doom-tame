@@ -111,6 +111,12 @@ object archetype o_monsters
 			MonsterStatusAlive();
 	}
 	
+	// --> Override
+	onAction(a_take)
+	{
+		textln("You cannot take a monster. That's ludicrous.");
+	}
+
 	// Called on monsters in a room.
 	onAction(a_monsterthink)
 	{

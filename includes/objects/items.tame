@@ -48,17 +48,6 @@ object o_stimpak named "stimpak" uses determiners "the"
 		textln("It's a small kit of adrenaline injections and bandages. Heals you a little.");
 	}
 	
-	onAction(a_take)
-	{
-		if (hasObject(player, o_stimpak))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the stimpak.");
-			giveObject(player, o_stimpak);
-		}
-	}
-
 	onRoomBrowse()
 	{
 		textln("There's a stimpak here on the floor.");
@@ -86,17 +75,6 @@ object o_medikit named "medikit" uses determiners "the"
 	function examineAlways()
 	{
 		textln("It's a large kit of gauze, stitching thread, forceps, and antiseptic. Heals you moderately.");
-	}
-
-	onAction(a_take)
-	{
-		if (hasObject(player, o_medikit))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the medkit.");
-			giveObject(player, o_medikit);
-		}
 	}
 
 	onRoomBrowse()
@@ -128,17 +106,6 @@ object o_berserk named "berserk", "berserk pack", "berserker", "berserker pack" 
 	function examineAlways()
 	{
 		textln("It's a large kit of some kind of experimental drugs. Looks crazy.");
-	}
-
-	onAction(a_take)
-	{
-		if (hasObject(player, o_berserk))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the berserk pack.");
-			giveObject(player, o_berserk);
-		}
 	}
 
 	// Override. Can always use.
@@ -177,17 +144,6 @@ object o_redkey named "key", "keycard", "red key", "red keycard", "keycard with 
 		textln("It's a red keycard.");
 	}
 	
-	onAction(a_take)
-	{
-		if (hasObject(player, o_redkey))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the red keycard. Could be useful.");
-			giveObject(player, o_redkey);
-		}
-	}
-
 	onPlayerBrowse()
 	{
 		textln("A red keycard.");
@@ -213,17 +169,6 @@ object o_bluekey named "key", "keycard", "blue key", "blue keycard" uses determi
 		textln("It's a blue keycard.");
 	}
 
-	onAction(a_take)
-	{
-		if (hasObject(player, o_bluekey))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the blue keycard. Why not?");
-			giveObject(player, o_bluekey);
-		}
-	}
-
 	onPlayerBrowse()
 	{
 		textln("A blue keycard.");
@@ -247,17 +192,6 @@ object o_yellowkey named "key", "keycard", "yellow key", "yellow keycard" uses d
 	function examineNext()
 	{
 		textln("It's a yellow keycard.");
-	}
-
-	onAction(a_take)
-	{
-		if (hasObject(player, o_yellowkey))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the yellow keycard. Why not?");
-			giveObject(player, o_yellowkey);
-		}
 	}
 
 	onPlayerBrowse()

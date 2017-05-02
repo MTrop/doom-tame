@@ -27,6 +27,22 @@ object archetype o_allobjects
 		/* Do nothing. Override this. */
 	}
 	
+	function takeMe()
+	{
+		textln("Taken.");
+	}
+
+	onAction(a_take)
+	{
+		if (hasObject(player, this))
+			textln("You already have this.");
+		else
+		{
+			takeMe();
+			giveObject(player, this);
+		}
+	}
+
 	onAction(a_examine)
 	{
 		if (!examined)

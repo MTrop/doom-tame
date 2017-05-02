@@ -63,7 +63,7 @@ object o_rocketlauncher : o_allweapons;
 object o_bfg : o_allweapons;
 
 // Doors
-object archetype o_everydoor;
+object archetype o_everydoor : o_allobjects;
 
 object o_supplydoor0 : o_everydoor;
 object o_supplydoor1 : o_everydoor;
