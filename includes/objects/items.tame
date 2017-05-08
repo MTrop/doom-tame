@@ -3,7 +3,7 @@
 // Items
 // ==========================
 
-object archetype o_healthobject
+extend object o_healthobject
 {
 	// Called if healing is possible.
 	function doHealing()
@@ -21,21 +21,20 @@ object archetype o_healthobject
 	
 	onActionWith(a_use, o_self)
 	{
-		info("Just USE this thing as-is.");
+		queueActionObject(a_use, this);
 	}
 
 	onActionWithOther(a_use)
 	{
-		textln("I should USE this on myself.");
+		textln("You should USE this with yourself. Or maybe just USE it.");
 	}
 
 }
 
 // Stimpak
-object o_stimpak named "stimpak" uses determiners "the"
+extend object o_stimpak
 {
-	// --> Override
-	function doHealing()
+	override function doHealing()
 	{
 		textln("You heal youself a bit.");
 		removeObject(o_stimpak);
@@ -43,7 +42,7 @@ object o_stimpak named "stimpak" uses determiners "the"
 		queueAction(a_status);
 	}
 
-	function examineAlways()
+	override function examineAlways()
 	{
 		textln("It's a small kit of adrenaline injections and bandages. Heals you a little.");
 	}
@@ -61,10 +60,9 @@ object o_stimpak named "stimpak" uses determiners "the"
 }
 
 // Medikit
-object o_medikit named "medikit" uses determiners "the"
+extend object o_medikit
 {
-	// --> Override
-	function doHealing()
+	override function doHealing()
 	{
 		textln("You heal youself a bunch.");
 		removeObject(o_medikit);
@@ -72,7 +70,7 @@ object o_medikit named "medikit" uses determiners "the"
 		queueAction(a_status);
 	}
 
-	function examineAlways()
+	override function examineAlways()
 	{
 		textln("It's a large kit of gauze, stitching thread, forceps, and antiseptic. Heals you moderately.");
 	}
@@ -90,10 +88,9 @@ object o_medikit named "medikit" uses determiners "the"
 }
 
 // Berserk Pack
-object o_berserk named "berserk", "berserk pack", "berserker", "berserker pack" uses determiners "the"
+extend object o_berserk
 {
-	// --> Override
-	function doHealing()
+	override function doHealing()
 	{
 		textln("You heal youself completely, and you are now BERSERK! PUNCH THINGS!");
 		removeObject(o_berserk);
@@ -103,15 +100,14 @@ object o_berserk named "berserk", "berserk pack", "berserker", "berserker pack" 
 		queueAction(a_status);
 	}
 	
-	function examineAlways()
+	override function examineAlways()
 	{
 		textln("It's a large kit of some kind of experimental drugs. Looks crazy.");
 	}
 
-	// Override. Can always use.
-	onAction(a_use)
+	override onAction(a_use)
 	{
-		DoHealing();
+		doHealing();
 	}
 	
 }
@@ -121,7 +117,7 @@ object o_berserk named "berserk", "berserk pack", "berserker", "berserker pack" 
 // ==========================
 
 // All Keys
-object archetype o_allkeys
+extend object o_key
 {
 	onAction(a_use)
 	{
@@ -131,15 +127,15 @@ object archetype o_allkeys
 }
 
 // Red Key
-object o_redkey named "key", "keycard", "red key", "red keycard", "keycard with red markings"
+extend object o_redkey
 {
-	function examineFirst()
+	override function examineFirst()
 	{
 		textln("It's a keycard with red markings on it. A little blood-stained, too. Though it doesn't matter - "+
 		"it just makes it more red.");
 	}
 
-	function examineNext()
+	override function examineNext()
 	{
 		textln("It's a red keycard.");
 	}
@@ -157,14 +153,14 @@ object o_redkey named "key", "keycard", "red key", "red keycard", "keycard with 
 }
 
 // Blue Key
-object o_bluekey named "key", "keycard", "blue key", "blue keycard" uses determiners "the"
+extend object o_bluekey
 {
-	function examineFirst()
+	override function examineFirst()
 	{
 		textln("It's a keycard with blue markings on it. Someone left it behind. Or dropped it. Who knows.");
 	}
 
-	function examineNext()
+	override function examineNext()
 	{
 		textln("It's a blue keycard.");
 	}
@@ -182,14 +178,14 @@ object o_bluekey named "key", "keycard", "blue key", "blue keycard" uses determi
 }
 
 // Yellow Key
-object o_yellowkey named "key", "keycard", "yellow key", "yellow keycard" uses determiners "the"
+extend object o_yellowkey
 {
-	function examineFirst()
+	override function examineFirst()
 	{
 		textln("It's a keycard with yellow markings on it. Three guesses for what you do with it.");
 	}
 
-	function examineNext()
+	override function examineNext()
 	{
 		textln("It's a yellow keycard.");
 	}

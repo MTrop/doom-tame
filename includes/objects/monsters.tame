@@ -3,10 +3,12 @@
 // Monsters
 // ==========================
 
-object archetype o_monsters
+extend object o_monster
 {
-	init()
+	override init()
 	{
+		examined = false;
+	
 		// name used for generic battle.
 		name = "((MONSTER))";
 		// max monster health (used for damage assessment).
@@ -102,8 +104,7 @@ object archetype o_monsters
 		reaction = random(reactionMax / 2) + (reactionMax / 2);
 	}
 
-	// --> Override
-	function examineAlways()
+	override function examineAlways()
 	{
 		if (dead)
 			MonsterStatusDead();
@@ -111,10 +112,33 @@ object archetype o_monsters
 			MonsterStatusAlive();
 	}
 	
-	// --> Override
-	onAction(a_take)
+	override onAction(a_take)
 	{
 		textln("You cannot take a monster. That's ludicrous.");
+	}
+
+	override onAction(a_shoot)
+	{
+		if (dead)
+		{
+			textln("It's already dead. Why waste the ammo?");
+			end;
+		}
+		
+		if (!player.equippedWeapon)
+		{
+			textln("I have nothing equipped. Maybe I could punch them?");
+			end;
+		}
+	
+		textln("You fire your "+player.equippedWeaponName+" at the "+name+"!");
+		textln(player.equippedWeaponSound);
+		
+		local dmg = Math.rolldie(player.equippedAttackDiceSize, player.equippedAttackDice);
+		health = health - dmg;
+		textln("You deal "+dmg+" damage to the "+name+"!");
+		
+		checkMonsterDead();
 	}
 
 	// Called on monsters in a room.
@@ -147,31 +171,6 @@ object archetype o_monsters
 		textln("But you can't. Sorry.");
 	}
 	
-	// Default Combat.
-	onAction(a_shoot)
-	{
-		if (dead)
-		{
-			textln("It's already dead. Why waste the ammo?");
-			end;
-		}
-		
-		if (!player.equippedWeapon)
-		{
-			textln("I have nothing equipped. Maybe I could punch them?");
-			end;
-		}
-	
-		textln("You fire your "+player.equippedWeaponName+" at the "+name+"!");
-		textln(player.equippedWeaponSound);
-		
-		local dmg = Math.rolldie(player.equippedAttackDiceSize, player.equippedAttackDice);
-		health = health - dmg;
-		textln("You deal "+dmg+" damage to the "+name+"!");
-		
-		CheckMonsterDead();
-	}
-
 	// Default Combat with fists.
 	onAction(a_punch)
 	{
@@ -269,7 +268,7 @@ object archetype o_monsters
 				textln("Great job, kiddo.");
 		}
 		
-		CheckMonsterDead();
+		checkMonsterDead();
 	}
 
 }
@@ -277,10 +276,11 @@ object archetype o_monsters
 // ==========================
 // Zombie
 // ==========================
-object o_zombie named "zombie" uses determiners "the" tagged "monster"
+extend object o_zombie
 {
-	init()
+	override init()
 	{
+		examined = false;
 		name = "zombie";
 		healthMax = 20;
 		health = 20;
@@ -288,8 +288,7 @@ object o_zombie named "zombie" uses determiners "the" tagged "monster"
 		reaction = 5;
 	}
 	
-	// --> Override
-	function examineFirst()
+	override function examineFirst()
 	{
 		text("A hideous caricature of what once was a man (...or woman? Hard to tell) is ");
 		if (superdead)
@@ -300,8 +299,7 @@ object o_zombie named "zombie" uses determiners "the" tagged "monster"
 			textln("now shuffling aimlessly around the room.");
 	}
 	
-	// --> Override
-	function monsterIdle()
+	override function monsterIdle()
 	{
 		local x = random(3);
 		if (x == 0)
@@ -312,14 +310,12 @@ object o_zombie named "zombie" uses determiners "the" tagged "monster"
 			textln("The zombie mutters something in a demonic tongue. Maybe it was, \"brains?\"");
 	}
 
-	// --> Override
-	function monsterAbortAttack()
+	override function monsterAbortAttack()
 	{
 		textln("The zombie goes to attack, but notices that you look just as dead. Oh well.");
 	}
 	
-	// --> Override
-	function monsterAttack()
+	override function monsterAttack()
 	{
 		if (random(3) < 2) // 66% chance
 		{
@@ -348,8 +344,7 @@ object o_zombie named "zombie" uses determiners "the" tagged "monster"
 		
 	}
 	
-	// --> Override
-	function monsterDie()
+	override function monsterDie()
 	{
 		textln("The zombie screams and falls to the ground in a dull *thud*.");
 		addObjectName(o_zombie, "dead zombie");
@@ -358,8 +353,7 @@ object o_zombie named "zombie" uses determiners "the" tagged "monster"
 		giveObject(room, o_redkey);
 	}
 
-	// --> Override
-	function monsterSuperDie()
+	override function monsterSuperDie()
 	{
 		textln("The zombie explodes into bloody bits. Damn, son! You really murdered it good!");
 		addObjectName(o_zombie, "dead zombie");
@@ -370,8 +364,7 @@ object o_zombie named "zombie" uses determiners "the" tagged "monster"
 		giveObject(room, o_redkey);
 	}
 	
-	// --> Override
-	function monsterStatusDead()
+	override function monsterStatusDead()
 	{
 		if (superdead)
 			textln("Bits of what used to be a zombie are littered everywhere.");
@@ -391,9 +384,9 @@ object o_zombie named "zombie" uses determiners "the" tagged "monster"
 	
 }
 
-object o_sergeant named "sergeant", "zombie sergeant" uses determiners "the" tagged "monster";
-object o_imp named "imp" uses determiners "the" tagged "monster";
-object o_cacodemon named "cacodemon", "caco" uses determiners "the" tagged "monster";
-object o_cyberdemon named "cyberdemon" uses determiners "the" tagged "monster";
+extend object o_sergeant;
+extend object o_imp;
+extend object o_cacodemon;
+extend object o_cyberdemon;
 
 

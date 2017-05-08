@@ -4,18 +4,27 @@
   EVERY ROOM CODE
 ======================
 */ 
-room archetype r_allrooms
+extend room r_allrooms
 {
+	function setUpObjects()
+	{
+	}
+
 	init()
 	{
 		backstory = false;
-		title = "NO TITLE";
-		description = "NO DESCRIPTION";
+		setUpObjects();
 	}
 
-	function printBackstory()
+	function description()
 	{
-		/* Nothing. */
+		textln("No TITLE!!");
+		textln("No DESCRIPTION!!");
+	}
+	
+	function backstory()
+	{
+		textln("No BACKSTORY!!");
 	}
 	
 	onAction(a_look)
@@ -25,18 +34,14 @@ room archetype r_allrooms
 		queueAction(a_description);
 	}
 
-	onAction(a_whereami)
-	{
-		textfln("[title]"+title+"[/]\n");
-	}
-	
 	onAction(a_description)
 	{
-		textln(description);
+		description();
 		textln("");
 		if (!backstory)
 		{
-			PrintBackstory();
+			backstory();
+			textln("");
 			backstory = true;
 		}
 		
@@ -50,29 +55,34 @@ room archetype r_allrooms
 Entryway
 ======================
 */ 
-room r_entryway
+extend room r_entryway
 {
-	init()
+	override function setUpObjects()
 	{
-		backstory = false;
-		title = "Entryway";
-		description = 
-			"You find yourself at the mouth of the beast - an abandoned "+
-			"installation on Mars owned by Union Aerospace Corporation. ";
 		giveObject(r_entryway, o_medikit);
 		giveObject(r_entryway, o_supplydoor0);
 		giveObject(r_entryway, o_reddoor0);
 	}
+	
+	override function description()
+	{
+		textfln("[title]Entryway[/]");
+		textln("");
+		textln(
+			"You find yourself at the mouth of the beast - an abandoned "+
+			"installation on Mars owned by Union Aerospace Corporation."
+		);
+	}
 
-	function printBackstory()
+	override function backstory()
 	{
 		textln(
 			"They sent you in alone; they thought one person could reclaim "+
 			"the base, and should that one person fail, they could disavow "+
 			"claims of them sending people to their deaths in the name of recouping losses."
 		);
-		textln("Damn bureaucrats.");
 		textln("");
+		textln("Damn bureaucrats.");
 	}
 
 }
@@ -82,18 +92,24 @@ room r_entryway
 Supply Room
 ======================
 */ 
-room r_supplyroom
+extend room r_supplyroom
 {
-	init()
+	override function setUpObjects()
 	{
-		backstory = false;
-		title = "Supply Room";
-		description = 
-			"You are in a supply room off of the entryway. Cleaning "+
-			"tools and chemicals litter the floor. There's probably something ironic about that.";
-
 		giveObject(r_supplyroom, o_supplydoor1);
 		giveObject(r_supplyroom, o_zombie);
+	}
+	
+	override function description()
+	{
+		textfln("[title]Supply Room[/]");
+		textln("");
+		textln("You are in a supply room off of the entryway.");
+	}
+
+	override function backstory()
+	{
+		textln("Cleaning tools and chemicals litter the floor. There's probably something ironic about that.");
 	}
 	
 }
@@ -103,16 +119,18 @@ room r_supplyroom
 Main Hall
 ======================
 */ 
-room r_mainhall
+extend room r_mainhall
 {
-	init()
+	override function description()
 	{
-		backstory = false;
-		title = "Main Hall";
-		description = 
-			"You are in the main hall. Dead bodies of now what are EX-marines.";
+		textfln("[title]Main Hall[/]");
+		textln("");
+		textln("You are in the main hall.");
 	}
-	
-	
+
+	override function backstory()
+	{
+		textln("Dead bodies of now what are now EX-marines are everywhere. Doesn't look good for you, and your... alive-ness...");
+	}
 	
 }

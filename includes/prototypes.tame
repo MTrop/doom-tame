@@ -32,41 +32,41 @@ player p_doomguy;
 // Objects
 // ==========================
 
-object archetype o_allobjects;
-object archetype o_healthobject : o_allobjects;
-object archetype o_allkeys : o_allobjects;
-object archetype o_allweapons : o_allobjects;
-object archetype o_monsters : o_allobjects;
+object archetype o_object;
+object archetype o_healthobject : o_object;
+object archetype o_key : o_object;
+object archetype o_weapon : o_object;
+object archetype o_monster : o_object;
+object archetype o_door : o_object;
 
 // Keys
-object o_redkey : o_allkeys;
-object o_bluekey : o_allkeys;
-object o_yellowkey : o_allkeys;
+object o_redkey : o_key named "key", "keycard", "red key", "red keycard", "keycard with red markings" uses determiners "the";
+object o_bluekey : o_key named "key", "keycard", "blue key", "blue keycard", "keycard with blue markings" uses determiners "the";
+object o_yellowkey : o_key named "key", "keycard", "yellow key", "yellow keycard", "keycard with yellow markings" uses determiners "the";
 
 // Monsters
-object o_zombie : o_monsters;
-object o_sergeant : o_monsters;
-object o_imp : o_monsters;
-object o_cacodemon : o_monsters;
-object o_cyberdemon : o_monsters;
+object o_zombie : o_monster named "zombie" uses determiners "the" tagged "monster";
+object o_sergeant : o_monster named "sergeant", "zombie sergeant" uses determiners "the" tagged "monster";
+object o_imp : o_monster named "imp" uses determiners "the" tagged "monster";
+object o_cacodemon : o_monster named "cacodemon", "caco" uses determiners "the" tagged "monster";
+object o_cyberdemon : o_monster named "cyberdemon" uses determiners "the" tagged "monster";
 
 // Items
-object o_stimpak : o_healthobject;
-object o_medikit : o_healthobject;
-object o_berserk : o_healthobject;
+object o_stimpak : o_healthobject named "stimpak" uses determiners "the";
+object o_medikit : o_healthobject named "medikit" uses determiners "the";
+object o_berserk : o_healthobject named "berserk", "berserk pack", "berserker", "berserker pack" uses determiners "the";
 
 // Weapons
-object o_pistol : o_allweapons;
-object o_shotgun : o_allweapons;
-object o_supershotgun : o_allweapons;
-object o_rocketlauncher : o_allweapons;
-object o_bfg : o_allweapons;
+object o_fists named "fists", "fist" uses determiners "my";
+object o_pistol : o_weapon named "pistol" uses determiners "the", "my";
+object o_shotgun : o_weapon named "shotgun" uses determiners "the", "my";
+object o_supershotgun : o_weapon;
+object o_rocketlauncher : o_weapon named "rocket launcher", "rockets" uses determiners "the", "my";
+object o_bfg : o_weapon named "BFG", "BFG9000", "BFG 9000", "big fucking gun", "BFG9k" uses determiners "the", "my";
 
 // Doors
-object archetype o_everydoor : o_allobjects;
-
-object o_supplydoor0 : o_everydoor;
-object o_supplydoor1 : o_everydoor;
-
-object o_reddoor0 : o_everydoor;
-object o_reddoor1 : o_everydoor;
+object archetype o_lockeddoor : o_door;
+object o_supplydoor0 : o_door named "door", "small door" uses determiners "the";
+object o_supplydoor1 : o_door named "door", "small door", "entryway door", "door to entryway", "door to the entryway" uses determiners "the";
+object o_reddoor0 : o_lockeddoor named "door", "red door", "door with red markings", "door with the red markings" uses determiners "the";
+object o_reddoor1 : o_lockeddoor named "door", "red door", "door with red markings", "door with the red markings" uses determiners "the";

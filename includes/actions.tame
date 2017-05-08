@@ -5,7 +5,6 @@
 
 // "Hidden" stuff.
 
-action general a_whereami;
 action general a_description;
 action general a_checkdeath;
 action general a_gameover;

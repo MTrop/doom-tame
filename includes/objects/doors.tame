@@ -2,15 +2,8 @@
 // ==========================
 // Doors
 // ==========================
-object archetype o_everydoor
+extend object o_door
 {
-	init()
-	{
-		examined = false;
-		locked = false;
-		tryopen = 0;
-	}
-	
 	// Should move player to connected room.
 	function goToNextRoom()
 	{
@@ -18,14 +11,44 @@ object archetype o_everydoor
 		info("THIS DOOR LEADS NOWHERE. OH NO.");
 	}
 	
-	// Should attempt to unlock the door. Set "locked" variable.
-	function tryUnlock()
+	override onAction(a_take)
 	{
-		/* Nothing. Override this. Try to detect necessary key on player. */
+		textln("It's a heavy door. You can carry almost anything, but this probably won't fit in your pockets.");
+	}
+	
+	onAction(a_use)
+	{
+		queueActionObject(a_open, this);
+	}
+
+	onAction(a_open)
+	{
+		goToNextRoom();
+	}
+
+	onAction(a_close)
+	{
+		textln("It's already closed. Good job!");
+	}
+	
+	onActionWithOther(a_use)
+	{
+		textln("That doesn't look like it'll work.");
+	}
+
+}
+
+extend object o_lockeddoor
+{
+	override init()
+	{
+		examined = false;
+		locked = true;
+		tryopen = 0;
 	}
 	
 	// Called to alert the player that it's locked.
-	function isLocked()
+	function lockMessage()
 	{
 		if (tryopen == 0)
 			textln("It's locked. I need a key.");
@@ -47,44 +70,25 @@ object archetype o_everydoor
 		tryopen = tryopen + 1;
 	}
 	
-	onAction(a_take)
-	{
-		textln("It's a heavy door. You can carry almost anything, but this probably won't fit in your pockets.");
-	}
-	
-	onAction(a_open)
+	override onAction(a_open)
 	{
 		if (locked)
-			TryUnlock();
-		
-		if (locked)
-			IsLocked();
+			lockMessage();
 		else
-			GoToNextRoom();
+			goToNextRoom();
 	}
-
-	onAction(a_close)
-	{
-		textln("It's already closed. Good job!");
-	}
-	
-	onActionWithOther(a_use)
-	{
-		textln("That doesn't look like it'll work.");
-	}
-
 }
 
 // Red Door, to Main Hall
-object o_reddoor0 named "door", "red door", "door with red markings", "door with the red markings" uses determiners "the"
+extend object o_reddoor0
 {
-	init()
+	override init()
 	{
 		examined = false;
 		locked = true;
 	}
 
-	function examineFirst()
+	override function examineFirst()
 	{
 		textln("A very heavy steel door with red markings flanking the tracks.");
 		textln("A sign on the door reads, \"Security Clearance Required\".");
@@ -95,34 +99,23 @@ object o_reddoor0 named "door", "red door", "door with red markings", "door with
 		addObjectName(o_reddoor0, "door to the main hall");
 	}
 
-	function examineNext()
+	override function examineNext()
 	{
 		textln("It's the red door to the Main Hall.");
 		textln("A sign on the door reads, \"Security Clearance Required\".");
 	}
 
-	function tryUnlock()
-	{
-		if (hasObject(player, o_redkey))
-		{
-			textln("You shove the keycard in the door. It beeps with a happy-sounding beep.");
-			textln("You hear locks disengage at the bottom of the door.");
-			locked = false;
-		}
-	}
-
-	function goToNextRoom()
+	override function goToNextRoom()
 	{
 		setRoom(player, r_mainhall);
-		queueAction(a_whereami);
 		queueAction(a_description);
 	}
 	
-	onAction(a_use)
+	override onActionWithOther(a_use)
 	{
-		queueActionObject(a_open, o_reddoor0);
+		textln("That doesn't look like it'll work. You'll need a matching key of some sort.");
 	}
-
+	
 	onActionWith(a_use, o_redkey)
 	{
 		if (!locked)
@@ -131,12 +124,11 @@ object o_reddoor0 named "door", "red door", "door with red markings", "door with
 			textln("Probably because it's already unlocked.");
 		}
 		else
-			TryUnlock();
-	}
-	
-	onActionWithOther(a_use)
-	{
-		textln("That doesn't look like it'll work. You'll need a matching key of some sort.");
+		{
+			textln("You shove the red keycard in the door. It beeps with a happy-sounding beep.");
+			textln("You hear locks disengage at the bottom of the door.");
+			locked = false;
+		}
 	}
 	
 	onRoomBrowse()
@@ -150,9 +142,9 @@ object o_reddoor0 named "door", "red door", "door with red markings", "door with
 }
 
 // Red Door, to Entryway
-object o_reddoor1 named "door", "red door", "door with red markings", "door with the red markings" uses determiners "the"
+extend object o_reddoor1
 {
-	init()
+	override init()
 	{
 		examined = true;
 		locked = false;
@@ -162,23 +154,17 @@ object o_reddoor1 named "door", "red door", "door with red markings", "door with
 		addObjectName(o_reddoor1, "door to the entryway");
 	}
 
-	function examineAlways()
+	override function examineAlways()
 	{
 		textln("It's the red door to the Entryway.");
 	}
 
-	function goToNextRoom()
+	override function goToNextRoom()
 	{
 		setRoom(player, r_entryway);
-		queueAction(a_whereami);
 		queueAction(a_description);
 	}
 	
-	onAction(a_use)
-	{
-		queueActionObject(a_open, o_reddoor1);
-	}
-
 	onRoomBrowse()
 	{
 		textln("The red door to the main hall is here.");
@@ -187,17 +173,16 @@ object o_reddoor1 named "door", "red door", "door with red markings", "door with
 }
 
 // Door to supply room.
-object o_supplydoor0 named "door", "small door" uses determiners "the"
+extend object o_supplydoor0
 {
-	function goToNextRoom()
+	override function goToNextRoom()
 	{
 		examined = true;
 		setRoom(player, r_supplyroom);
-		queueAction(a_whereami);
 		queueAction(a_description);
 	}
 	
-	function examineFirst()
+	override function examineFirst()
 	{
 		textln("A small, featureless door with a plate that says \"PUSH\".");
 		textln("A sign on the door reads, \"Supply Room\".");
@@ -206,7 +191,7 @@ object o_supplydoor0 named "door", "small door" uses determiners "the"
 		addObjectName(o_supplydoor0, "door to the supply room");
 	}
 
-	function examineNext()
+	override function examineNext()
 	{
 		textln("It's the door to the Supply Room.");
 	}
@@ -221,17 +206,16 @@ object o_supplydoor0 named "door", "small door" uses determiners "the"
 }
 
 // Door to entryway via supply room.
-object o_supplydoor1 named "door", "small door", "entryway door", "door to entryway", "door to the entryway" uses determiners "the"
+extend object o_supplydoor1
 {
-	function goToNextRoom()
+	override function goToNextRoom()
 	{
 		examined = true;
 		setRoom(player, r_entryway);
-		queueAction(a_whereami);
 		queueAction(a_description);
 	}
 
-	function examineAlways()
+	override function examineAlways()
 	{
 		textln("It's the door to the Entryway. You came through here.");
 	}

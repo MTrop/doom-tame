@@ -2,7 +2,7 @@
 // ==========================
 // ALL OBJECTS
 // ==========================
-object archetype o_allobjects
+extend object o_object
 {
 	init()
 	{
@@ -47,15 +47,15 @@ object archetype o_allobjects
 	{
 		if (!examined)
 		{
-			ExamineFirst();
+			examineFirst();
 			examined = true;
 		}
 		else
 		{
-			ExamineNext();
+			examineNext();
 		}
 		
-		ExamineAlways();
+		examineAlways();
 	}
 
 	onAction(a_equip)

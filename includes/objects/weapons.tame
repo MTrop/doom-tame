@@ -3,24 +3,29 @@
 // Weapons
 // ==========================
 
-object archetype o_allweapons
+extend object o_weapon
 {
 	function equip()
 	{
 		textln("!!! o_allweapons:procedure(\"Equip\") must be overridden !!!");
 	}
 	
-	onAction(a_equip)
+	override onAction(a_equip)
 	{
 		if (!hasObject(player, this))
 			giveObject(player, this);
 			
-		if (player.equippedWeapon === ContextIdentity())
+		if (player.equippedWeapon === identity(this))
 			textln("You already have this equipped.");
 		else
 			equip();
 	}
 	
+	override onAction(a_shoot)
+	{
+		info("You really need a target for this. EQUIP it and SHOOT something else!");
+	}
+
 	onAction(a_use)
 	{
 		queueActionObject(a_equip, this);
@@ -31,16 +36,11 @@ object archetype o_allweapons
 		info("You need to EQUIP a weapon, then SHOOT something!");
 	}
 
-	onAction(a_shoot)
-	{
-		info("You really need a target for this. EQUIP it and SHOOT something else!");
-	}
-
 }
 
 // Fists
 // Technically not a weapon.
-object o_fists named "fists", "fist" uses determiners "my"
+extend object o_fists
 {
 	onAction(a_examine)
 	{
@@ -52,33 +52,27 @@ object o_fists named "fists", "fist" uses determiners "my"
 }
 
 // Pistol
-object o_pistol named "pistol" uses determiners "the", "my"
+extend object o_pistol
 {
-	function equip()
+	override function equip()
 	{
-		player.equippedWeapon = ContextIdentity();
+		player.equippedWeapon = identity(this);
 		player.equippedWeaponName = "pistol";
 		player.equippedWeaponSound = "POP POP!";
 		player.equippedAttackDice = 3;
 		player.equippedAttackDiceSize = 6;
 	}
 
-	function examineAlways()
+	override function examineAlways()
 	{
 		textln("Your trusty sidearm. Standard issue. Never leave home without it!");
 	}
 
-	onAction(a_take)
+	override function takeMe()
 	{
-		if (HasObject(player, o_pistol))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the pistol.");
-			giveObject(player, o_pistol);
-		}
+		textln("You take the pistol.");
 	}
-
+	
 	onPlayerBrowse()
 	{
 		textln("A pistol.");
@@ -86,37 +80,31 @@ object o_pistol named "pistol" uses determiners "the", "my"
 }
 
 // Shotgun
-object o_shotgun named "shotgun" uses determiners "the", "my"
+extend object o_shotgun
 {
-	function equip()
+	override function equip()
 	{
-		player.equippedWeapon = ContextIdentity();
+		player.equippedWeapon = identity(this);
 		player.equippedWeaponName = "shotgun";
 		player.equippedWeaponSound = "BLAM! *cha-chik*";
 		player.equippedAttackDice = 10;
 		player.equippedAttackDiceSize = 4;
 	}
 	
-	function examineFirst()
+	override function examineFirst()
 	{
 		textln("It's a shotgun. It shoots things. Small things.");
 		textln("Doesn't look very high-tech. Maybe UAC didn't try to reinvent the wheel?");
 	}
 
-	function examineNext()
+	override function examineNext()
 	{
 		textln("It's a shotgun. It shoots things. Small things.");
 	}
 	
-	onAction(a_take)
+	override function takeMe()
 	{
-		if (HasObject(player, o_shotgun))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the shotgun. A nice upgrade.");
-			giveObject(player, o_shotgun);
-		}
+		textln("You take the shotgun.");
 	}
 	
 	onPlayerBrowse()
@@ -132,37 +120,31 @@ object o_shotgun named "shotgun" uses determiners "the", "my"
 }
 
 // Rocket Launcher
-object o_rocketlauncher named "rocket launcher", "rockets" uses determiners "the", "my"
+extend object o_rocketlauncher
 {
-	function equip()
+	override function equip()
 	{
-		player.equippedWeapon = ContextIdentity();
+		player.equippedWeapon = identity(this);
 		player.equippedWeaponName = "rocket launcher";
 		player.equippedWeaponSound = "Ka-FWOOMP!";
 		player.equippedAttackDice = 5;
 		player.equippedAttackDiceSize = 20;
 	}
 
-	function examineFirst()
+	override function examineFirst()
 	{
 		textln("It's a rocket launcher. For bigger game and demons.");
 		textln("When you need an explosion several feet away from you.");
 	}
 
-	function examineNext()
+	override function examineNext()
 	{
 		textln("It's a rocket launcher. For bigger game and demons.");
 	}
 	
-	onAction(a_take)
+	override function takeMe()
 	{
-		if (HasObject(player, o_rocketlauncher))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the rocket launcher. How can you hold all this stuff?");
-			giveObject(player, o_rocketlauncher);
-		}
+		textln("You take the rocket launcher. How can you hold all this stuff?");
 	}
 
 	onPlayerBrowse()
@@ -178,18 +160,18 @@ object o_rocketlauncher named "rocket launcher", "rockets" uses determiners "the
 }
 
 // BFG!
-object o_bfg named "BFG", "BFG9000", "BFG 9000", "big fucking gun", "BFG9k" uses determiners "the", "my"
+extend object o_bfg
 {
-	function equip()
+	override function equip()
 	{
-		player.equippedWeapon = ContextIdentity();
+		player.equippedWeapon = identity(this);
 		player.equippedWeaponName = "BFG 9000";
 		player.equippedWeaponSound = "Chkk-ZOOWWWMMFFFPP!";
 		player.equippedAttackDice = 20;
 		player.equippedAttackDiceSize = 100;
 	}
 
-	function examineAlways()
+	override function examineAlways()
 	{
 		text("It's the BFG 9000. ");
 		local x = random(5);
@@ -205,17 +187,11 @@ object o_bfg named "BFG", "BFG9000", "BFG 9000", "big fucking gun", "BFG9k" uses
 			textln("For the biggest of baddies and the quickest of paint jobs. Hope you like red.");
 	}
 
-	onAction(a_take)
+	override function takeMe()
 	{
-		if (HasObject(player, o_bfg))
-			textln("You already have this.");
-		else
-		{
-			textln("You take the BFG 9000. A marine's best friend.");
-			giveObject(player, o_bfg);
-		}
+		textln("You take the BFG 9000. A marine's best friend.");
 	}
-
+	
 	onPlayerBrowse()
 	{
 		text("A BFG 9000. ");

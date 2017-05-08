@@ -17,6 +17,7 @@ module
 
 #include "includes/math.tame"
 #include "includes/actions.tame"
+
 #include "includes/prototypes.tame"
 #include "includes/objects.tame"
 #include "includes/rooms.tame"
@@ -27,25 +28,24 @@ world
 	start()
 	{
 		// world setup.
-		SetPlayer(p_doomguy);
-		SetRoom(p_doomguy, r_entryway);
+		setPlayer(p_doomguy);
+		setRoom(p_doomguy, r_entryway);
 		// add surrogates.
-		GiveObject(world, o_surroundings);
+		giveObject(world, o_surroundings);
 		// Set up objects.
-		GiveObject(p_doomguy, o_pistol);
-		GiveObject(p_doomguy, o_self);
+		giveObject(p_doomguy, o_pistol);
+		giveObject(p_doomguy, o_self);
 		o_pistol.equip();
 		
 		textln("The nightmare begins.\n");
-		QueueAction(a_whereami);
-		QueueAction(a_description);
+		queueAction(a_description);
 	}
 	
 	afterRequest()
 	{
-		// Call "think" on monsters.
-		QueueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
-		QueueAction(a_checkdeath);
+		// Call "think" on monsters in the current room.
+		queueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
+		queueAction(a_checkdeath);
 	}
 	
 	onAction(a_quit)
