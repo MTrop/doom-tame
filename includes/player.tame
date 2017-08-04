@@ -21,7 +21,7 @@ extend player p_doomguy
 	
 	function doBadAction()
 	{
-		local x = random(3);
+		local x = irandom(3);
 		if (x == 0)
 			textln("I don't understand.");
 		else if (x == 1)

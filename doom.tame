@@ -50,7 +50,7 @@ world
 	
 	onAction(a_quit)
 	{
-		local x = random(4);
+		local x = irandom(4);
 		if (x == 0)
 			textln("Let's beat it - this is turning into a novel!");
 		else if (x == 1)

@@ -22,7 +22,7 @@ container Math
 			local out = 0;
 			while (rolls > 0)
 			{
-				out = out + (1 + random(die));
+				out = out + (1 + irandom(die));
 				rolls = rolls - 1;
 			}
 			return out;

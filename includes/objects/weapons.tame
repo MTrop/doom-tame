@@ -174,7 +174,7 @@ extend object o_bfg
 	override function examineAlways()
 	{
 		text("It's the BFG 9000. ");
-		local x = random(5);
+		local x = irandom(5);
 		if (x == 0)
 			textln("Ohhhh yes.");
 		else if (x == 1)
@@ -195,7 +195,7 @@ extend object o_bfg
 	onPlayerBrowse()
 	{
 		text("A BFG 9000. ");
-		local x = random(3);
+		local x = irandom(3);
 		if (x == 0)
 			textln("Nice.");
 		else if (x == 1)

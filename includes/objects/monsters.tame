@@ -101,7 +101,7 @@ extend object o_monster
 	// Called to reset reaction time.
 	function resetReaction()
 	{
-		reaction = random(reactionMax / 2) + (reactionMax / 2);
+		reaction = irandom(reactionMax / 2) + (reactionMax / 2);
 	}
 
 	override function examineAlways()
@@ -176,7 +176,7 @@ extend object o_monster
 	{
 		if (superdead)
 		{
-			local x = random(3);
+			local x = irandom(3);
 			if (x == 0)
 				textln("That thing's already a runny paste. I don't think it needs punching.");
 			else if (x == 1)
@@ -188,7 +188,7 @@ extend object o_monster
 
 		if (dead)
 		{
-			local x = random(3);
+			local x = irandom(3);
 			if (x == 0)
 				textln("Stop! Stop! It's already dead!");
 			else if (x == 1)
@@ -202,7 +202,7 @@ extend object o_monster
 
 		if (player.berserk)
 		{
-			local x = random(3);
+			local x = irandom(3);
 			if (x == 0)
 				textln("RRRGGGHHHH!!!! IT'S STUPID! IT'S GONNA BE STUPID AND DEAD!!");
 			else if (x == 1)
@@ -212,7 +212,7 @@ extend object o_monster
 			else if (x == 2)
 				textln("RIP AND TEAR! RIP AND TEAR YOUR GUTS!!");
 				
-			x = random(3);
+			x = irandom(3);
 			if (x == 0)
 				textln("Ker-POOOWWWWWWW!");
 			else if (x == 1)
@@ -220,12 +220,12 @@ extend object o_monster
 			else if (x == 2)
 				textln("AAAA TATATATATATATATATATATATATA!!");
 
-			dmg = 75 + random(50);
+			dmg = 75 + irandom(50);
 			
 			health = health - dmg;
 			text("You deal "+dmg+" damage to the "+name+"! ");
 
-			x = random(2);
+			x = irandom(2);
 			if (x == 0)
 				textln("RIP AND TEAR!");
 			else if (x == 1)
@@ -233,7 +233,7 @@ extend object o_monster
 		}
 		else
 		{
-			local x = random(3);
+			local x = irandom(3);
 			if (x == 0)
 				textln("You unleash a wimpy pummeling on the "+name+"!");
 			else if (x == 1)
@@ -241,7 +241,7 @@ extend object o_monster
 			else if (x == 2)
 				textln("First the wind up, then the pitch! Take that, "+name+"!");
 			
-			x = random(3);
+			x = irandom(3);
 			if (x == 0)
 				textln("BONK!");
 			else if (x == 1)
@@ -252,14 +252,14 @@ extend object o_monster
 			x = 3;
 			while (x > 0)
 			{
-				dmg = dmg + (1 + random(4));
+				dmg = dmg + (1 + irandom(4));
 				x = x - 1;
 			}
 			
 			health = health - dmg;
 			text("You deal "+dmg+" damage to the "+name+"! ");
 
-			x = random(3);
+			x = irandom(3);
 			if (x == 0)
 				textln("Good for you!");
 			else if (x == 1)
@@ -301,7 +301,7 @@ extend object o_zombie
 	
 	override function monsterIdle()
 	{
-		local x = random(3);
+		local x = irandom(3);
 		if (x == 0)
 			textln("The zombie mills about, as zombies do.");
 		else if (x == 1)
@@ -317,12 +317,12 @@ extend object o_zombie
 	
 	override function monsterAttack()
 	{
-		if (random(3) < 2) // 66% chance
+		if (irandom(3) < 2) // 66% chance
 		{
 			textln("The zombie clumsily takes a swing at you!");
-			if (random(4) < 3) // 75% chance
+			if (irandom(4) < 3) // 75% chance
 			{
-				local dmg = random(5) + 5;
+				local dmg = irandom(5) + 5;
 				textln("It slaps you for "+dmg+" damage! Eww!");
 				player.health = player.health - dmg;
 			}
@@ -332,9 +332,9 @@ extend object o_zombie
 		else // 33% chance
 		{
 			textln("The zombie lunges at you, growling menacingly!");
-			if (random(5) < 4) // 80% chance
+			if (irandom(5) < 4) // 80% chance
 			{
-				local dmg = random(10) + 10;
+				local dmg = irandom(10) + 10;
 				textln("It bites you for "+dmg+" damage! Ouch!");
 				player.health = player.health - dmg;
 			}
