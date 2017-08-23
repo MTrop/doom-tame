@@ -84,77 +84,77 @@ extend player p_doomguy
 		health = 0;
 	}
 	
-	onAmbiguousAction()
+	onAmbiguousCommand()
 	{
-		info("There are a lot of things here that are called that. Be more specific.");
+		textln("There are a lot of things here that are called that. Be more specific.");
 	}
 	
-	onIncompleteAction(a_examine)
+	onIncompleteCommand(a_examine)
 	{
-		info("WHAT should you EXAMINE (or LOOK AT)?");
+		textln("WHAT should you EXAMINE (or LOOK AT)?");
 	}
 
-	onIncompleteAction(a_use)
+	onIncompleteCommand(a_use)
 	{
-		info("WHAT should you USE (and maybe WITH something)?");
+		textln("WHAT should you USE (and maybe WITH something)?");
 	}
 
-	onIncompleteAction(a_shoot)
+	onIncompleteCommand(a_shoot)
 	{
-		info("WHAT should you SHOOT?");
+		textln("WHAT should you SHOOT?");
 	}
 
-	onIncompleteAction(a_take)
+	onIncompleteCommand(a_take)
 	{
-		info("WHAT should you TAKE?");
+		textln("WHAT should you TAKE?");
 	}
 
-	onIncompleteAction(a_punch)
+	onIncompleteCommand(a_punch)
 	{
-		info("WHAT should you SHOOT?");
+		textln("WHAT should you SHOOT?");
 	}
 
-	onIncompleteAction()
+	onIncompleteCommand()
 	{
-		info("You should be more specific.");
+		textln("You should be more specific.");
 	}
 
-	onFailedAction(a_close)
+	onUnhandledAction(a_close)
 	{
 		textln("You can't close that.");
 	}
 
-	onFailedAction(a_open)
+	onUnhandledAction(a_open)
 	{
 		textln("Try as you might, you can't open it.");
 	}
 
-	onFailedAction(a_shoot)
+	onUnhandledAction(a_shoot)
 	{
 		textln("Not a good idea to shoot that.");
 	}
 
-	onFailedAction(a_take)
+	onUnhandledAction(a_take)
 	{
 		textln("You can't take that.");
 	}
 
-	onFailedAction(a_use)
+	onUnhandledAction(a_use)
 	{
 		textln("You can't USE that, but you might be able to do other things with it.");
 	}
 
-	onFailedAction()
+	onUnhandledAction()
 	{
 		textln("You can't do that.");
 	}
 
-	onBadAction()
+	onMalformedCommand()
 	{
 		doBadAction();
 	}
 
-	onUnknownAction()
+	onUnknownCommand()
 	{
 		doBadAction();
 	}

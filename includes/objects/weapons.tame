@@ -23,7 +23,7 @@ extend object o_weapon
 	
 	override onAction(a_shoot)
 	{
-		info("You really need a target for this. EQUIP it and SHOOT something else!");
+		addCue("info", "You really need a target for this. EQUIP it and SHOOT something else!");
 	}
 
 	onAction(a_use)
@@ -33,7 +33,7 @@ extend object o_weapon
 
 	onActionWithOther(a_use)
 	{
-		info("You need to EQUIP a weapon, then SHOOT something!");
+		addCue("info", "You need to EQUIP a weapon, then SHOOT something!");
 	}
 
 }

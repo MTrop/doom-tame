@@ -25,29 +25,6 @@ module
 
 world
 {
-	start()
-	{
-		// world setup.
-		setPlayer(p_doomguy);
-		setRoom(p_doomguy, r_entryway);
-		// add surrogates.
-		giveObject(world, o_surroundings);
-		// Set up objects.
-		giveObject(p_doomguy, o_pistol);
-		giveObject(p_doomguy, o_self);
-		o_pistol.equip();
-		
-		textln("The nightmare begins.\n");
-		queueAction(a_description);
-	}
-	
-	afterRequest()
-	{
-		// Call "think" on monsters in the current room.
-		queueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
-		queueAction(a_checkdeath);
-	}
-	
 	onAction(a_quit)
 	{
 		local x = irandom(4);
@@ -66,6 +43,29 @@ world
 	{
 		textln("Game Over! You lose.");
 		quit;
+	}
+	
+	start()
+	{
+		// world setup.
+		setPlayer(p_doomguy);
+		setRoom(p_doomguy, r_entryway);
+		// add surrogates.
+		giveObject(world, o_surroundings);
+		// Set up objects.
+		giveObject(p_doomguy, o_pistol);
+		giveObject(p_doomguy, o_self);
+		o_pistol.equip();
+		
+		textln("The nightmare begins.\n");
+		queueAction(a_description);
+	}
+	
+	afterEveryCommand()
+	{
+		// Call "think" on monsters in the current room.
+		queueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
+		queueAction(a_checkdeath);
 	}
 	
 }

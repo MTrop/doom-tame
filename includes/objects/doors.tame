@@ -8,7 +8,7 @@ extend object o_door
 	function goToNextRoom()
 	{
 		/* Nothing. Override this. */
-		info("THIS DOOR LEADS NOWHERE. OH NO.");
+		addCue("info", "THIS DOOR LEADS NOWHERE. OH NO.");
 	}
 	
 	override onAction(a_take)
