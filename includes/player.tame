@@ -159,14 +159,4 @@ extend player p_doomguy
 		doBadAction();
 	}
 
-	onForbiddenAction()
-	{
-		textln("I can't do that.");
-	}
-	
-	onRoomForbiddenAction()
-	{
-		textln("You can't do that here.");
-	}
-
 }
