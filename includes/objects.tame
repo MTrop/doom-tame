@@ -79,7 +79,7 @@ object o_surroundings named "surroundings", "room" uses determiners "my", "the"
 {
 	onAction(a_examine)
 	{
-		queueAction(a_look);
+		queue a_look;
 	}
 }
 
@@ -88,7 +88,7 @@ object o_self named "self", "myself", "doomguy", "me"
 {
 	onAction(a_examine)
 	{
-		queueAction(a_status);
+		queue a_status;
 	}
 
 	onAction(a_shoot)

@@ -21,7 +21,7 @@ extend object o_healthobject
 	
 	onActionWith(a_use, o_self)
 	{
-		queueActionObject(a_use, this);
+		queue a_use, this;
 	}
 
 	onActionWithOther(a_use)
@@ -39,7 +39,7 @@ extend object o_stimpak
 		textln("You heal youself a bit.");
 		removeObject(o_stimpak);
 		player.health = min(player.health + 10, 100);
-		queueAction(a_status);
+		queue a_status;
 	}
 
 	override function examineAlways()
@@ -67,7 +67,7 @@ extend object o_medikit
 		textln("You heal youself a bunch.");
 		removeObject(o_medikit);
 		player.health = min(player.health + 25, 100);
-		queueAction(a_status);
+		queue a_status;	
 	}
 
 	override function examineAlways()
@@ -97,7 +97,7 @@ extend object o_berserk
 		if (player.health < 100)
 			player.health = 100;
 		player.berserk = true;
-		queueAction(a_status);
+		queue a_status;
 	}
 	
 	override function examineAlways()

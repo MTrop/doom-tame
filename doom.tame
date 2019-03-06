@@ -58,14 +58,14 @@ world
 		o_pistol.equip();
 		
 		textln("The nightmare begins.\n");
-		queueAction(a_description);
+		queue a_description;
 	}
 	
 	afterEveryCommand()
 	{
 		// Call "think" on monsters in the current room.
-		queueActionForTaggedObjectsIn(a_monsterthink, room, "monster");
-		queueAction(a_checkdeath);
+		queue a_monsterthink : room, "monster";
+		queue a_checkdeath;
 	}
 	
 }

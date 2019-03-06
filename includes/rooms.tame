@@ -31,7 +31,7 @@ extend room r_allrooms
 	{
 		textln("You examine your surroundings.");
 		textln("");
-		queueAction(a_description);
+		queue a_description;
 	}
 
 	onAction(a_description)

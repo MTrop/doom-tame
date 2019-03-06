@@ -35,7 +35,7 @@ extend player p_doomguy
 		if (health > 0)
 			end;
 		textln("You are dead.");
-		QueueAction(a_gameover);
+		queue a_gameover;
 	}
 
 	onAction(a_yell)
@@ -56,7 +56,7 @@ extend player p_doomguy
 		if (equippedWeapon)
 			textln("\nYou have the "+equippedWeaponName+" equipped as your current weapon.");
 		textln("");
-		QueueAction(a_status);
+		queue a_status;
 	}
 	
 	onAction(a_status)

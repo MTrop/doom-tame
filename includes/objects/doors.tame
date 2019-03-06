@@ -18,7 +18,7 @@ extend object o_door
 	
 	onAction(a_use)
 	{
-		queueActionObject(a_open, this);
+		queue a_open, this;
 	}
 
 	onAction(a_open)
@@ -108,7 +108,7 @@ extend object o_reddoor0
 	override function goToNextRoom()
 	{
 		setRoom(player, r_mainhall);
-		queueAction(a_description);
+		queue a_description;
 	}
 	
 	override onActionWithOther(a_use)
@@ -162,7 +162,7 @@ extend object o_reddoor1
 	override function goToNextRoom()
 	{
 		setRoom(player, r_entryway);
-		queueAction(a_description);
+		queue a_description;
 	}
 	
 	onRoomBrowse()
@@ -179,7 +179,7 @@ extend object o_supplydoor0
 	{
 		examined = true;
 		setRoom(player, r_supplyroom);
-		queueAction(a_description);
+		queue a_description;
 	}
 	
 	override function examineFirst()
@@ -212,7 +212,7 @@ extend object o_supplydoor1
 	{
 		examined = true;
 		setRoom(player, r_entryway);
-		queueAction(a_description);
+		queue a_description;
 	}
 
 	override function examineAlways()

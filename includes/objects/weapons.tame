@@ -28,7 +28,7 @@ extend object o_weapon
 
 	onAction(a_use)
 	{
-		queueActionObject(a_equip, this);
+		queue a_equip, this;
 	}
 
 	onActionWithOther(a_use)
