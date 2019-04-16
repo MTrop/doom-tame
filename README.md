@@ -13,20 +13,16 @@ Requires [TAME](https://tame-if.com).
 
 First you need TAME. Get it and build it and put it in your PATH somehow.
 
-Then do this to run it:
+Then do this to compile:
 
-	tame -s doom.tame
+	tamep compile
 
-Or just to compile:
+Then to run:
 
-	tamec doom.tame
+	tame build/module.tame
 
-Or to turn into a standalone JS thing:
+Or open:
 
-	tamec doom.tame -js browser
-
-Or for NodeJS:
-
-	tamec doom.tame -js node
+	build/web/index.html
 
 Have fun!

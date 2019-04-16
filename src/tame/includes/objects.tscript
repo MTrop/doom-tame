@@ -103,7 +103,7 @@ object o_self named "self", "myself", "doomguy", "me"
 	
 }
 
-#include "objects/items.tame"
-#include "objects/weapons.tame"
-#include "objects/monsters.tame"
-#include "objects/doors.tame"
+#include "objects/items.tscript"
+#include "objects/weapons.tscript"
+#include "objects/monsters.tscript"
+#include "objects/doors.tscript"

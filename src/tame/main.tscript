@@ -15,13 +15,13 @@ module
 	version = "1.0";
 }
 
-#include "includes/math.tame"
-#include "includes/actions.tame"
+#include "includes/math.tscript"
+#include "includes/actions.tscript"
 
-#include "includes/prototypes.tame"
-#include "includes/objects.tame"
-#include "includes/rooms.tame"
-#include "includes/player.tame"
+#include "includes/prototypes.tscript"
+#include "includes/objects.tscript"
+#include "includes/rooms.tscript"
+#include "includes/player.tscript"
 
 world
 {
